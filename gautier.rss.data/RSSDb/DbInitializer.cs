@@ -4,7 +4,7 @@ namespace gautier.rss.data.RSSDb
 {
     public static class DbInitializer
     {
-        public static void EnsureDatabaseExists(string dbFilePath)
+        public static void EnsureDatabaseExists(in string dbFilePath)
         {
             Console.WriteLine($"Ensuring database at: {dbFilePath}");
             // Ensure directory exists
@@ -40,7 +40,7 @@ namespace gautier.rss.data.RSSDb
             Console.WriteLine($"Database initialization complete. File size: {new FileInfo(dbFilePath).Length} bytes");
         }
 
-        private static void CreateSchema(SQLiteConnection connection)
+        private static void CreateSchema(in SQLiteConnection connection)
         {
             Console.WriteLine("Creating Schema...");
 
@@ -95,7 +95,7 @@ namespace gautier.rss.data.RSSDb
             }
         }
 
-        private static void ExecuteNonQuery(SQLiteConnection connection, SQLiteTransaction transaction, string sql)
+        private static void ExecuteNonQuery(in SQLiteConnection connection, in SQLiteTransaction transaction, in string sql)
         {
             using (SQLiteCommand? command = new(sql, connection, transaction))
             {
@@ -103,7 +103,7 @@ namespace gautier.rss.data.RSSDb
             }
         }
 
-        private static void VerifyAndRepairSchema(SQLiteConnection connection)
+        private static void VerifyAndRepairSchema(in SQLiteConnection connection)
         {
             Console.WriteLine("Verifying schema...");
             // Simple check: count expected tables

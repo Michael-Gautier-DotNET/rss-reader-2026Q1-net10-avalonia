@@ -16,7 +16,7 @@ namespace gautier.rss.data
         /// <summary>
         /// Designed to generate static local files even if they are later accidentally deleted.
         /// </summary>
-        public static void CreateStaticFeedFiles(string feedSaveDirectoryPath, string feedDbFilePath, Feed[] feedInfos)
+        public static void CreateStaticFeedFiles(in string feedSaveDirectoryPath, in string feedDbFilePath, in Feed[] feedInfos)
         {
             if (Directory.Exists(feedSaveDirectoryPath) == false)
             {
@@ -110,7 +110,7 @@ namespace gautier.rss.data
             return;
         }
 
-        public static void TransformStaticFeedFiles(string feedSaveDirectoryPath, Feed[] feeds)
+        public static void TransformStaticFeedFiles(in string feedSaveDirectoryPath, in Feed[] feeds)
         {
             SortedList<string, List<FeedArticle>> Feeds = TransformXmlFeedToFeedArticles(feedSaveDirectoryPath, feeds);
 
@@ -127,7 +127,7 @@ namespace gautier.rss.data
             return;
         }
 
-        public static string WriteRSSArticlesToFile(string feedSaveDirectoryPath, Feed feed, List<FeedArticle> articles)
+        public static string WriteRSSArticlesToFile(in string feedSaveDirectoryPath, in Feed feed, in List<FeedArticle> articles)
         {
             StringBuilder RSSFeedFileOutput = new();
             string NormalizedFeedFilePath = FeedFileUtil.GetRSSTabDelimitedFeedFilePath(feedSaveDirectoryPath, feed);
@@ -159,7 +159,7 @@ namespace gautier.rss.data
             return NormalizedFeedFilePath;
         }
 
-        public static SortedList<string, List<FeedArticle>> TransformXmlFeedToFeedArticles(string feedSaveDirectoryPath, Feed[] feeds)
+        public static SortedList<string, List<FeedArticle>> TransformXmlFeedToFeedArticles(in string feedSaveDirectoryPath, in Feed[] feeds)
         {
             SortedList<string, List<FeedArticle>> FeedArticles = new();
 
@@ -172,7 +172,7 @@ namespace gautier.rss.data
             return FeedArticles;
         }
 
-        public static List<FeedArticle> TransformXmlFeedToFeedArticles(string feedSaveDirectoryPath, Feed feed)
+        public static List<FeedArticle> TransformXmlFeedToFeedArticles(in string feedSaveDirectoryPath, in Feed feed)
         {
             List<FeedArticle> Articles = new();
             string RSSFeedFilePath = FeedFileUtil.GetRSSXmlFeedFilePath(feedSaveDirectoryPath, feed);
@@ -187,7 +187,7 @@ namespace gautier.rss.data
             return Articles;
         }
 
-        private static FeedArticle CreateRSSFeedArticle(Feed feed, XArticle article)
+        private static FeedArticle CreateRSSFeedArticle(in Feed feed, in XArticle article)
         {
             string ArticleText = article.ContentEncoded;
             string ArticleUrl = article.Link;
@@ -206,7 +206,7 @@ namespace gautier.rss.data
             };
         }
 
-        public static Feed[] GetStaticFeedInfos(string feedsFilePath)
+        public static Feed[] GetStaticFeedInfos(in string feedsFilePath)
         {
             List<Feed> Feeds = new();
             SortedList<string, string> FeedByName = new();

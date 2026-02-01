@@ -7,7 +7,7 @@ namespace gautier.rss.data.RSSDb
     {
         private static readonly string[] _ColumnNames = FeedArticleReader.TableColumnNames;
 
-        internal static void AddFeedArticle(SQLiteConnection sqlConn, FeedArticleUnion article)
+        internal static void AddFeedArticle(in SQLiteConnection sqlConn, in FeedArticleUnion article)
         {
             string[] ColumnNames = SQLUtil.StripColumnByName("id", _ColumnNames);
             StringBuilder CommandText = SQLUtil.CreateSQLInsertCMDText(FeedArticleReader.TableName, ColumnNames);
@@ -21,7 +21,7 @@ namespace gautier.rss.data.RSSDb
             return;
         }
 
-        internal static void DeleteArticles(SQLiteConnection sqlConn, string feedName)
+        internal static void DeleteArticles(in SQLiteConnection sqlConn, in string feedName)
         {
             string CommandText = $"DELETE FROM {FeedArticleReader.TableName} WHERE feed_name = @FeedName;";
 
@@ -34,7 +34,7 @@ namespace gautier.rss.data.RSSDb
             return;
         }
 
-        internal static void DeleteAllExpiredArticles(SQLiteConnection sqlConn)
+        internal static void DeleteAllExpiredArticles(in SQLiteConnection sqlConn)
         {
             string CommandText = $"DELETE FROM {FeedArticleReader.TableName} AS a0 WHERE a0.article_url IN " +
                 $"(" +
@@ -49,7 +49,7 @@ namespace gautier.rss.data.RSSDb
             return;
         }
 
-        internal static void ModifyFeedArticle(SQLiteConnection sqlConn, FeedArticleUnion article)
+        internal static void ModifyFeedArticle(in SQLiteConnection sqlConn, in FeedArticleUnion article)
         {
             string[] ColumnNames = SQLUtil.StripColumnNames(new()
             {
@@ -67,7 +67,7 @@ namespace gautier.rss.data.RSSDb
             return;
         }
 
-        internal static void ModifyFeedArticleKey(SQLiteConnection sqlConn, string feedNameOld, string feedNameNew)
+        internal static void ModifyFeedArticleKey(in SQLiteConnection sqlConn, in string feedNameOld, in string feedNameNew)
         {
             string CommandText = $"UPDATE {FeedArticleReader.TableName} SET feed_name = @FeedNameNew WHERE feed_name = @FeedNameOld;";
 

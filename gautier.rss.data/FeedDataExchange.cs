@@ -11,7 +11,7 @@ namespace gautier.rss.data
 
         private static readonly DateTimeFormatInfo _InvariantFormat = DateTimeFormatInfo.InvariantInfo;
 
-        public static SortedList<string, Feed> GetAllFeeds(string sqlConnectionString)
+        public static SortedList<string, Feed> GetAllFeeds(in string sqlConnectionString)
         {
             SortedList<string, Feed> Feeds = new();
 
@@ -28,7 +28,7 @@ namespace gautier.rss.data
             return Feeds;
         }
 
-        public static SortedList<string, SortedList<string, FeedArticle>> GetAllFeedArticles(string sqlConnectionString)
+        public static SortedList<string, SortedList<string, FeedArticle>> GetAllFeedArticles(in string sqlConnectionString)
         {
             SortedList<string, SortedList<string, FeedArticle>> Articles = new(100);
 
@@ -61,7 +61,7 @@ namespace gautier.rss.data
             return Articles;
         }
 
-        public static SortedList<string, FeedArticle> GetFeedArticles(string sqlConnectionString, string feedName)
+        public static SortedList<string, FeedArticle> GetFeedArticles(in string sqlConnectionString, in string feedName)
         {
             SortedList<string, FeedArticle> Articles = new(100);
 
@@ -83,7 +83,7 @@ namespace gautier.rss.data
             return Articles;
         }
 
-        public static void ImportStaticFeedFilesToDatabase(string feedSaveDirectoryPath, string feedDbFilePath, Feed[] feeds)
+        public static void ImportStaticFeedFilesToDatabase(in string feedSaveDirectoryPath, in string feedDbFilePath, in Feed[] feeds)
         {
             SortedList<string, List<FeedArticleUnion>> FeedsArticles = new();
 
@@ -97,7 +97,7 @@ namespace gautier.rss.data
             return;
         }
 
-        public static List<FeedArticleUnion> ImportRSSFeedToDatabase(string feedSaveDirectoryPath, string feedDbFilePath, Feed feed)
+        public static List<FeedArticleUnion> ImportRSSFeedToDatabase(in string feedSaveDirectoryPath, in string feedDbFilePath, in Feed feed)
         {
             List<FeedArticleUnion> Articles = new();
             DateTime ModificationDateTime = DateTime.Now;
@@ -214,7 +214,7 @@ namespace gautier.rss.data
             return Articles;
         }
 
-        private static string GetNormalizedFeedFilePath(string feedSaveDirectoryPath, Feed feedInfo)
+        private static string GetNormalizedFeedFilePath(in string feedSaveDirectoryPath, in Feed feedInfo)
         {
             return Path.Combine(feedSaveDirectoryPath, $"{feedInfo.FeedName}.txt");
         }
@@ -230,7 +230,7 @@ namespace gautier.rss.data
             return;
         }
 
-        private static SortedList<string, Feed> CollectFeeds(SortedList<string, List<FeedArticleUnion>> feedsArticles, IList<string> feedNames)
+        private static SortedList<string, Feed> CollectFeeds(in SortedList<string, List<FeedArticleUnion>> feedsArticles, in IList<string> feedNames)
         {
             SortedList<string, Feed> Feeds = new();
 
@@ -251,7 +251,7 @@ namespace gautier.rss.data
             return Feeds;
         }
 
-        private static void UpdateRSSTables(SortedList<string, List<FeedArticleUnion>> feedsArticles, SQLiteConnection sqlConn, IList<string> feedNames, SortedList<string, Feed> feeds)
+        private static void UpdateRSSTables(in SortedList<string, List<FeedArticleUnion>> feedsArticles, in SQLiteConnection sqlConn, in IList<string> feedNames, in SortedList<string, Feed> feeds)
         {
             foreach (string? FeedName in feedNames)
             {
@@ -270,7 +270,7 @@ namespace gautier.rss.data
             return;
         }
 
-        private static void ModifyFeedArticle(SQLiteConnection sqlConn, Feed feedHeader, FeedArticleUnion article)
+        private static void ModifyFeedArticle(in SQLiteConnection sqlConn, in Feed feedHeader, in FeedArticleUnion article)
         {
             bool Exists = FeedArticleReader.Exists(sqlConn, feedHeader.FeedName, article.ArticleDetail.ArticleUrl);
 
@@ -287,7 +287,7 @@ namespace gautier.rss.data
             return;
         }
 
-        private static void ModifyFeed(SQLiteConnection sqlConn, Feed feedHeader)
+        private static void ModifyFeed(in SQLiteConnection sqlConn, in Feed feedHeader)
         {
             int Id = feedHeader.DbId;
             bool HasId = Id > 0;
@@ -325,7 +325,7 @@ namespace gautier.rss.data
             return;
         }
 
-        public static Feed[] MergeFeedEntries(string feedDbFilePath, Feed[] feedEntries)
+        public static Feed[] MergeFeedEntries(in string feedDbFilePath, in Feed[] feedEntries)
         {
             string ConnectionString = SQLUtil.GetSQLiteConnectionString(feedDbFilePath, 3);
             using SQLiteConnection SQLConn = SQLUtil.OpenSQLiteConnection(ConnectionString);
@@ -349,7 +349,7 @@ namespace gautier.rss.data
             return FeedEntries.ToArray();
         }
 
-        private static void MergeValidateFeedEntries(List<Feed> leftSideValues, List<Feed> rightSideValues, List<string> secondKeys)
+        private static void MergeValidateFeedEntries(in List<Feed> leftSideValues, in List<Feed> rightSideValues, in List<string> secondKeys)
         {
             foreach (Feed LeftEntry in leftSideValues)
             {
@@ -395,7 +395,7 @@ namespace gautier.rss.data
             return;
         }
 
-        public static Feed UpdateFeedConfigurationInDatabase(string feedDbFilePath, Feed feed)
+        public static Feed UpdateFeedConfigurationInDatabase(in string feedDbFilePath, in Feed feed)
         {
             string ConnectionString = SQLUtil.GetSQLiteConnectionString(feedDbFilePath, 3);
             using SQLiteConnection SQLConn = SQLUtil.OpenSQLiteConnection(ConnectionString);
@@ -404,7 +404,7 @@ namespace gautier.rss.data
             return FeedEntry;
         }
 
-        public static bool RemoveFeedFromDatabase(string feedDbFilePath, int feedDbId)
+        public static bool RemoveFeedFromDatabase(in string feedDbFilePath, in int feedDbId)
         {
             bool IsDeleted = false;
             string ConnectionString = SQLUtil.GetSQLiteConnectionString(feedDbFilePath, 3);
@@ -424,7 +424,7 @@ namespace gautier.rss.data
             return IsDeleted;
         }
 
-        public static void RemoveExpiredArticlesFromDatabase(string sqlConnectionString)
+        public static void RemoveExpiredArticlesFromDatabase(in string sqlConnectionString)
         {
             using SQLiteConnection SQLConn = SQLUtil.OpenSQLiteConnection(sqlConnectionString);
             FeedArticleWriter.DeleteAllExpiredArticles(SQLConn);

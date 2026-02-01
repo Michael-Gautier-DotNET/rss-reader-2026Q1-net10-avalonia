@@ -15,7 +15,7 @@ namespace gautier.rss.data
     {
         private static readonly DateTimeFormatInfo _InvariantFormat = DateTimeFormatInfo.InvariantInfo;
 
-        public static bool CheckFeedIsEligibleForUpdate(Feed feed)
+        public static bool CheckFeedIsEligibleForUpdate(in Feed feed)
         {
             bool FeedIsEligibleForUpdate = false;
             bool RetrieveLimitIsValid = int.TryParse(feed.RetrieveLimitHrs, out int RetrieveLimitHrs);
@@ -37,7 +37,7 @@ namespace gautier.rss.data
             return FeedIsEligibleForUpdate;
         }
 
-        public static string DownloadFeed(string fileDownloadDirectoryPath, Feed feed)
+        public static string DownloadFeed(in string fileDownloadDirectoryPath, in Feed feed)
         {
             string FilePath = Path.Combine(fileDownloadDirectoryPath, $"{feed.FeedName}.xml");
             bool FeedCanBeUpdated = CheckFeedIsEligibleForUpdate(feed);
@@ -59,7 +59,7 @@ namespace gautier.rss.data
             return FilePath;
         }
 
-        public static void CreateRSSFeedFile(string feedUrl, string rssFeedFilePath)
+        public static void CreateRSSFeedFile(in string feedUrl, in string rssFeedFilePath)
         {
             try
             {
@@ -76,7 +76,7 @@ namespace gautier.rss.data
             return;
         }
 
-        public static XFeed CreateRSSXFeed(string rssFeedFilePath)
+        public static XFeed CreateRSSXFeed(in string rssFeedFilePath)
         {
             XFeed RSSFeed = new();
             bool FeedFileExists = File.Exists(rssFeedFilePath);
@@ -90,7 +90,7 @@ namespace gautier.rss.data
             return RSSFeed;
         }
 
-        public static bool ValidateUrlIsHttpOrHttps(string UrlValue)
+        public static bool ValidateUrlIsHttpOrHttps(in string UrlValue)
         {
             bool IsValidUrl = false;
 
@@ -120,7 +120,7 @@ namespace gautier.rss.data
             return IsValidUrl;
         }
 
-        public static bool ValidateUrlIsHttpOrHttpsText(string url)
+        public static bool ValidateUrlIsHttpOrHttpsText(in string url)
         {
             bool IsValidUrl = false;
             /*Check protocol scheme*/
@@ -167,7 +167,7 @@ namespace gautier.rss.data
             return IsValidUrl;
         }
 
-        public static bool ValidateUrlIsHttpOrHttpsRegEx(string url)
+        public static bool ValidateUrlIsHttpOrHttpsRegEx(in string url)
         {
             /*
              * Validate with Regular Expression.
@@ -177,7 +177,7 @@ namespace gautier.rss.data
             return IsValidUrl;
         }
 
-        public static bool ValidateUrlIsHttpOrHttpsURI(string url)
+        public static bool ValidateUrlIsHttpOrHttpsURI(in string url)
         {
             bool IsUri = Uri.TryCreate(url, UriKind.Absolute, out Uri? UriValue);
             bool IsHttpOrHttps = false;
