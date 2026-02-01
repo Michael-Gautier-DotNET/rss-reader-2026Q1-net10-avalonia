@@ -1,0 +1,102 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        x:Class="gautier.rss.ui.MainWindow"
+        Title="Gautier RSS"
+        Width="1344"
+        Height="756"
+        MinWidth="860"
+        MinHeight="440"
+        SizeToContent="Manual"
+        WindowState="Normal"
+        WindowStartupLocation="CenterScreen"
+        Initialized="Window_Initialized">
+
+        <!-- Application ideally optimized 1080p screen resolutions.
+        4K and higher are possibilities but are uncommon.
+        Depending on testing, a solution would be to scale the UI
+        rather than change baseline dimensions.
+
+        A minimum exists below which the UI does not function.
+
+        Prefer to start fully maximized but Avalonia doesn't do that
+        consistently across platforms. Best to set reasonable defaults.
+        Goal is to reduce revisiting initial size configurations.
+         -->
+
+    <Grid Name="UIRoot">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Left Panel: Tabs and Headlines -->
+        <TabControl Name="ReaderTabs"
+                    Grid.Column="0"
+                    SelectionChanged="ReaderTabs_SelectionChanged"
+                    Margin="4">
+            <!-- TabItems will be added programmatically -->
+        </TabControl>
+
+        <!-- Right Panel: Article Viewer -->
+        <Grid Name="ReaderFeedDetail" Grid.Column="1" Margin="4">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!-- Feed Name - Use direct styling since we removed the style resource -->
+            <Label Name="ReaderFeedName"
+                   Grid.Row="0"
+                   Content="Feed Name"
+                   Foreground="#552200"
+                   Background="#F4E7D7"
+                   BorderBrush="#FF6600"
+                   BorderThickness="1"
+                   FontSize="19"
+                   FontWeight="Bold"
+                   HorizontalContentAlignment="Right"
+                   VerticalContentAlignment="Center"
+                   Padding="4,4,24,4"
+                   Margin="0,0,0,2" />
+
+            <!-- Headline - Use direct styling -->
+            <Label Name="ReaderHeadline"
+                   Grid.Row="1"
+                   Content="Article Headline"
+                   Foreground="#422400"
+                   Background="#FFCC00"
+                   FontSize="12"
+                   FontWeight="SemiBold"
+                   Padding="16,16,16,8"
+                   Margin="0,0,0,2" />
+
+            <!-- Article Content (Text-based) -->
+            <ScrollViewer Grid.Row="2"
+                          Margin="0,0,0,4">
+                <SelectableTextBlock Name="ReaderArticleText" />
+            </ScrollViewer>
+
+            <!-- Options Panel - Use direct styling -->
+            <StackPanel Name="ReaderOptionsPanel"
+                        Grid.Row="3"
+                        Background="#D40000"
+                        FlowDirection="RightToLeft"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                <Button Name="ReaderArticleLaunchButton"
+                        Content="View Article"
+                        Click="ReaderArticleLaunchButton_Click" />
+                <Button Name="ReaderManagerButton"
+                        IsEnabled="False" 
+                        Content="Manage Feeds"
+                        Click="ReaderManagerButton_Click" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

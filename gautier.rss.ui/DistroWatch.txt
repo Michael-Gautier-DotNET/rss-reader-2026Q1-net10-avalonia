@@ -1,0 +1,54 @@
+URL	https://distrowatch.com/12719
+DATE	0001-01-01 00:00:00Z
+HEAD	DistroWatch.com: lite
+TEXT	
+SUM	The DistroWatch news feed is brought to you by <a href="https://www.tuxedocomputers.com/">TUXEDO COMPUTERS</a>.  Jerry Bezencon has announced the release of Linux Lite 7.8, the latest update of the project's Ubuntu-based distribution with Xfce as the preferred desktop. The new version includes rewrites to Linux Lite's various custom utilities: "Linux Lite 7.8 Final is now available for download. Linux Lite 7.8 comes....
+URL	https://distrowatch.com/12718
+DATE	0001-01-01 00:00:00Z
+HEAD	DistroWatch.com: aerynos
+TEXT	
+SUM	The DistroWatch news feed is brought to you by <a href="https://www.tuxedocomputers.com/">TUXEDO COMPUTERS</a>.  The AerynOS project published a news update for the month of January which highlights changes to the distribution, its website, and infrastructure. The newsletter includes a release announcement which discusses details of the project's latest snapshot, with visible changes coming to the distribution's desktop environments. "Given System76's move....
+URL	https://distrowatch.com/12717
+DATE	0001-01-01 00:00:00Z
+HEAD	DistroWatch.com: gparted
+TEXT	
+SUM	The DistroWatch news feed is brought to you by <a href="https://www.tuxedocomputers.com/">TUXEDO COMPUTERS</a>.  Curtis Gedak has announced the release of GParted Live 1.8.0-2, the latest stable release of the project's Debian-based specialist live CD with tools suitable for disk partitioning and data rescue tasks. The new build updates the GParted utility to version 1.8.0 and the Linux kernel to version 6.18.5:....
+URL	https://distrowatch.com/12716
+DATE	0001-01-01 00:00:00Z
+HEAD	DistroWatch.com: opnsense
+TEXT	
+SUM	The DistroWatch news feed is brought to you by <a href="https://www.tuxedocomputers.com/">TUXEDO COMPUTERS</a>.  OPNsense is a FreeBSD-based specialist operating system designed for firewalls and routers. The project's latest release is version 26.1. "For over 11 years now, OPNsense is driving innovation through modularising and hardening the open source firewall, with simple and reliable firmware upgrades, multi-language support, fast adoption of upstream....
+URL	https://distrowatch.com/12715
+DATE	0001-01-01 00:00:00Z
+HEAD	DistroWatch.com: fydeos
+TEXT	
+SUM	The DistroWatch news feed is brought to you by <a href="https://www.tuxedocomputers.com/">TUXEDO COMPUTERS</a>.  The FydeOS project has announced the release of FydeOS 22.0, the latest stable release of the project's ChromeOS-based Linux distribution that delivers a Google Chromebook-like experience. The new release introduces a new quick share feature and changes the default search engine to Qwant (where available): "We're happy to....
+URL	https://distrowatch.com/12714
+DATE	0001-01-01 00:00:00Z
+HEAD	DistroWatch.com: emmabuntus
+TEXT	
+SUM	The DistroWatch news feed is brought to you by <a href="https://www.tuxedocomputers.com/">TUXEDO COMPUTERS</a>.  The Emmabuntüs project has published an update for its DE5 branch. The new version improves volume handling, makes it easier to install WINE, and offers updated Italian language support. "The Emmabuntüs Collective is pleased to announce the release of Emmabuntüs Debian Edition 5 version 1.05, available in 32-bit....
+URL	https://distrowatch.com/12713
+DATE	0001-01-01 00:00:00Z
+HEAD	DistroWatch.com: dietpi
+TEXT	
+SUM	The DistroWatch news feed is brought to you by <a href="https://www.tuxedocomputers.com/">TUXEDO COMPUTERS</a>.  DietPi is a Debian-based Linux distribution, primarily developed for single-board computers such as Raspberry Pi, Orange Pi or Odroid. It also supplies builds for 64-bit x86 personal computers and virtual machines. The project's latest release, version 10.0, introduces some important changes and drops support for some old single-board....
+URL	https://distrowatch.com/12712
+DATE	0001-01-01 00:00:00Z
+HEAD	DistroWatch.com: weekly
+TEXT	
+SUM	The DistroWatch news feed is brought to you by <a href="https://www.tuxedocomputers.com/">TUXEDO COMPUTERS</a>.  This week in DistroWatch Weekly: <br>
+Review: Setting up a home server<br>
+News: Malicious software finds a new way into the Snap store, postmarketOS automates more hardware tests, KDE's new login manager works with systemd only<br>
+Questions and answers: Why convergence has not become popular<br>
+Released last week: ELEGANCE 26.0.1, MX Linux....
+URL	https://distrowatch.com/12711
+DATE	0001-01-01 00:00:00Z
+HEAD	DistroWatch.com: cachyos
+TEXT	
+SUM	The DistroWatch news feed is brought to you by <a href="https://www.tuxedocomputers.com/">TUXEDO COMPUTERS</a>.  The CachyOS team has announced the release of an updated ISO image of CachyOS, a Arch-based Linux distribution with the latest KDE Plasma as the chosen desktop on the live image. The new version 260114 comes with a reworked system installer, new Plasma login manager, and Wayland as....
+URL	https://distrowatch.com/table.php
+DATE	0001-01-01 00:00:00Z
+HEAD	Search Distributions
+TEXT	
+SUM	Search BSD/Linux distributions

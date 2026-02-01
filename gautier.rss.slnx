@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="gautier.rss.data/gautier.rss.data.csproj" />
+  <Project Path="gautier.rss.ui/gautier.rss.ui.csproj" />
+</Solution>

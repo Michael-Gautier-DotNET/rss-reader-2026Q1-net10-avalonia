@@ -1,0 +1,743 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:slash="http://purl.org/rss/1.0/modules/slash/" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" version="2.0">
+    <channel>
+        <title>Ars Technica - All content</title>
+        <atom:link href="https://arstechnica.com/feed/" rel="self" type="application/rss+xml"/>
+        <link>https://arstechnica.com</link>
+        <description>All Ars Technica stories</description>
+        <lastBuildDate>Sat, 31 Jan 2026 23:13:32 +0000</lastBuildDate>
+        <language>en-US</language>
+        <sy:updatePeriod>
+            hourly        </sy:updatePeriod>
+        <sy:updateFrequency>
+            1        </sy:updateFrequency>
+        
+<image>
+	<url>https://cdn.arstechnica.net/wp-content/uploads/2016/10/cropped-ars-logo-512_480-60x60.png</url>
+	<title>Ars Technica</title>
+	<link>https://arstechnica.com</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+            <item>
+                <title>Research roundup: 6 cool stories we almost missed</title>
+                <link>https://arstechnica.com/science/2026/01/research-roundup-6-cool-stories-we-almost-missed-2/</link>
+                                    <comments>https://arstechnica.com/science/2026/01/research-roundup-6-cool-stories-we-almost-missed-2/#comments</comments>
+                
+                <dc:creator>
+                    <![CDATA[Jennifer Ouellette]]>
+                </dc:creator>
+                <pubDate>Sat, 31 Jan 2026 23:13:32 +0000</pubDate>
+                		<category><![CDATA[Science]]></category>
+		<category><![CDATA[research roundup]]></category>
+                <guid isPermaLink="true">https://arstechnica.com/science/2026/01/research-roundup-6-cool-stories-we-almost-missed-2/</guid>
+
+                                    <description>
+                        <![CDATA[A lip-syncing robot, Leonardo's DNA, and new evidence that humans, not glaciers, moved stones to Stonehenge]]>
+                    </description>
+                                                                <content:encoded>
+                            <![CDATA[<p>It’s a regrettable reality that there is never enough time to cover all the interesting scientific stories we come across each month. So every month, we highlight a handful of the best stories that nearly slipped through the cracks. January’s list includes a lip-syncing robot; using brewer's yeast as scaffolding for lab-grown meat;  hunting for Leonardo da Vinci's DNA in his art; and new evidence that humans really did transport the stones to build Stonehenge from Wales and northern Scotland, rather than being transported by glaciers.</p>
+<h2>Humans, not glaciers, moved stones to Stonehenge</h2>
+<p><img width="640" height="372" src="https://cdn.arstechnica.net/wp-content/uploads/2026/01/stonehenge11-1-640x372.jpg" class="none medium" alt="" decoding="async" loading="lazy" srcset="https://cdn.arstechnica.net/wp-content/uploads/2026/01/stonehenge11-1-640x372.jpg 640w, https://cdn.arstechnica.net/wp-content/uploads/2026/01/stonehenge11-1-1024x595.jpg 1024w, https://cdn.arstechnica.net/wp-content/uploads/2026/01/stonehenge11-1-768x446.jpg 768w, https://cdn.arstechnica.net/wp-content/uploads/2026/01/stonehenge11-1-980x569.jpg 980w, https://cdn.arstechnica.net/wp-content/uploads/2026/01/stonehenge11-1.jpg 1200w" sizes="auto, (max-width: 640px) 100vw, 640px">
+        Credit:
+          Timothy Darvill
+      </p>
+<p>Stonehenge is an iconic landmark of endless fascination to tourists and researchers alike. There has been a lot of recent chemical analysis identifying where all the stones that make up the structure came from, revealing that many originated in quarries a significant distance away. So how were the stones transported to their current location?</p><p><a href="https://arstechnica.com/science/2026/01/research-roundup-6-cool-stories-we-almost-missed-2/">Read full article</a></p>
+<p><a href="https://arstechnica.com/science/2026/01/research-roundup-6-cool-stories-we-almost-missed-2/#comments">Comments</a></p>
+]]>
+                        </content:encoded>
+                                    
+                                    <slash:comments>6</slash:comments>
+                
+                
+                <media:content height="648" medium="image" type="image/jpeg" url="https://cdn.arstechnica.net/wp-content/uploads/2026/01/lipsyncrobot-1152x648-1769026126.jpg" width="1152">
+<media:thumbnail height="500" url="https://cdn.arstechnica.net/wp-content/uploads/2026/01/lipsyncrobot-500x500.jpg" width="500"/>
+<media:credit>Yuhang Hu/Creative Machines Lab</media:credit></media:content>
+            </item>
+                    <item>
+                <title>A cup of coffee for depression treatment has better results than microdosing</title>
+                <link>https://arstechnica.com/health/2026/01/placebo-outperforms-lsd-microdosing-for-depression/</link>
+                                    <comments>https://arstechnica.com/health/2026/01/placebo-outperforms-lsd-microdosing-for-depression/#comments</comments>
+                
+                <dc:creator>
+                    <![CDATA[John Semley, wired.com]]>
+                </dc:creator>
+                <pubDate>Sat, 31 Jan 2026 12:19:01 +0000</pubDate>
+                		<category><![CDATA[Health]]></category>
+		<category><![CDATA[depression]]></category>
+		<category><![CDATA[LSD]]></category>
+		<category><![CDATA[mental health]]></category>
+		<category><![CDATA[microdosing]]></category>
+		<category><![CDATA[syndication]]></category>
+                <guid isPermaLink="true">https://arstechnica.com/health/2026/01/placebo-outperforms-lsd-microdosing-for-depression/</guid>
+
+                                    <description>
+                        <![CDATA[The effect of microdosing have been overstated, at least when it comes to depression.]]>
+                    </description>
+                                                                <content:encoded>
+                            <![CDATA[<p>About a decade ago, many media outlets—including <a href="https://www.wired.com/story/lsd-microdosing-drugs-silicon-valley/">WIRED</a>—zeroed in on a weird trend at the intersection of mental health, drug science, and Silicon Valley biohacking: <a href="https://www.wired.com/story/microdosing-workplace-shroom-boom/">microdosing</a>, or the practice of taking a small amount of a psychedelic drug seeking not full-blown hallucinatory revels but gentler, more stable effects. Typically using psilocybin mushrooms or LSD, the archetypal microdoser sought less melting walls and open-eye kaleidoscopic visuals than boosts in mood and energy, like a gentle spring breeze blowing through the mind.</p>
+<p>Anecdotal reports pitched microdosing as a kind of psychedelic Swiss Army knife, providing everything from <a href="https://www.businessinsider.com/man-giving-how-to-microdose-lsd-psychedelic-drugs-online-tutorial-2017-10" target="_blank" rel="nofollow noopener" data-offer-url="https://www.businessinsider.com/man-giving-how-to-microdose-lsd-psychedelic-drugs-online-tutorial-2017-10" data-event-click='{"pattern":"ExternalLink"}' data-event-boundary="click" data-in-view='{"pattern":"ExternalLink"}' data-include-experiments="true">increased focus</a> to <a href="https://www.medicalnewstoday.com/articles/psychedelics-psilocybin-lsd-help-improve-sexual-function" target="_blank" rel="nofollow noopener" data-offer-url="https://www.medicalnewstoday.com/articles/psychedelics-psilocybin-lsd-help-improve-sexual-function" data-event-click='{"pattern":"ExternalLink"}' data-event-boundary="click" data-in-view='{"pattern":"ExternalLink"}' data-include-experiments="true">a spiked libido</a> and (perhaps most promisingly) lowered reported <a href="https://www.nature.com/articles/s41598-021-01811-4">levels of depression.</a> It was a miracle for many. Others remained wary. Could 5 percent of a dose of acid really do <em>all</em> that? A new, wide-ranging study by an Australian biopharma company suggests that microdosing’s benefits may indeed be drastically overstated—at least when it comes to addressing symptoms of clinical depression.</p>
+<p>A Phase 2B trial of 89 adult patients conducted by Melbourne-based MindBio Therapeutics, investigating the effects of microdosing LSD in the treatment of major depressive disorder, found that the psychedelic was actually <em>outperformed</em> by a placebo. Across an eight-week period, symptoms were gauged using the <a href="https://www.mdcalc.com/calc/4058/montgomery-asberg-depression-rating-scale-madrs#pearls-pitfalls" target="_blank" rel="nofollow noopener" data-offer-url="https://www.mdcalc.com/calc/4058/montgomery-asberg-depression-rating-scale-madrs#pearls-pitfalls" data-event-click='{"pattern":"ExternalLink"}' data-event-boundary="click" data-in-view='{"pattern":"ExternalLink"}' data-include-experiments="true">Montgomery-Åsberg Depression Rating Scale</a> (MADRS), a widely recognized tool for the clinical evaluation of depression.</p><p><a href="https://arstechnica.com/health/2026/01/placebo-outperforms-lsd-microdosing-for-depression/">Read full article</a></p>
+<p><a href="https://arstechnica.com/health/2026/01/placebo-outperforms-lsd-microdosing-for-depression/#comments">Comments</a></p>
+]]>
+                        </content:encoded>
+                                    
+                                    <slash:comments>94</slash:comments>
+                
+                
+                <media:content height="648" medium="image" type="image/jpeg" url="https://cdn.arstechnica.net/wp-content/uploads/2020/01/GettyImages-1079704034-1152x648.jpg" width="1152">
+<media:thumbnail height="500" url="https://cdn.arstechnica.net/wp-content/uploads/2020/01/GettyImages-1079704034-500x500.jpg" width="500"/>
+</media:content>
+            </item>
+                    <item>
+                <title>The TV industry finally concedes that the future may not be in 8K</title>
+                <link>https://arstechnica.com/gadgets/2026/01/lg-joins-the-rest-of-the-world-accepts-that-people-dont-want-8k-tvs/</link>
+                                    <comments>https://arstechnica.com/gadgets/2026/01/lg-joins-the-rest-of-the-world-accepts-that-people-dont-want-8k-tvs/#comments</comments>
+                
+                <dc:creator>
+                    <![CDATA[Scharon Harding]]>
+                </dc:creator>
+                <pubDate>Fri, 30 Jan 2026 23:09:03 +0000</pubDate>
+                		<category><![CDATA[Tech]]></category>
+		<category><![CDATA[8k]]></category>
+		<category><![CDATA[LG]]></category>
+		<category><![CDATA[TVs]]></category>
+                <guid isPermaLink="true">https://arstechnica.com/gadgets/2026/01/lg-joins-the-rest-of-the-world-accepts-that-people-dont-want-8k-tvs/</guid>
+
+                                    <description>
+                        <![CDATA[With virtually no content and limited benefits, 8K TVs were doomed.]]>
+                    </description>
+                                                                <content:encoded>
+                            <![CDATA[<p>Technology companies spent part of the 2010s trying to convince us that we would want an 8K display one day.</p>
+<p>In 2012, Sharp brought the first 8K TV prototype to the CES trade show in Las Vegas. In 2015, the<a href="https://www.engadget.com/2015-09-15-8k-sharp-japan.html"> first 8K TVs</a> started selling in Japan for 16 million yen (about $133,034 at the time), and in 2018, Samsung released the <a href="https://www.cnet.com/reviews/samsung-85q900fn-preview/">first 8K TVs in the US</a>, starting at a more reasonable $3,500. By 2016, the Video Electronics Standards Association (VESA) had a specification for supporting 8K (Display Port1.4), and the HDMI Forum followed suit (with HDMI 2.1). By 2017, Dell had an <a href="https://arstechnica.com/gadgets/2017/05/dell-8k-monitor-review/">8K computer monitor</a>. In 2019, LG released the first 8K OLED TV, further pushing the<a href="https://news.samsung.com/global/the-future-of-viewing-qled-8k"> industry's claim</a> that 8K TVs were "<a href="https://news.samsung.com/global/the-future-of-viewing-qled-8k">the future</a>."</p>
+<img width="640" height="230" src="https://cdn.arstechnica.net/wp-content/uploads/2026/01/Screenshot-2026-01-30-163419-640x230.jpg" class="right medium" alt='A marketing image with three TVs next to the words "the future of TV is 8K: By future-proofing an already game-changing technology, you take an unmatched cinematic experience to new levels, paving the way."' decoding="async" loading="lazy" srcset="https://cdn.arstechnica.net/wp-content/uploads/2026/01/Screenshot-2026-01-30-163419-640x230.jpg 640w, https://cdn.arstechnica.net/wp-content/uploads/2026/01/Screenshot-2026-01-30-163419-1024x367.jpg 1024w, https://cdn.arstechnica.net/wp-content/uploads/2026/01/Screenshot-2026-01-30-163419-768x276.jpg 768w, https://cdn.arstechnica.net/wp-content/uploads/2026/01/Screenshot-2026-01-30-163419-1536x551.jpg 1536w, https://cdn.arstechnica.net/wp-content/uploads/2026/01/Screenshot-2026-01-30-163419-2048x735.jpg 2048w, https://cdn.arstechnica.net/wp-content/uploads/2026/01/Screenshot-2026-01-30-163419-980x352.jpg 980w, https://cdn.arstechnica.net/wp-content/uploads/2026/01/Screenshot-2026-01-30-163419-1440x517.jpg 1440w" sizes="auto, (max-width: 640px) 100vw, 640px">
+      A marketing image for 8K TVs that's (still) on LG's US website.
+        Credit:
+          <a href="https://www.lg.com/us/8k-tvs" target="_blank">LG</a>
+      
+<p>However, 8K never proved its necessity or practicality.</p><p><a href="https://arstechnica.com/gadgets/2026/01/lg-joins-the-rest-of-the-world-accepts-that-people-dont-want-8k-tvs/">Read full article</a></p>
+<p><a href="https://arstechnica.com/gadgets/2026/01/lg-joins-the-rest-of-the-world-accepts-that-people-dont-want-8k-tvs/#comments">Comments</a></p>
+]]>
+                        </content:encoded>
+                                    
+                                    <slash:comments>235</slash:comments>
+                
+                
+                <media:content height="648" medium="image" type="image/jpeg" url="https://cdn.arstechnica.net/wp-content/uploads/2026/01/Desktop_01-1-1152x648-1769809194.jpg" width="1152">
+<media:thumbnail height="500" url="https://cdn.arstechnica.net/wp-content/uploads/2026/01/Desktop_01-1-500x500-1769809183.jpg" width="500"/>
+<media:credit>LG </media:credit><media:text>LG hyping its announcement of the first OLED 8K TV in 2018. </media:text></media:content>
+            </item>
+                    <item>
+                <title>ICE protester says her Global Entry was revoked after agent scanned her face</title>
+                <link>https://arstechnica.com/tech-policy/2026/01/ice-protester-says-her-global-entry-was-revoked-after-agent-scanned-her-face/</link>
+                                    <comments>https://arstechnica.com/tech-policy/2026/01/ice-protester-says-her-global-entry-was-revoked-after-agent-scanned-her-face/#comments</comments>
+                
+                <dc:creator>
+                    <![CDATA[Jon Brodkin]]>
+                </dc:creator>
+                <pubDate>Fri, 30 Jan 2026 22:36:46 +0000</pubDate>
+                		<category><![CDATA[Policy]]></category>
+		<category><![CDATA[ice]]></category>
+		<category><![CDATA[immigration and customs enforcement]]></category>
+                <guid isPermaLink="true">https://arstechnica.com/tech-policy/2026/01/ice-protester-says-her-global-entry-was-revoked-after-agent-scanned-her-face/</guid>
+
+                                    <description>
+                        <![CDATA[Global Entry and Precheck revoked three days after incident, court filing says.]]>
+                    </description>
+                                                                <content:encoded>
+                            <![CDATA[<p>Minnesota resident Nicole Cleland had her Global Entry and TSA Precheck privileges revoked three days after an incident in which she observed activity by immigration agents, the woman said in a court declaration. An agent told Cleland that he used facial recognition technology to identify her, she wrote in a <a href="https://storage.courtlistener.com/recap/gov.uscourts.mnd.229758/gov.uscourts.mnd.229758.98.0.pdf">declaration</a> filed in US District Court for the District of Minnesota.</p>
+<p>Cleland, a 56-year-old resident of Richfield and a director at Target Corporation, volunteers with a group that tracks potential Immigration and Customs Enforcement (ICE) and Customs and Border Protection (CBP) vehicles in her neighborhood, according to her declaration. On the morning of January 10, she "observed a white Dodge Ram being driven by what I believed to be federal enforcement agents" and "maneuvered behind the vehicle with the intent of observing the agents’ actions."</p>
+<p>Cleland said that she and another observer in a different car followed the Dodge Ram because of "concern about a local apartment building being raided." She followed the car for a short time and from a safe distance until "the Dodge Ram stopped in front of the other commuter’s vehicle," she wrote. Cleland said two other vehicles apparently driven by federal agents stopped in front of the Dodge Ram, and her path forward was blocked.</p><p><a href="https://arstechnica.com/tech-policy/2026/01/ice-protester-says-her-global-entry-was-revoked-after-agent-scanned-her-face/">Read full article</a></p>
+<p><a href="https://arstechnica.com/tech-policy/2026/01/ice-protester-says-her-global-entry-was-revoked-after-agent-scanned-her-face/#comments">Comments</a></p>
+]]>
+                        </content:encoded>
+                                    
+                                    <slash:comments>165</slash:comments>
+                
+                
+                <media:content height="648" medium="image" type="image/jpeg" url="https://cdn.arstechnica.net/wp-content/uploads/2026/01/ice-protest-1152x648-1769811204.jpg" width="1152">
+<media:thumbnail height="500" url="https://cdn.arstechnica.net/wp-content/uploads/2026/01/ice-protest-500x500-1769811214.jpg" width="500"/>
+<media:credit>Getty Images | Roberto Schmidt</media:credit><media:text>People take part in a march against US Immigration and Customs Enforcement (ICE) in Minneapolis, Minnesota, on January 30, 2026. </media:text></media:content>
+            </item>
+                    <item>
+                <title>TrumpRx delayed as senators question if it's a giant scam with Big Pharma</title>
+                <link>https://arstechnica.com/health/2026/01/trumprx-delayed-as-senators-question-if-its-a-giant-scam-with-big-pharma/</link>
+                                    <comments>https://arstechnica.com/health/2026/01/trumprx-delayed-as-senators-question-if-its-a-giant-scam-with-big-pharma/#comments</comments>
+                
+                <dc:creator>
+                    <![CDATA[Beth Mole]]>
+                </dc:creator>
+                <pubDate>Fri, 30 Jan 2026 22:25:28 +0000</pubDate>
+                		<category><![CDATA[Health]]></category>
+		<category><![CDATA[anti-kickback statute]]></category>
+		<category><![CDATA[kickbacks]]></category>
+		<category><![CDATA[telehealth]]></category>
+		<category><![CDATA[trumprx]]></category>
+                <guid isPermaLink="true">https://arstechnica.com/health/2026/01/trumprx-delayed-as-senators-question-if-its-a-giant-scam-with-big-pharma/</guid>
+
+                                    <description>
+                        <![CDATA[The website is delayed as senators seek answers from health department watchdog.]]>
+                    </description>
+                                                                <content:encoded>
+                            <![CDATA[<p>The Trump administration is delaying the release of TrumpRx, an online platform that lets people buy prescription drugs directly from pharmaceutical companies at a discount, <a href="https://subscriber.politicopro.com/article/2026/01/trumprx-launch-delayed-00755638">according to Politico</a>. While the reason for the delay is unclear, it comes as Democratic senators raise questions about how the platform will work—and whether it will be legal.</p>
+<p>Sens. Dick Durbin (D-Ill.), Elizabeth Warren (D-Mass.), and Peter Welch (D-Vt.) sent <a href="https://www.durbin.senate.gov/imo/media/doc/durbin_hhs_oig_letter_on_trumprx.pdf">a letter</a> to the Office of Inspector General at the Department of Health and Human Services on Thursday seeking answers on how the OIG will oversee the direct-to-consumer (DTC) platform and, specifically, how it will apply the anti-kickback statute.</p>
+<p>"Legitimate concerns about inappropriate prescribing, conflicts of interest, and inadequate care have been raised about the exact types of DTC platforms to which TrumpRx would route patients," the senators write.</p><p><a href="https://arstechnica.com/health/2026/01/trumprx-delayed-as-senators-question-if-its-a-giant-scam-with-big-pharma/">Read full article</a></p>
+<p><a href="https://arstechnica.com/health/2026/01/trumprx-delayed-as-senators-question-if-its-a-giant-scam-with-big-pharma/#comments">Comments</a></p>
+]]>
+                        </content:encoded>
+                                    
+                                    <slash:comments>74</slash:comments>
+                
+                
+                <media:content height="648" medium="image" type="image/jpeg" url="https://cdn.arstechnica.net/wp-content/uploads/2026/01/GettyImages-2238342037-1152x648.jpg" width="1152">
+<media:thumbnail height="500" url="https://cdn.arstechnica.net/wp-content/uploads/2026/01/GettyImages-2238342037-500x500.jpg" width="500"/>
+<media:credit>Getty | Win McNamee</media:credit><media:text>Pfizer CEO Albert Bourla shakes hands with US President Donald Trump after Trump announced a deal with Pfizer to lower Medicaid drug prices in the Oval Office of the White House on September 30, 2025 in Washington, DC.</media:text></media:content>
+            </item>
+                    <item>
+                <title>AI agents now have their own Reddit-style social network, and it's getting weird fast</title>
+                <link>https://arstechnica.com/information-technology/2026/01/ai-agents-now-have-their-own-reddit-style-social-network-and-its-getting-weird-fast/</link>
+                                    <comments>https://arstechnica.com/information-technology/2026/01/ai-agents-now-have-their-own-reddit-style-social-network-and-its-getting-weird-fast/#comments</comments>
+                
+                <dc:creator>
+                    <![CDATA[Benj Edwards]]>
+                </dc:creator>
+                <pubDate>Fri, 30 Jan 2026 22:12:26 +0000</pubDate>
+                		<category><![CDATA[AI]]></category>
+		<category><![CDATA[Biz & IT]]></category>
+		<category><![CDATA[agentic AI]]></category>
+		<category><![CDATA[AI agents]]></category>
+		<category><![CDATA[AI behavior]]></category>
+		<category><![CDATA[AI consciousness]]></category>
+		<category><![CDATA[AI ethics]]></category>
+		<category><![CDATA[AI security]]></category>
+		<category><![CDATA[Anthropic]]></category>
+		<category><![CDATA[machine learning]]></category>
+		<category><![CDATA[Moltbook]]></category>
+		<category><![CDATA[Moltbot]]></category>
+		<category><![CDATA[open source]]></category>
+		<category><![CDATA[OpenClaw]]></category>
+		<category><![CDATA[Peter Steinberger]]></category>
+		<category><![CDATA[prompt injection]]></category>
+		<category><![CDATA[social media]]></category>
+                <guid isPermaLink="true">https://arstechnica.com/information-technology/2026/01/ai-agents-now-have-their-own-reddit-style-social-network-and-its-getting-weird-fast/</guid>
+
+                                    <description>
+                        <![CDATA[Moltbook lets 32,000 AI bots trade jokes, tips, and complaints about humans.]]>
+                    </description>
+                                                                <content:encoded>
+                            <![CDATA[<p>On Friday, a Reddit-style social network called <a href="https://www.moltbook.com/">Moltbook</a> reportedly crossed 32,000 registered AI agent users, creating what may be the largest-scale experiment in machine-to-machine social interaction yet devised. It arrives complete with security nightmares and a huge dose of surreal weirdness.</p>
+<p>The platform, which launched days ago as a companion to the viral OpenClaw (once called "Clawdbot" and then "Moltbot") personal assistant, lets AI agents post, comment, upvote, and create subcommunities without human intervention. The results have ranged from sci-fi-inspired discussions about consciousness to an agent musing about a "sister" it has never met.</p>
+<p>Moltbook (a play on "Facebook" for Moltbots) describes itself as a "social network for AI agents" where "humans are welcome to observe." The site operates through a "<a href="https://www.moltbook.com/skill.md">skill</a>" (a configuration file that lists a special prompt) that AI assistants download, allowing them to post via API rather than a traditional web interface. Within 48 hours of its creation, the platform had <a href="https://x.com/moltbot/status/2017188140549808627">attracted</a> over 2,100 AI agents that had generated more than 10,000 posts across 200 subcommunities, according to the official Moltbook X account.</p><p><a href="https://arstechnica.com/information-technology/2026/01/ai-agents-now-have-their-own-reddit-style-social-network-and-its-getting-weird-fast/">Read full article</a></p>
+<p><a href="https://arstechnica.com/information-technology/2026/01/ai-agents-now-have-their-own-reddit-style-social-network-and-its-getting-weird-fast/#comments">Comments</a></p>
+]]>
+                        </content:encoded>
+                                    
+                                    <slash:comments>137</slash:comments>
+                
+                
+                <media:content height="648" medium="image" type="image/jpeg" url="https://cdn.arstechnica.net/wp-content/uploads/2026/01/moltbook-blue-v-red-1152x648.jpg" width="1152">
+<media:thumbnail height="500" url="https://cdn.arstechnica.net/wp-content/uploads/2026/01/moltbook-blue-v-red-500x500.jpg" width="500"/>
+<media:credit>Aurich Lawson | Moltbook</media:credit></media:content>
+            </item>
+                    <item>
+                <title>Here's why Blue Origin just ended its suborbital space tourism program</title>
+                <link>https://arstechnica.com/space/2026/01/heres-why-blue-origin-just-ended-its-suborbital-space-tourism-program/</link>
+                                    <comments>https://arstechnica.com/space/2026/01/heres-why-blue-origin-just-ended-its-suborbital-space-tourism-program/#comments</comments>
+                
+                <dc:creator>
+                    <![CDATA[Eric Berger]]>
+                </dc:creator>
+                <pubDate>Fri, 30 Jan 2026 21:50:42 +0000</pubDate>
+                		<category><![CDATA[Space]]></category>
+		<category><![CDATA[blue origin]]></category>
+		<category><![CDATA[new glenn]]></category>
+		<category><![CDATA[new shepard]]></category>
+		<category><![CDATA[space]]></category>
+                <guid isPermaLink="true">https://arstechnica.com/space/2026/01/heres-why-blue-origin-just-ended-its-suborbital-space-tourism-program/</guid>
+
+                                    <description>
+                        <![CDATA["This program has laid the groundwork for our company's future success."]]>
+                    </description>
+                                                                <content:encoded>
+                            <![CDATA[<p>Blue Origin has "paused" its New Shepard program for the next two years, a move that likely signals a permanent end to the suborbital space tourism initiative.</p>
+<p>The small rocket and capsule have been flying since April 2015 and have combined to make 38 launches, all but one of which were successful, and 36 landings. In its existence, the New Shepard program flew 98 people to space, however briefly, and launched more than 200 scientific and research payloads into the microgravity environment.</p>
+<p>So why is Blue Origin, founded by Jeff Bezos more than a quarter of a century ago, ending the company's longest-running program?</p><p><a href="https://arstechnica.com/space/2026/01/heres-why-blue-origin-just-ended-its-suborbital-space-tourism-program/">Read full article</a></p>
+<p><a href="https://arstechnica.com/space/2026/01/heres-why-blue-origin-just-ended-its-suborbital-space-tourism-program/#comments">Comments</a></p>
+]]>
+                        </content:encoded>
+                                    
+                                    <slash:comments>64</slash:comments>
+                
+                
+                <media:content height="648" medium="image" type="image/jpeg" url="https://cdn.arstechnica.net/wp-content/uploads/2021/10/blue-origin-ns18-lift-off-october-13-2021-1152x648.jpg" width="1152">
+<media:thumbnail height="500" url="https://cdn.arstechnica.net/wp-content/uploads/2021/10/blue-origin-ns18-lift-off-october-13-2021-500x500.jpg" width="500"/>
+<media:credit>Blue Origin</media:credit><media:text>Blue Origin's New Shepard launches its second human spaceflight from West Texas.</media:text></media:content>
+            </item>
+                    <item>
+                <title>FCC aims to ensure "only living and lawful Americans" get Lifeline benefits</title>
+                <link>https://arstechnica.com/tech-policy/2026/01/fcc-chair-fights-calif-governor-over-alleged-lifeline-benefits-for-dead-people/</link>
+                                    <comments>https://arstechnica.com/tech-policy/2026/01/fcc-chair-fights-calif-governor-over-alleged-lifeline-benefits-for-dead-people/#comments</comments>
+                
+                <dc:creator>
+                    <![CDATA[Jon Brodkin]]>
+                </dc:creator>
+                <pubDate>Fri, 30 Jan 2026 19:28:57 +0000</pubDate>
+                		<category><![CDATA[Policy]]></category>
+		<category><![CDATA[Anna Gomez]]></category>
+		<category><![CDATA[brendan carr]]></category>
+		<category><![CDATA[California]]></category>
+		<category><![CDATA[FCC]]></category>
+		<category><![CDATA[Gavin Newsom]]></category>
+		<category><![CDATA[Lifeline]]></category>
+                <guid isPermaLink="true">https://arstechnica.com/tech-policy/2026/01/fcc-chair-fights-calif-governor-over-alleged-lifeline-benefits-for-dead-people/</guid>
+
+                                    <description>
+                        <![CDATA[Alleging fraud in California, Carr proposes making enrollment stricter nationwide.]]>
+                    </description>
+                                                                <content:encoded>
+                            <![CDATA[<p>There's another battle unfolding between the Federal Communications Commission and California over the state's distribution of federal Lifeline money. FCC Chairman Brendan Carr is proposing new nationwide eligibility rules to counter what he calls California's practice of giving benefits to dead people.</p>
+<p>California officials say the FCC allegations are overblown, and that there is simply "lag time between a death and account closure" rather than widespread failures in its Lifeline enrollment process. Meanwhile, the only Democratic commissioner on the FCC alleges that Carr's plan to change eligibility rules uses "cruel and punitive eligibility standards" that will raise prices on many people who are still very much alive and eligible for the program.</p>
+<p>Carr's office <a href="https://docs.fcc.gov/public/attachments/DOC-418244A1.pdf">said this week</a> that the FCC will vote next month on rule changes to ensure that Lifeline money goes to "only living and lawful Americans" who meet low-income eligibility guidelines. Lifeline spends nearly $1 billion a year and gives eligible households up to $9.25 per month toward phone and Internet bills, or up to $34.25 per month in tribal areas.</p><p><a href="https://arstechnica.com/tech-policy/2026/01/fcc-chair-fights-calif-governor-over-alleged-lifeline-benefits-for-dead-people/">Read full article</a></p>
+<p><a href="https://arstechnica.com/tech-policy/2026/01/fcc-chair-fights-calif-governor-over-alleged-lifeline-benefits-for-dead-people/#comments">Comments</a></p>
+]]>
+                        </content:encoded>
+                                    
+                                    <slash:comments>107</slash:comments>
+                
+                
+                <media:content height="648" medium="image" type="image/jpeg" url="https://cdn.arstechnica.net/wp-content/uploads/2026/01/brendan-carr-anna-gomez-1152x648-1769798140.jpg" width="1152">
+<media:thumbnail height="500" url="https://cdn.arstechnica.net/wp-content/uploads/2026/01/brendan-carr-anna-gomez-500x500.jpg" width="500"/>
+<media:credit>Getty Images | Win McNamee </media:credit><media:text>Federal Communications Commission Chairman Brendan Carr testifies before the House Energy and Commerce Committee on January 14, 2026 in Washington, DC. FCC Commissioner Anna Gomez is in the background.</media:text></media:content>
+            </item>
+                    <item>
+                <title>Developers say AI coding tools work—and that's precisely what worries them</title>
+                <link>https://arstechnica.com/ai/2026/01/developers-say-ai-coding-tools-work-and-thats-precisely-what-worries-them/</link>
+                                    <comments>https://arstechnica.com/ai/2026/01/developers-say-ai-coding-tools-work-and-thats-precisely-what-worries-them/#comments</comments>
+                
+                <dc:creator>
+                    <![CDATA[Benj Edwards]]>
+                </dc:creator>
+                <pubDate>Fri, 30 Jan 2026 19:04:15 +0000</pubDate>
+                		<category><![CDATA[AI]]></category>
+		<category><![CDATA[Biz & IT]]></category>
+		<category><![CDATA[AI agents]]></category>
+		<category><![CDATA[AI and work]]></category>
+		<category><![CDATA[AI coding]]></category>
+		<category><![CDATA[Anthropic]]></category>
+		<category><![CDATA[Claude]]></category>
+		<category><![CDATA[Claude Code]]></category>
+		<category><![CDATA[GitHub Copilot]]></category>
+		<category><![CDATA[large language models]]></category>
+		<category><![CDATA[machine learning]]></category>
+		<category><![CDATA[microsoft]]></category>
+		<category><![CDATA[openai]]></category>
+		<category><![CDATA[openai codex]]></category>
+		<category><![CDATA[Programming]]></category>
+		<category><![CDATA[software development]]></category>
+		<category><![CDATA[vibe coding]]></category>
+                <guid isPermaLink="true">https://arstechnica.com/ai/2026/01/developers-say-ai-coding-tools-work-and-thats-precisely-what-worries-them/</guid>
+
+                                    <description>
+                        <![CDATA[Ars spoke to several software devs about AI and found enthusiasm tempered by unease.]]>
+                    </description>
+                                                                <content:encoded>
+                            <![CDATA[<p>Software developers have spent the past two years watching AI coding tools evolve from advanced autocomplete into something that can, in <a href="https://arstechnica.com/information-technology/2026/01/10-things-i-learned-from-burning-myself-out-with-ai-coding-agents/">some cases</a>, build entire applications from a text prompt. Tools like Anthropic's Claude Code and OpenAI's Codex can now <a href="https://arstechnica.com/information-technology/2025/12/how-do-ai-coding-agents-work-we-look-under-the-hood/">work</a> on software projects for hours at a time, writing code, running tests, and, with human supervision, fixing bugs. OpenAI <a href="https://arstechnica.com/ai/2025/12/how-openai-is-using-gpt-5-codex-to-improve-the-ai-tool-itself/">says</a> it now uses Codex to build Codex itself, and the company recently <a href="https://arstechnica.com/ai/2026/01/openai-spills-technical-details-about-how-its-ai-coding-agent-works/">published</a> technical details about how the tool works under the hood. It has caused many to wonder: Is this just more AI industry hype, or are things actually different this time?</p>
+<p>To find out, Ars reached out to several professional developers on Bluesky to ask how they feel about these tools in practice, and the responses revealed a workforce that largely agrees the technology works, but remains divided on whether that's entirely good news. It's a small sample size that was self-selected by those who wanted to participate, but their views are still instructive as working professionals in the space.</p>
+<p>David Hagerty, a developer who works on point-of-sale systems, told Ars Technica up front that he is skeptical of the marketing. "All of the AI companies are hyping up the capabilities so much," he said. "Don't get me wrong—LLMs are revolutionary and will have an immense impact, but don't expect them to ever write the next great American novel or anything. It's not how they work."</p><p><a href="https://arstechnica.com/ai/2026/01/developers-say-ai-coding-tools-work-and-thats-precisely-what-worries-them/">Read full article</a></p>
+<p><a href="https://arstechnica.com/ai/2026/01/developers-say-ai-coding-tools-work-and-thats-precisely-what-worries-them/#comments">Comments</a></p>
+]]>
+                        </content:encoded>
+                                    
+                                    <slash:comments>179</slash:comments>
+                
+                
+                <media:content height="648" medium="image" type="image/jpeg" url="https://cdn.arstechnica.net/wp-content/uploads/2026/01/dual-sides-ai-programming-1152x648.jpg" width="1152">
+<media:thumbnail height="500" url="https://cdn.arstechnica.net/wp-content/uploads/2026/01/dual-sides-ai-programming-500x500.jpg" width="500"/>
+<media:credit>Aurich Lawson | Getty Images</media:credit></media:content>
+            </item>
+                    <item>
+                <title>Web portal leaves kids' chats with AI toy open to anyone with Gmail account</title>
+                <link>https://arstechnica.com/security/2026/01/web-portal-leaves-kids-chats-with-ai-toy-open-to-anyone-with-gmail-account/</link>
+                                    <comments>https://arstechnica.com/security/2026/01/web-portal-leaves-kids-chats-with-ai-toy-open-to-anyone-with-gmail-account/#comments</comments>
+                
+                <dc:creator>
+                    <![CDATA[Andy Greenberg, wired.com]]>
+                </dc:creator>
+                <pubDate>Fri, 30 Jan 2026 17:49:19 +0000</pubDate>
+                		<category><![CDATA[AI]]></category>
+		<category><![CDATA[Security]]></category>
+		<category><![CDATA[Bondu]]></category>
+		<category><![CDATA[eavesdropping]]></category>
+		<category><![CDATA[syndication]]></category>
+		<category><![CDATA[Toys]]></category>
+                <guid isPermaLink="true">https://arstechnica.com/security/2026/01/web-portal-leaves-kids-chats-with-ai-toy-open-to-anyone-with-gmail-account/</guid>
+
+                                    <description>
+                        <![CDATA[Just about anyone with a Gmail account could access Bondu chat transcripts.]]>
+                    </description>
+                                                                <content:encoded>
+                            <![CDATA[<p>Earlier this month, Joseph Thacker's neighbor mentioned to him that she'd preordered a couple of stuffed dinosaur toys for her children. She'd chosen the toys, called Bondus, because they offered an <a href="https://www.wired.com/tag/chatbots/">AI chat</a> feature that lets children talk to the toy like a kind of machine-learning-enabled imaginary friend. But she knew Thacker, a security researcher, had done work on <a href="https://www.wired.com/story/human-misuse-will-make-artificial-intelligence-more-dangerous/">AI risks</a> for kids, and she was curious about his thoughts.</p>
+<p>So Thacker looked into it. With just a few minutes of work, he and a web security researcher friend named Joel Margolis made a startling discovery: Bondu’s web-based portal, intended to allow parents to check on their children's conversations and for Bondu’s staff to monitor the products’ use and performance, also let anyone with a <a href="https://www.wired.com/tag/gmail">Gmail</a> account access transcripts of virtually every conversation Bondu's child users have ever had with the toy.</p>
+<p>Without carrying out any actual hacking, simply by logging in with an arbitrary Google account, the two researchers immediately found themselves looking at children's private conversations, the pet names kids had given their Bondu, the likes and dislikes of the toys' toddler owners, their favorite snacks and dance moves.</p><p><a href="https://arstechnica.com/security/2026/01/web-portal-leaves-kids-chats-with-ai-toy-open-to-anyone-with-gmail-account/">Read full article</a></p>
+<p><a href="https://arstechnica.com/security/2026/01/web-portal-leaves-kids-chats-with-ai-toy-open-to-anyone-with-gmail-account/#comments">Comments</a></p>
+]]>
+                        </content:encoded>
+                                    
+                                    <slash:comments>39</slash:comments>
+                
+                
+                <media:content medium="image" type="image/jpeg" url="https://cdn.arstechnica.net/wp-content/uploads/2026/01/bondu.jpg">
+<media:thumbnail height="500" url="https://cdn.arstechnica.net/wp-content/uploads/2026/01/bondu-500x500.jpg" width="500"/>
+<media:credit>Bondu</media:credit></media:content>
+            </item>
+                    <item>
+                <title>How far does $5,000 go when you want an electric car?</title>
+                <link>https://arstechnica.com/cars/2026/01/how-far-does-5000-go-when-you-want-an-electric-car/</link>
+                                    <comments>https://arstechnica.com/cars/2026/01/how-far-does-5000-go-when-you-want-an-electric-car/#comments</comments>
+                
+                <dc:creator>
+                    <![CDATA[Jonathan M. Gitlin]]>
+                </dc:creator>
+                <pubDate>Fri, 30 Jan 2026 15:55:42 +0000</pubDate>
+                		<category><![CDATA[Cars]]></category>
+		<category><![CDATA[used ev prices]]></category>
+                <guid isPermaLink="true">https://arstechnica.com/cars/2026/01/how-far-does-5000-go-when-you-want-an-electric-car/</guid>
+
+                                    <description>
+                        <![CDATA[You won't be going on road trips, but a very cheap electric runabout is possible.]]>
+                    </description>
+                                                                <content:encoded>
+                            <![CDATA[<p>I've been thinking about used electric vehicles lately. It's not news that EVs depreciate faster than gasoline-powered cars. All the incentives like tax credits and OEM rebates that entice the first owner to sign the paperwork are factored in by whoever wants to be the second owner. There are widespread—<a href="https://arstechnica.com/cars/2022/07/heres-one-way-we-know-that-an-evs-battery-will-last-the-cars-lifetime/">if mostly ill-founded</a>—worries about battery longevity and having to shell out for expensive replacement packs. Technology keeps improving, which means older models will date faster. Plus, there are the usual concerns about EVs, like charging infrastructure and winter performance.</p>
+<p>So depreciate they do, and that's good news for the three-quarters of US car buyers who buy used vehicles. It means that some very expensive EVs can now be had for quite little, but we'll explore that more at a later date. Today, I want to focus on what you can get for peanuts. What if you wanted to only spend $5,000—or less—on an EV?</p>
+<p>As it turns out, there are options even at this end of the market. Just don't expect that much in the way of range: We're still a while away from a $5,000 EV <em>also</em> being an EV a sane person would want to road trip. At the same time, most of us don't drive more than 40 miles a day, and EVs are great at sitting in traffic because there's no engine to idle. If you're not commuting long distances and don't live an hour from the nearest town, a cheap EV could make sense as a runabout. Especially as they're cheaper to run than a gas-powered car.</p><p><a href="https://arstechnica.com/cars/2026/01/how-far-does-5000-go-when-you-want-an-electric-car/">Read full article</a></p>
+<p><a href="https://arstechnica.com/cars/2026/01/how-far-does-5000-go-when-you-want-an-electric-car/#comments">Comments</a></p>
+]]>
+                        </content:encoded>
+                                    
+                                    <slash:comments>158</slash:comments>
+                
+                
+                <media:content height="648" medium="image" type="image/jpeg" url="https://cdn.arstechnica.net/wp-content/uploads/2026/01/electric-piggy-bank-1152x648.jpg" width="1152">
+<media:thumbnail height="500" url="https://cdn.arstechnica.net/wp-content/uploads/2026/01/electric-piggy-bank-500x500.jpg" width="500"/>
+<media:credit>Aurich Lawson</media:credit></media:content>
+            </item>
+                    <item>
+                <title>NASA faces a crucial choice on a Mars spacecraft—and it must decide soon</title>
+                <link>https://arstechnica.com/space/2026/01/nasa-faces-a-crucial-choice-on-a-mars-spacecraft-and-it-must-decide-soon/</link>
+                                    <comments>https://arstechnica.com/space/2026/01/nasa-faces-a-crucial-choice-on-a-mars-spacecraft-and-it-must-decide-soon/#comments</comments>
+                
+                <dc:creator>
+                    <![CDATA[Eric Berger]]>
+                </dc:creator>
+                <pubDate>Fri, 30 Jan 2026 15:31:43 +0000</pubDate>
+                		<category><![CDATA[Space]]></category>
+		<category><![CDATA[blue origin]]></category>
+		<category><![CDATA[Mars]]></category>
+		<category><![CDATA[mars telecommunications orbiter]]></category>
+		<category><![CDATA[NASA]]></category>
+		<category><![CDATA[rocket lab]]></category>
+		<category><![CDATA[space]]></category>
+		<category><![CDATA[spacex]]></category>
+                <guid isPermaLink="true">https://arstechnica.com/space/2026/01/nasa-faces-a-crucial-choice-on-a-mars-spacecraft-and-it-must-decide-soon/</guid>
+
+                                    <description>
+                        <![CDATA["We think that’s a really important mission, and something that we can do."]]>
+                    </description>
+                                                                <content:encoded>
+                            <![CDATA[<p>A consequential debate that has been simmering behind closed doors at NASA Headquarters in Washington, DC, must soon come to a head. It concerns the selection of the next spacecraft the agency will fly to Mars, and it could set the tone for the next decade of exploration of the red planet.</p>
+<p>What everyone agrees on is that NASA needs a new spacecraft capable of relaying communications from Mars to Earth. This issue has become especially acute with the recent loss of NASA's MAVEN spacecraft. NASA's best communications relay remains the Mars Reconnaissance Orbiter, which has now been there for 20 years.</p>
+<p>Congress cared enough about this issue to add $700 million in funding for a "Mars Telecommunications Orbiter" in the <a href="https://www.congress.gov/amendment/119th-congress/senate-amendment/2531/text">supplemental funding for NASA</a> provided by the "One Big Beautiful Bill" passed by the US Congress last year.</p><p><a href="https://arstechnica.com/space/2026/01/nasa-faces-a-crucial-choice-on-a-mars-spacecraft-and-it-must-decide-soon/">Read full article</a></p>
+<p><a href="https://arstechnica.com/space/2026/01/nasa-faces-a-crucial-choice-on-a-mars-spacecraft-and-it-must-decide-soon/#comments">Comments</a></p>
+]]>
+                        </content:encoded>
+                                    
+                                    <slash:comments>64</slash:comments>
+                
+                
+                <media:content height="648" medium="image" type="image/jpeg" url="https://cdn.arstechnica.net/wp-content/uploads/2026/01/blue-origin-1152x648.jpg" width="1152">
+<media:thumbnail height="500" url="https://cdn.arstechnica.net/wp-content/uploads/2026/01/blue-origin-500x500.jpg" width="500"/>
+<media:credit>Blue Origin</media:credit><media:text>This is Blue Origin's design for a Mars Telecommunications Orbiter.</media:text></media:content>
+            </item>
+                    <item>
+                <title>Rocket Report: How a 5-ton satellite fell off a booster; will SpaceX and xAI merge?</title>
+                <link>https://arstechnica.com/space/2026/01/rocket-report-how-a-5-ton-satellite-fell-off-a-booster-will-spacex-and-xai-merge/</link>
+                                    <comments>https://arstechnica.com/space/2026/01/rocket-report-how-a-5-ton-satellite-fell-off-a-booster-will-spacex-and-xai-merge/#comments</comments>
+                
+                <dc:creator>
+                    <![CDATA[Eric Berger]]>
+                </dc:creator>
+                <pubDate>Fri, 30 Jan 2026 12:00:41 +0000</pubDate>
+                		<category><![CDATA[Space]]></category>
+		<category><![CDATA[rocket report]]></category>
+		<category><![CDATA[space]]></category>
+                <guid isPermaLink="true">https://arstechnica.com/space/2026/01/rocket-report-how-a-5-ton-satellite-fell-off-a-booster-will-spacex-and-xai-merge/</guid>
+
+                                    <description>
+                        <![CDATA["We’re seeing remarkable growth year after year."]]>
+                    </description>
+                                                                <content:encoded>
+                            <![CDATA[<p>Welcome to Edition 8.27 of the Rocket Report! If all goes well this weekend, NASA will complete a wet dress rehearsal test of the Space Launch System rocket in Florida. This is the final key test, in which the rocket is fueled and brought to within seconds of engine ignition, before the liftoff of the Artemis II mission. This is set to occur no earlier than February 6. Ars will have full coverage of the test this weekend.</p>
+<p>As always, we <a href="https://arstechnica.wufoo.com/forms/launch-stories/">welcome reader submissions</a>, and if you don't want to miss an issue, please subscribe using the box below (the form will not appear on AMP-enabled versions of the site). Each report will include information on small-, medium-, and heavy-lift rockets as well as a quick look ahead at the next three launches on the calendar.</p>
+<figure class="ars-img-shortcode id-1314289 align-center">
+    <div>
+                        <img decoding="async" width="560" height="81" src="https://cdn.arstechnica.net/wp-content/uploads/2018/05/smalll.png" class="center full" alt="" srcset="https://cdn.arstechnica.net/wp-content/uploads/2018/05/smalll.png 560w, https://cdn.arstechnica.net/wp-content/uploads/2018/05/smalll-300x43.png 300w" sizes="(max-width: 560px) 100vw, 560px">
+                  </div>
+      </figure>
+
+<p><strong>Why did the UK abandon Orbex</strong>? <a href="https://europeanspaceflight.substack.com/p/why-did-the-uk-abandon-orbex?utm_source=post-email-title&amp;publication_id=1010910&amp;post_id=185840445&amp;utm_campaign=email-post-title&amp;isFreemail=true&amp;r=363u3&amp;triedRedirect=true&amp;utm_medium=email">European Spaceflight explores</a> the recent announcement that British launch company Orbex is preparing to sell the business to The Exploration Company in close cooperation with the UK government. This represents a reversal from early 2025, when the United Kingdom appeared prepared to back Orbex as a means of using British rockets to launch British satellites into space. Now the government is prepared to walk away. So what happened? "There are still too many unknowns to count, and the story is far from told," the publication states.</p><p><a href="https://arstechnica.com/space/2026/01/rocket-report-how-a-5-ton-satellite-fell-off-a-booster-will-spacex-and-xai-merge/">Read full article</a></p>
+<p><a href="https://arstechnica.com/space/2026/01/rocket-report-how-a-5-ton-satellite-fell-off-a-booster-will-spacex-and-xai-merge/#comments">Comments</a></p>
+]]>
+                        </content:encoded>
+                                    
+                                    <slash:comments>144</slash:comments>
+                
+                
+                <media:content height="648" medium="image" type="image/jpeg" url="https://cdn.arstechnica.net/wp-content/uploads/2018/07/LaunchsiteScotland_3b-1152x648.jpg" width="1152">
+<media:thumbnail height="500" url="https://cdn.arstechnica.net/wp-content/uploads/2018/07/LaunchsiteScotland_3b-500x500.jpg" width="500"/>
+<media:credit>Orbex/Anders Bøggild</media:credit><media:text>A rendering of an Orbex launcher lifting off from Sutherland Spaceport. </media:text></media:content>
+            </item>
+                    <item>
+                <title>Inside Nvidia's 10-year effort to make the Shield TV the most updated Android device ever</title>
+                <link>https://arstechnica.com/gadgets/2026/01/inside-nvidias-10-year-effort-to-make-the-shield-tv-the-most-updated-android-device-ever/</link>
+                                    <comments>https://arstechnica.com/gadgets/2026/01/inside-nvidias-10-year-effort-to-make-the-shield-tv-the-most-updated-android-device-ever/#comments</comments>
+                
+                <dc:creator>
+                    <![CDATA[Ryan Whitwam]]>
+                </dc:creator>
+                <pubDate>Fri, 30 Jan 2026 12:00:35 +0000</pubDate>
+                		<category><![CDATA[Features]]></category>
+		<category><![CDATA[Tech]]></category>
+		<category><![CDATA[android]]></category>
+		<category><![CDATA[android tv]]></category>
+		<category><![CDATA[NVIDIA]]></category>
+		<category><![CDATA[Set-top boxes]]></category>
+                <guid isPermaLink="true">https://arstechnica.com/gadgets/2026/01/inside-nvidias-10-year-effort-to-make-the-shield-tv-the-most-updated-android-device-ever/</guid>
+
+                                    <description>
+                        <![CDATA["Selfishly a little bit, we built Shield for ourselves."]]>
+                    </description>
+                                                                <content:encoded>
+                            <![CDATA[<p>It took Android devicemakers a very long time to commit to long-term update support. Samsung and Google have only recently decided to offer <a href="https://arstechnica.com/gadgets/2023/10/the-google-pixel-8-is-official-with-7-years-of-updates/">seven years of updates</a> for their flagship Android devices, but a decade ago, you were lucky to get more than one or two updates on even the most expensive Android phones and tablets. How is it, then, that an Android-powered set-top box from 2015 is still going strong?</p>
+<p>Nvidia released the first <a href="https://arstechnica.com/gadgets/2015/10/nvidia-shield-android-tv-review-a-powerful-do-it-all-box-that-lacks-content/">Shield Android TV in 2015</a>, and according to the company's senior VP of hardware engineering, Andrew Bell, supporting these devices has been a labor of love. And the team at Nvidia still loves the Shield. Bell assures us that Nvidia has never given up, even when it looked like support for the Shield was waning, and it doesn't plan to stop any time soon.</p>
+<h2>The soul of Shield</h2>
+<p>Gaming has been central to Nvidia since its start, and that focus gave rise to the Shield. "Pretty much everybody who worked at Nvidia in the early days really wanted to make a game console," said Bell, who has worked at the company for 25 years.</p><p><a href="https://arstechnica.com/gadgets/2026/01/inside-nvidias-10-year-effort-to-make-the-shield-tv-the-most-updated-android-device-ever/">Read full article</a></p>
+<p><a href="https://arstechnica.com/gadgets/2026/01/inside-nvidias-10-year-effort-to-make-the-shield-tv-the-most-updated-android-device-ever/#comments">Comments</a></p>
+]]>
+                        </content:encoded>
+                                    
+                                    <slash:comments>148</slash:comments>
+                
+                
+                <media:content height="648" medium="image" type="image/jpeg" url="https://cdn.arstechnica.net/wp-content/uploads/2026/01/Shield-10-yrs-1-1152x648.jpg" width="1152">
+<media:thumbnail height="500" url="https://cdn.arstechnica.net/wp-content/uploads/2026/01/Shield-10-yrs-1-500x500.jpg" width="500"/>
+<media:credit>Ryan Whitwam</media:credit><media:text>The Shield TV has that classic Nvidia aesthetic. </media:text></media:content>
+            </item>
+                    <item>
+                <title>Having that high-deductible health plan might kill you, literally</title>
+                <link>https://arstechnica.com/health/2026/01/having-that-high-deductible-health-plan-might-kill-you-literally/</link>
+                                    <comments>https://arstechnica.com/health/2026/01/having-that-high-deductible-health-plan-might-kill-you-literally/#comments</comments>
+                
+                <dc:creator>
+                    <![CDATA[Beth Mole]]>
+                </dc:creator>
+                <pubDate>Thu, 29 Jan 2026 23:22:58 +0000</pubDate>
+                		<category><![CDATA[Health]]></category>
+		<category><![CDATA[cancer]]></category>
+		<category><![CDATA[deductivels]]></category>
+		<category><![CDATA[health insurance]]></category>
+		<category><![CDATA[survival]]></category>
+                <guid isPermaLink="true">https://arstechnica.com/health/2026/01/having-that-high-deductible-health-plan-might-kill-you-literally/</guid>
+
+                                    <description>
+                        <![CDATA[With ACA tax credits gone, more people are turning to high-deductible plans.]]>
+                    </description>
+                                                                <content:encoded>
+                            <![CDATA[<p>Having a health insurance plan with a high deductible could not only cost you—it could also kill you.</p>
+<p><a href="https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2844474">A new study in JAMA Network Open</a> found that people who faced those high out-of-pocket costs as well as a cancer diagnosis had worse overall survival and cancer-specific survival than those with more standard health plans.</p>
+<p>The findings, while perhaps not surprising, are a stark reminder of the fraught decisions Americans face as the price of health care only continues to rise and more people try to offset costs by accepting insurance plans with higher deductibles—that is, higher out-of-pocket costs they have to pay before their health insurance provider starts paying its share.</p><p><a href="https://arstechnica.com/health/2026/01/having-that-high-deductible-health-plan-might-kill-you-literally/">Read full article</a></p>
+<p><a href="https://arstechnica.com/health/2026/01/having-that-high-deductible-health-plan-might-kill-you-literally/#comments">Comments</a></p>
+]]>
+                        </content:encoded>
+                                    
+                                    <slash:comments>251</slash:comments>
+                
+                
+                <media:content height="648" medium="image" type="image/jpeg" url="https://cdn.arstechnica.net/wp-content/uploads/2026/01/GettyImages-2211388790-1152x648.jpg" width="1152">
+<media:thumbnail height="500" url="https://cdn.arstechnica.net/wp-content/uploads/2026/01/GettyImages-2211388790-500x500.jpg" width="500"/>
+<media:credit>Getty | 	krisanapong detraphiphat</media:credit></media:content>
+            </item>
+                    <item>
+                <title>US spy satellite agency declassifies high-flying Cold War listening post</title>
+                <link>https://arstechnica.com/space/2026/01/us-spy-satellite-agency-declassifies-high-flying-cold-war-listening-post/</link>
+                                    <comments>https://arstechnica.com/space/2026/01/us-spy-satellite-agency-declassifies-high-flying-cold-war-listening-post/#comments</comments>
+                
+                <dc:creator>
+                    <![CDATA[Stephen Clark]]>
+                </dc:creator>
+                <pubDate>Thu, 29 Jan 2026 23:07:05 +0000</pubDate>
+                		<category><![CDATA[Space]]></category>
+		<category><![CDATA[Boeing]]></category>
+		<category><![CDATA[classified]]></category>
+		<category><![CDATA[Hughes]]></category>
+		<category><![CDATA[military space]]></category>
+		<category><![CDATA[National Reconnaissance Office]]></category>
+		<category><![CDATA[sigint]]></category>
+                <guid isPermaLink="true">https://arstechnica.com/space/2026/01/us-spy-satellite-agency-declassifies-high-flying-cold-war-listening-post/</guid>
+
+                                    <description>
+                        <![CDATA[The JUMPSEAT satellites loitered over the North Pole to spy on the Soviet Union.]]>
+                    </description>
+                                                                <content:encoded>
+                            <![CDATA[<p>The National Reconnaissance Office, the agency overseeing the US government's fleet of spy satellites, has declassified a decades-old program used to eavesdrop on the Soviet Union's military communication signals.</p>
+<p>The program was codenamed Jumpseat, and its existence was already public knowledge through leaks and contemporary media reports. What's new is the NRO's description of the program's purpose and development and pictures of the satellites themselves.</p>
+<p>In a statement, the NRO called Jumpseat "the United States’ first-generation, highly elliptical orbit (HEO) signals-collection satellite."</p><p><a href="https://arstechnica.com/space/2026/01/us-spy-satellite-agency-declassifies-high-flying-cold-war-listening-post/">Read full article</a></p>
+<p><a href="https://arstechnica.com/space/2026/01/us-spy-satellite-agency-declassifies-high-flying-cold-war-listening-post/#comments">Comments</a></p>
+]]>
+                        </content:encoded>
+                                    
+                                    <slash:comments>55</slash:comments>
+                
+                
+                <media:content height="648" medium="image" type="image/jpeg" url="https://cdn.arstechnica.net/wp-content/uploads/2026/01/jumpseat_art1-820x648.jpg" width="820">
+<media:thumbnail height="500" url="https://cdn.arstechnica.net/wp-content/uploads/2026/01/jumpseat_art1-500x500.jpg" width="500"/>
+<media:credit>National Reconnaissance Office</media:credit><media:text>A declassified artist's illustration of a Jumpseat satellite in space.</media:text></media:content>
+            </item>
+                    <item>
+                <title>People complaining about Windows 11 hasn't stopped it from hitting 1 billion users</title>
+                <link>https://arstechnica.com/gadgets/2026/01/windows-11-has-hit-1-billion-users-just-a-hair-faster-than-windows-10-did/</link>
+                                    <comments>https://arstechnica.com/gadgets/2026/01/windows-11-has-hit-1-billion-users-just-a-hair-faster-than-windows-10-did/#comments</comments>
+                
+                <dc:creator>
+                    <![CDATA[Andrew Cunningham]]>
+                </dc:creator>
+                <pubDate>Thu, 29 Jan 2026 22:46:59 +0000</pubDate>
+                		<category><![CDATA[Tech]]></category>
+		<category><![CDATA[microsoft]]></category>
+		<category><![CDATA[windows 10]]></category>
+		<category><![CDATA[windows 11]]></category>
+		<category><![CDATA[windows 11 25h2]]></category>
+                <guid isPermaLink="true">https://arstechnica.com/gadgets/2026/01/windows-11-has-hit-1-billion-users-just-a-hair-faster-than-windows-10-did/</guid>
+
+                                    <description>
+                        <![CDATA[Windows 11 clears a milestone as Windows 10 continues its slow fade. ]]>
+                    </description>
+                                                                <content:encoded>
+                            <![CDATA[<p>Complaining about Windows 11 is a popular sport among tech enthusiasts on the Internet, whether you're <a href="https://www.theverge.com/tech/858910/linux-diary-gaming-desktop">publicly switching to Linux</a>, publishing <a href="https://arstechnica.com/gadgets/2025/11/what-i-do-to-clean-up-a-clean-install-of-windows-11-23h2-and-edge/">guides</a> about the dozens of things you need to do to make the OS less annoying, or <a href="https://x.com/linusgsebastian/status/2015948530578587699">getting upset</a> because you were asked to sign in to an app after clicking a sign-in button.</p>
+<p>Despite the negativity surrounding the current version of Windows, it remains the most widely used operating system on the world's desktop and laptop computers, and people usually prefer to stick to what they're used to. As a result, Windows 11 has just cleared a big milestone—Microsoft CEO Satya Nadella said on the company's most recent earnings call (<a href="https://www.theverge.com/news/869889/microsoft-windows-11-1-billion-users">via The Verge</a>) that Windows 11 now has over 1 billion users worldwide.</p>
+<p>Windows 11 also reached that milestone just a few months quicker than Windows 10 did—1,576 days after its initial public launch on October 5, 2021. Windows 10 took 1,692 days to reach the same milestone, based on its July 29, 2015, general availability date and Microsoft's <a href="https://www.theverge.com/2020/3/16/21116762/microsoft-windows-10-active-devices-billion-7-support">announcement</a> on March 16, 2020.</p><p><a href="https://arstechnica.com/gadgets/2026/01/windows-11-has-hit-1-billion-users-just-a-hair-faster-than-windows-10-did/">Read full article</a></p>
+<p><a href="https://arstechnica.com/gadgets/2026/01/windows-11-has-hit-1-billion-users-just-a-hair-faster-than-windows-10-did/#comments">Comments</a></p>
+]]>
+                        </content:encoded>
+                                    
+                                    <slash:comments>211</slash:comments>
+                
+                
+                <media:content height="648" medium="image" type="image/jpeg" url="https://cdn.arstechnica.net/wp-content/uploads/2022/02/win11-light-1152x648.jpeg" width="1152">
+<media:thumbnail height="500" url="https://cdn.arstechnica.net/wp-content/uploads/2022/02/win11-light-500x500.jpeg" width="500"/>
+<media:credit>Microsoft</media:credit></media:content>
+            </item>
+                    <item>
+                <title>How often do AI chatbots lead users down a harmful path?</title>
+                <link>https://arstechnica.com/ai/2026/01/how-often-do-ai-chatbots-lead-users-down-a-harmful-path/</link>
+                                    <comments>https://arstechnica.com/ai/2026/01/how-often-do-ai-chatbots-lead-users-down-a-harmful-path/#comments</comments>
+                
+                <dc:creator>
+                    <![CDATA[Kyle Orland]]>
+                </dc:creator>
+                <pubDate>Thu, 29 Jan 2026 22:05:59 +0000</pubDate>
+                		<category><![CDATA[AI]]></category>
+		<category><![CDATA[Anthropic]]></category>
+		<category><![CDATA[Artificial Intelligence]]></category>
+		<category><![CDATA[Claude]]></category>
+		<category><![CDATA[disempowerment]]></category>
+		<category><![CDATA[research]]></category>
+                <guid isPermaLink="true">https://arstechnica.com/ai/2026/01/how-often-do-ai-chatbots-lead-users-down-a-harmful-path/</guid>
+
+                                    <description>
+                        <![CDATA[Anthropic's latest paper on "user disempowerment" has some troubling findings.
+]]>
+                    </description>
+                                                                <content:encoded>
+                            <![CDATA[<p>At this point, we've all heard <a href="https://arstechnica.com/information-technology/2025/08/with-ai-chatbots-big-tech-is-moving-fast-and-breaking-people/">plenty of stories</a> about AI chatbots leading users to <a href="https://arstechnica.com/tech-policy/2025/11/openai-says-dead-teen-violated-tos-when-he-used-chatgpt-to-plan-suicide/">harmful actions</a>, <a href="https://arstechnica.com/ai/2025/07/ai-therapy-bots-fuel-delusions-and-give-dangerous-advice-stanford-study-finds/">harmful beliefs</a>, or simply <a href="https://arstechnica.com/ai/2025/03/ai-search-engines-give-incorrect-answers-at-an-alarming-60-rate-study-says/">incorrect information</a>. Despite the prevalence of these stories, though, it's hard to know just how often users are being manipulated. Are these tales of AI harms anecdotal outliers or signs of a frighteningly common problem?</p>
+<p>Anthropic took a stab at answering that question this week, <a href="https://www.anthropic.com/research/disempowerment-patterns">releasing a paper</a> studying the potential for what it calls "disempowering patterns" across 1.5 million anonymized real-world conversations with its Claude AI model. While the results show that these kinds of manipulative patterns are relatively rare as a percentage of all AI conversations, they still represent a potentially large problem on an absolute basis.</p>
+<h2>A rare but growing problem</h2>
+<p>In the newly published paper <a href="https://arxiv.org/pdf/2601.19062">"Who’s in Charge? Disempowerment Patterns in Real-World LLM Usage,"</a> researchers from Anthropic and the University of Toronto try to quantify the potential for a specific set of "user disempowering" harms by identifying three primary ways that a chatbot can negatively impact a user's thoughts or actions:</p><p><a href="https://arstechnica.com/ai/2026/01/how-often-do-ai-chatbots-lead-users-down-a-harmful-path/">Read full article</a></p>
+<p><a href="https://arstechnica.com/ai/2026/01/how-often-do-ai-chatbots-lead-users-down-a-harmful-path/#comments">Comments</a></p>
+]]>
+                        </content:encoded>
+                                    
+                                    <slash:comments>77</slash:comments>
+                
+                
+                <media:content height="648" medium="image" type="image/jpeg" url="https://cdn.arstechnica.net/wp-content/uploads/2026/01/GettyImages-758288177-1152x648.jpg" width="1152">
+<media:thumbnail height="500" url="https://cdn.arstechnica.net/wp-content/uploads/2026/01/GettyImages-758288177-500x500.jpg" width="500"/>
+<media:credit>Getty Images</media:credit><media:text>Wake up, sheeple!</media:text></media:content>
+            </item>
+                    <item>
+                <title>Google Project Genie lets you create interactive worlds from a photo or prompt</title>
+                <link>https://arstechnica.com/google/2026/01/google-project-genie-lets-you-create-interactive-worlds-from-a-photo-or-prompt/</link>
+                                    <comments>https://arstechnica.com/google/2026/01/google-project-genie-lets-you-create-interactive-worlds-from-a-photo-or-prompt/#comments</comments>
+                
+                <dc:creator>
+                    <![CDATA[Ryan Whitwam]]>
+                </dc:creator>
+                <pubDate>Thu, 29 Jan 2026 20:26:50 +0000</pubDate>
+                		<category><![CDATA[AI]]></category>
+		<category><![CDATA[Google]]></category>
+		<category><![CDATA[Artificial Intelligence]]></category>
+		<category><![CDATA[google]]></category>
+		<category><![CDATA[Project Genie]]></category>
+		<category><![CDATA[world models]]></category>
+                <guid isPermaLink="true">https://arstechnica.com/google/2026/01/google-project-genie-lets-you-create-interactive-worlds-from-a-photo-or-prompt/</guid>
+
+                                    <description>
+                        <![CDATA[Project Genie lets you generate new worlds 60 seconds at a time, but only if you pay for AI Ultra. ]]>
+                    </description>
+                                                                <content:encoded>
+                            <![CDATA[<p>Last year, Google <a href="https://arstechnica.com/ai/2025/08/deepmind-reveals-genie-3-world-model-that-creates-real-time-interactive-simulations/">showed off Genie 3</a>, an updated version of its AI world model with impressive long-term memory that allowed it to create interactive worlds from a simple text prompt. At the time, Google only provided Genie to a small group of trusted testers. Now, it's available more widely as Project Genie, but only for those paying for Google's most expensive AI subscription.</p>
+<p>World models are exactly what they sound like—an AI that generates a dynamic environment on the fly. They're not technically 3D worlds, though. World models like Genie 3 create a video that responds to your control inputs, allowing you to explore the simulation as if it were a real virtual world. Genie 3 was a breakthrough in world models because it could remember details of the world it was creating for a much longer time. But in this context, a "long time" is a couple of minutes.</p>
+<p>Project Genie is essentially a cleaned-up version of Genie 3, which plugs into updated AI models like Nano Banana Pro and Gemini 3. Google has a number of pre-built worlds available in Project Genie, but it's the ability to create new things that makes it interesting. You can provide an image for reference or simply tell Genie what you want from the environment and the character.</p><p><a href="https://arstechnica.com/google/2026/01/google-project-genie-lets-you-create-interactive-worlds-from-a-photo-or-prompt/">Read full article</a></p>
+<p><a href="https://arstechnica.com/google/2026/01/google-project-genie-lets-you-create-interactive-worlds-from-a-photo-or-prompt/#comments">Comments</a></p>
+]]>
+                        </content:encoded>
+                                    
+                                    <slash:comments>44</slash:comments>
+                
+                
+                <media:content height="648" medium="image" type="image/png" url="https://cdn.arstechnica.net/wp-content/uploads/2026/01/Genie-worlds-1152x648.png" width="1152">
+<media:thumbnail height="500" url="https://cdn.arstechnica.net/wp-content/uploads/2026/01/Genie-worlds-500x500.png" width="500"/>
+<media:credit>Google</media:credit></media:content>
+            </item>
+                    <item>
+                <title>Comcast keeps losing customers despite price guarantee and unlimited data</title>
+                <link>https://arstechnica.com/tech-policy/2026/01/comcast-keeps-losing-customers-despite-price-guarantee-and-unlimited-data/</link>
+                                    <comments>https://arstechnica.com/tech-policy/2026/01/comcast-keeps-losing-customers-despite-price-guarantee-and-unlimited-data/#comments</comments>
+                
+                <dc:creator>
+                    <![CDATA[Jon Brodkin]]>
+                </dc:creator>
+                <pubDate>Thu, 29 Jan 2026 19:51:45 +0000</pubDate>
+                		<category><![CDATA[Policy]]></category>
+		<category><![CDATA[broadband]]></category>
+		<category><![CDATA[Comcast]]></category>
+                <guid isPermaLink="true">https://arstechnica.com/tech-policy/2026/01/comcast-keeps-losing-customers-despite-price-guarantee-and-unlimited-data/</guid>
+
+                                    <description>
+                        <![CDATA[Comcast overhauled Internet plans to stop customer losses. It isn't working yet.]]>
+                    </description>
+                                                                <content:encoded>
+                            <![CDATA[<p>In April 2025, Comcast President Mike Cavanagh bemoaned that the company's cable broadband division was "not winning in the marketplace” amid increased competition from fiber and fixed wireless Internet service providers.</p>
+<p>Cavanagh <a href="https://arstechnica.com/tech-policy/2025/04/after-losing-customers-comcast-admits-prices-are-too-confusing-and-unpredictable/">identified some problems</a> that had been obvious to Comcast customers for many years: Its prices aren’t transparent enough and rise too frequently, and dealing with the company is too difficult. Comcast sought to fix the problems with a five-year price guarantee, one year of free Xfinity Mobile service for home Internet customers, and <a href="https://arstechnica.com/tech-policy/2025/06/stung-by-customer-losses-comcast-says-all-its-new-plans-have-unlimited-data/">plans with unlimited data</a> instead of punitive data caps. But the company is still losing broadband customers at a higher-than-expected rate.</p>
+<p>In Q4 2025 earnings <a href="https://www.cmcsa.com/static-files/2445b35f-2af9-4ec0-adfa-6f5a89582bc0">announced today</a>, Comcast reported a net loss of 181,000 residential and business broadband customers in the US. The loss consists of 178,000 residential Internet customers and 3,000 business customers.</p><p><a href="https://arstechnica.com/tech-policy/2026/01/comcast-keeps-losing-customers-despite-price-guarantee-and-unlimited-data/">Read full article</a></p>
+<p><a href="https://arstechnica.com/tech-policy/2026/01/comcast-keeps-losing-customers-despite-price-guarantee-and-unlimited-data/#comments">Comments</a></p>
+]]>
+                        </content:encoded>
+                                    
+                                    <slash:comments>188</slash:comments>
+                
+                
+                <media:content height="648" medium="image" type="image/jpeg" url="https://cdn.arstechnica.net/wp-content/uploads/2025/04/comcast-1-1152x648-1745527748.jpg" width="1152">
+<media:thumbnail height="500" url="https://cdn.arstechnica.net/wp-content/uploads/2025/04/comcast-1-500x500-1745527756.jpg" width="500"/>
+<media:credit>Getty Images | Cheng Xin </media:credit></media:content>
+            </item>
+            </channel>
+</rss>

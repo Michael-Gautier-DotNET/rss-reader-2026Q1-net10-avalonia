@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+xmlns="http://purl.org/rss/1.0/"
+xmlns:dc="http://purl.org/dc/elements/1.1/"
+xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+xmlns:taxo="http://purl.org/rss/1.0/modules/taxonomy/"
+xmlns:admin="http://webns.net/mvcb/"
+xmlns:syn="http://purl.org/rss/1.0/modules/syndication/"
+>
+
+<channel rdf:about="https://distrowatch.com/">
+<title>DistroWatch.com: News</title>
+<link>https://distrowatch.com/</link>
+<description>Latest news on Linux distributions and BSD projects</description>
+
+<dc:language>EN</dc:language>
+<dc:rights>Copyright 2001-2025, DistroWatch.com. All Rights Reserved.</dc:rights>
+
+<dc:date>2026-01-31T15:32:55-00:00</dc:date>
+<dc:publisher>DistroWatch.com</dc:publisher>
+<dc:creator>distro@distrowatch.com</dc:creator>
+<dc:subject>Linux/BSD</dc:subject>
+<syn:updatePeriod>hourly</syn:updatePeriod>
+<syn:updateFrequency>1</syn:updateFrequency>
+<syn:updateBase>2013-01-01T00:00+00:00</syn:updateBase>
+
+<items>
+ <rdf:Seq>
+<rdf:li rdf:resource="https://distrowatch.com/12719"></rdf:li>
+<rdf:li rdf:resource="https://distrowatch.com/12718"></rdf:li>
+<rdf:li rdf:resource="https://distrowatch.com/12717"></rdf:li>
+<rdf:li rdf:resource="https://distrowatch.com/12716"></rdf:li>
+<rdf:li rdf:resource="https://distrowatch.com/12715"></rdf:li>
+<rdf:li rdf:resource="https://distrowatch.com/12714"></rdf:li>
+<rdf:li rdf:resource="https://distrowatch.com/12713"></rdf:li>
+<rdf:li rdf:resource="https://distrowatch.com/12712"></rdf:li>
+<rdf:li rdf:resource="https://distrowatch.com/12711"></rdf:li>
+<rdf:li rdf:resource="https://distrowatch.com/12710"></rdf:li>
+ </rdf:Seq>
+</items>
+<image rdf:resource="https://distrowatch.com/images/other/dw.png">
+</image>
+<textinput rdf:resource="https://distrowatch.com/">
+</textinput>
+</channel>
+
+<item rdf:about="https://distrowatch.com/12719">
+<title>Distribution Release: Linux Lite 7.8</title>
+<link>https://distrowatch.com/12719</link>
+<description>The DistroWatch news feed is brought to you by &lt;a href="https://www.tuxedocomputers.com/"&gt;TUXEDO COMPUTERS&lt;/a&gt;.  Jerry Bezencon has announced the release of Linux Lite 7.8, the latest update of the project's Ubuntu-based distribution with Xfce as the preferred desktop. The new version includes rewrites to Linux Lite's various custom utilities: "Linux Lite 7.8 Final is now available for download. Linux Lite 7.8 comes....</description>
+<image>
+<url>https://distrowatch.com/images/icon-large/12719.png</url>
+<title>DistroWatch.com: lite</title>
+<link>https://distrowatch.com/12719</link>
+</image>
+<dc:date>2026-01-31T15:32:55+00:00</dc:date>
+<slash:section>lite</slash:section>
+</item>
+
+<item rdf:about="https://distrowatch.com/12718">
+<title>Distribution Release: AerynOS 2026.01</title>
+<link>https://distrowatch.com/12718</link>
+<description>The DistroWatch news feed is brought to you by &lt;a href="https://www.tuxedocomputers.com/"&gt;TUXEDO COMPUTERS&lt;/a&gt;.  The AerynOS project published a news update for the month of January which highlights changes to the distribution, its website, and infrastructure. The newsletter includes a release announcement which discusses details of the project's latest snapshot, with visible changes coming to the distribution's desktop environments. "Given System76's move....</description>
+<image>
+<url>https://distrowatch.com/images/icon-large/12718.png</url>
+<title>DistroWatch.com: aerynos</title>
+<link>https://distrowatch.com/12718</link>
+</image>
+<dc:date>2026-01-31T14:02:05+00:00</dc:date>
+<slash:section>aerynos</slash:section>
+</item>
+
+<item rdf:about="https://distrowatch.com/12717">
+<title>Distribution Release: GParted Live 1.8.0-2</title>
+<link>https://distrowatch.com/12717</link>
+<description>The DistroWatch news feed is brought to you by &lt;a href="https://www.tuxedocomputers.com/"&gt;TUXEDO COMPUTERS&lt;/a&gt;.  Curtis Gedak has announced the release of GParted Live 1.8.0-2, the latest stable release of the project's Debian-based specialist live CD with tools suitable for disk partitioning and data rescue tasks. The new build updates the GParted utility to version 1.8.0 and the Linux kernel to version 6.18.5:....</description>
+<image>
+<url>https://distrowatch.com/images/icon-large/12717.png</url>
+<title>DistroWatch.com: gparted</title>
+<link>https://distrowatch.com/12717</link>
+</image>
+<dc:date>2026-01-28T21:55:11+00:00</dc:date>
+<slash:section>gparted</slash:section>
+</item>
+
+<item rdf:about="https://distrowatch.com/12716">
+<title>BSD Release: OPNsense 26.1</title>
+<link>https://distrowatch.com/12716</link>
+<description>The DistroWatch news feed is brought to you by &lt;a href="https://www.tuxedocomputers.com/"&gt;TUXEDO COMPUTERS&lt;/a&gt;.  OPNsense is a FreeBSD-based specialist operating system designed for firewalls and routers. The project's latest release is version 26.1. "For over 11 years now, OPNsense is driving innovation through modularising and hardening the open source firewall, with simple and reliable firmware upgrades, multi-language support, fast adoption of upstream....</description>
+<image>
+<url>https://distrowatch.com/images/icon-large/12716.png</url>
+<title>DistroWatch.com: opnsense</title>
+<link>https://distrowatch.com/12716</link>
+</image>
+<dc:date>2026-01-28T17:58:54+00:00</dc:date>
+<slash:section>opnsense</slash:section>
+</item>
+
+<item rdf:about="https://distrowatch.com/12715">
+<title>Distribution Release: FydeOS 22.0</title>
+<link>https://distrowatch.com/12715</link>
+<description>The DistroWatch news feed is brought to you by &lt;a href="https://www.tuxedocomputers.com/"&gt;TUXEDO COMPUTERS&lt;/a&gt;.  The FydeOS project has announced the release of FydeOS 22.0, the latest stable release of the project's ChromeOS-based Linux distribution that delivers a Google Chromebook-like experience. The new release introduces a new quick share feature and changes the default search engine to Qwant (where available): "We're happy to....</description>
+<image>
+<url>https://distrowatch.com/images/icon-large/12715.png</url>
+<title>DistroWatch.com: fydeos</title>
+<link>https://distrowatch.com/12715</link>
+</image>
+<dc:date>2026-01-28T10:49:59+00:00</dc:date>
+<slash:section>fydeos</slash:section>
+</item>
+
+<item rdf:about="https://distrowatch.com/12714">
+<title>Distribution Release: Emmabuntüs DE5-1.05</title>
+<link>https://distrowatch.com/12714</link>
+<description>The DistroWatch news feed is brought to you by &lt;a href="https://www.tuxedocomputers.com/"&gt;TUXEDO COMPUTERS&lt;/a&gt;.  The Emmabuntüs project has published an update for its DE5 branch. The new version improves volume handling, makes it easier to install WINE, and offers updated Italian language support. "The Emmabuntüs Collective is pleased to announce the release of Emmabuntüs Debian Edition 5 version 1.05, available in 32-bit....</description>
+<image>
+<url>https://distrowatch.com/images/icon-large/12714.png</url>
+<title>DistroWatch.com: emmabuntus</title>
+<link>https://distrowatch.com/12714</link>
+</image>
+<dc:date>2026-01-26T21:09:56+00:00</dc:date>
+<slash:section>emmabuntus</slash:section>
+</item>
+
+<item rdf:about="https://distrowatch.com/12713">
+<title>Distribution Release: DietPi 10.0</title>
+<link>https://distrowatch.com/12713</link>
+<description>The DistroWatch news feed is brought to you by &lt;a href="https://www.tuxedocomputers.com/"&gt;TUXEDO COMPUTERS&lt;/a&gt;.  DietPi is a Debian-based Linux distribution, primarily developed for single-board computers such as Raspberry Pi, Orange Pi or Odroid. It also supplies builds for 64-bit x86 personal computers and virtual machines. The project's latest release, version 10.0, introduces some important changes and drops support for some old single-board....</description>
+<image>
+<url>https://distrowatch.com/images/icon-large/12713.png</url>
+<title>DistroWatch.com: dietpi</title>
+<link>https://distrowatch.com/12713</link>
+</image>
+<dc:date>2026-01-26T14:59:17+00:00</dc:date>
+<slash:section>dietpi</slash:section>
+</item>
+
+<item rdf:about="https://distrowatch.com/12712">
+<title>DistroWatch Weekly, Issue 1157</title>
+<link>https://distrowatch.com/12712</link>
+<description>The DistroWatch news feed is brought to you by &lt;a href="https://www.tuxedocomputers.com/"&gt;TUXEDO COMPUTERS&lt;/a&gt;.  This week in DistroWatch Weekly: &lt;br&gt;
+Review: Setting up a home server&lt;br&gt;
+News: Malicious software finds a new way into the Snap store, postmarketOS automates more hardware tests, KDE's new login manager works with systemd only&lt;br&gt;
+Questions and answers: Why convergence has not become popular&lt;br&gt;
+Released last week: ELEGANCE 26.0.1, MX Linux....</description>
+<image>
+<url>https://distrowatch.com/images/icon-large/12712.png</url>
+<title>DistroWatch.com: weekly</title>
+<link>https://distrowatch.com/12712</link>
+</image>
+<dc:date>2026-01-26T01:02:45+00:00</dc:date>
+<slash:section>weekly</slash:section>
+</item>
+
+<item rdf:about="https://distrowatch.com/12711">
+<title>Distribution Release: CachyOS 260124</title>
+<link>https://distrowatch.com/12711</link>
+<description>The DistroWatch news feed is brought to you by &lt;a href="https://www.tuxedocomputers.com/"&gt;TUXEDO COMPUTERS&lt;/a&gt;.  The CachyOS team has announced the release of an updated ISO image of CachyOS, a Arch-based Linux distribution with the latest KDE Plasma as the chosen desktop on the live image. The new version 260114 comes with a reworked system installer, new Plasma login manager, and Wayland as....</description>
+<image>
+<url>https://distrowatch.com/images/icon-large/12711.png</url>
+<title>DistroWatch.com: cachyos</title>
+<link>https://distrowatch.com/12711</link>
+</image>
+<dc:date>2026-01-24T19:17:20+00:00</dc:date>
+<slash:section>cachyos</slash:section>
+</item>
+
+<item rdf:about="https://distrowatch.com/12710">
+<title>Distribution Release: Skywave Linux 5.10.0</title>
+<link>https://distrowatch.com/12710</link>
+<description>The DistroWatch news feed is brought to you by &lt;a href="https://www.tuxedocomputers.com/"&gt;TUXEDO COMPUTERS&lt;/a&gt;.  Phil C has announced the release of Skywave Linux 5.10.0, a specialist live Linux distribution configured for connecting to internet-accessible software defined radio (SDR) receivers. It is based on Debian's "Unstable" branch and uses the dwm window manager. "Skywave Linux has been upgraded to version 5.10, bringing some....</description>
+<image>
+<url>https://distrowatch.com/images/icon-large/12710.png</url>
+<title>DistroWatch.com: skywave</title>
+<link>https://distrowatch.com/12710</link>
+</image>
+<dc:date>2026-01-24T16:22:03+00:00</dc:date>
+<slash:section>skywave</slash:section>
+</item>
+
+<textinput rdf:about="https://distrowatch.com/">
+<title>Search Distributions</title>
+<description>Search BSD/Linux distributions</description>
+<name>distribution</name>
+<link>https://distrowatch.com/table.php</link>
+</textinput>
+</rdf:RDF>
