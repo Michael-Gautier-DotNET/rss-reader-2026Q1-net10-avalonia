@@ -213,7 +213,7 @@ namespace gautier.rss.ui
             }
         }
 
-        private bool CheckInput(BindableFeed feed)
+        private bool CheckInput(in BindableFeed feed)
         {
             int ErrorCount = 0;
             StringBuilder? Errors = new();
