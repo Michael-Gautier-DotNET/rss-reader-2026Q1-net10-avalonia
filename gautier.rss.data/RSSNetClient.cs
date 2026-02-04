@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Xml;
 
@@ -63,8 +63,8 @@ namespace gautier.rss.data
         {
             try
             {
-                using XmlReader feedXml = XmlReader.Create(feedUrl);
-                using XmlWriter feedXmlWriter = XmlWriter.Create(rssFeedFilePath);
+                using var feedXml = XmlReader.Create(feedUrl);
+                using var feedXmlWriter = XmlWriter.Create(rssFeedFilePath);
                 feedXmlWriter.WriteNode(feedXml, false);
             }
 

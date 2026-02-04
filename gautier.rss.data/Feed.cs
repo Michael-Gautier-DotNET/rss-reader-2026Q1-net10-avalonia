@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 
 namespace gautier.rss.data
 {
@@ -13,9 +13,6 @@ namespace gautier.rss.data
         public string RetentionDays { get; set; } = string.Empty;
         public string RowInsertDateTime { get; set; } = string.Empty;
 
-        private string GetDebuggerDisplay()
-        {
-            return $"{FeedName} {FeedUrl} {LastRetrieved} {RetrieveLimitHrs} {RetentionDays}";
-        }
+        private string GetDebuggerDisplay() => $"{FeedName} {FeedUrl} {LastRetrieved} {RetrieveLimitHrs} {RetentionDays}";
     }
 }

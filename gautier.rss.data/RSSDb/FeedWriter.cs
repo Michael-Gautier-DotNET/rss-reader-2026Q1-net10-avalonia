@@ -1,4 +1,4 @@
-﻿using System.Data.SQLite;
+using System.Data.SQLite;
 using System.Text;
 
 namespace gautier.rss.data.RSSDb

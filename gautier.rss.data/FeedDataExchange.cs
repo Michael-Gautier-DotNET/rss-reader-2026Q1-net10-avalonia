@@ -1,4 +1,4 @@
-﻿using System.Data.SQLite;
+using System.Data.SQLite;
 using System.Globalization;
 
 using gautier.rss.data.RSSDb;
@@ -214,10 +214,7 @@ namespace gautier.rss.data
             return Articles;
         }
 
-        private static string GetNormalizedFeedFilePath(string feedSaveDirectoryPath, Feed feedInfo)
-        {
-            return Path.Combine(feedSaveDirectoryPath, $"{feedInfo.FeedName}.txt");
-        }
+        private static string GetNormalizedFeedFilePath(string feedSaveDirectoryPath, Feed feedInfo) => Path.Combine(feedSaveDirectoryPath, $"{feedInfo.FeedName}.txt");
 
         public static void WriteRSSArticlesToDatabase(string feedDbFilePath, SortedList<string, List<FeedArticleUnion>> feedsArticles)
         {

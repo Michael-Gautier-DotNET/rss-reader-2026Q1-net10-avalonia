@@ -1,4 +1,4 @@
-﻿using System.Data.SQLite;
+using System.Data.SQLite;
 using System.Globalization;
 using System.Text;
 
@@ -66,17 +66,17 @@ namespace gautier.rss.data
                  *    if the feed should be retrieved versus reusing a local cache file.
                  */
                 if (Exists)
-                    /*
-                     * Go into a complex logic cycle.
-                     *      The main goal is to access the feed based on the columns:
-                                "last_retrieved",
-                                "retrieve_limit_hrs"
+                /*
+                 * Go into a complex logic cycle.
+                 *      The main goal is to access the feed based on the columns:
+                            "last_retrieved",
+                            "retrieve_limit_hrs"
 
-                        Remember to set the ShouldCacheFileBeCreated = false when
-                            there is an indication a feed website was recently accessed.
-                        Even when there is no local file but the feed was accessed over the network,
-                        that situation must still be respected to avoid future access issues.
-                     */
+                    Remember to set the ShouldCacheFileBeCreated = false when
+                        there is an indication a feed website was recently accessed.
+                    Even when there is no local file but the feed was accessed over the network,
+                    that situation must still be respected to avoid future access issues.
+                 */
                 {
                     bool FeedCanBeUpdated = RSSNetClient.CheckFeedIsEligibleForUpdate(FeedInfo);
 

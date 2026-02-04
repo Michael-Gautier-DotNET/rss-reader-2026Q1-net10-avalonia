@@ -1,4 +1,4 @@
-﻿namespace gautier.rss.data
+namespace gautier.rss.data
 {
     public class FeedArticleUnion
     {
