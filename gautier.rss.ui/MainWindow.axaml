@@ -57,7 +57,7 @@
                    Background="#F4E7D7"
                    BorderBrush="#FF6600"
                    BorderThickness="1"
-                   FontSize="19"
+                   FontSize="24"
                    FontWeight="Bold"
                    HorizontalContentAlignment="Right"
                    VerticalContentAlignment="Center"
@@ -70,15 +70,19 @@
                    Content="Article Headline"
                    Foreground="#422400"
                    Background="#FFCC00"
-                   FontSize="12"
+                   FontSize="18"
                    FontWeight="SemiBold"
                    Padding="16,16,16,8"
                    Margin="0,0,0,2" />
 
             <!-- Article Content (Text-based) -->
             <ScrollViewer Grid.Row="2"
-                          Margin="0,0,0,4">
-                <SelectableTextBlock Name="ReaderArticleText" />
+                          Margin="0,0,0,4"
+                          HorizontalScrollBarVisibility="Disabled"
+                          VerticalScrollBarVisibility="Auto">
+                <SelectableTextBlock Name="ReaderArticleText"
+                FontSize="20" 
+                TextWrapping="Wrap" />
             </ScrollViewer>
 
             <!-- Options Panel - Use direct styling -->

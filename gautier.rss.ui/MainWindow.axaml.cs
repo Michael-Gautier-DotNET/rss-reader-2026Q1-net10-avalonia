@@ -115,7 +115,7 @@ namespace gautier.rss.ui
             {
                 Background = Brushes.Transparent,
                 BorderThickness = new(0),
-                FontSize = 12
+                FontSize = 16
             };
             App.SetDisplayMemberPath(listBox, "HeadlineText");
             listBox.SelectionChanged += Headline_SelectionChanged;
