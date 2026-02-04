@@ -24,8 +24,8 @@ namespace gautier.rss.ui
         private SortedList<string, FeedArticle> _FeedsArticles = null;
         private int _FeedIndex = -1;
 
-        private readonly TimeSpan _QuickTimeSpan = TimeSpan.FromSeconds(2.34);
-        private readonly TimeSpan _MidTimeSpan = TimeSpan.FromSeconds(21.7);
+        private readonly TimeSpan _QuickTimeSpan = TimeSpan.FromSeconds(0.7);
+        private readonly TimeSpan _MidTimeSpan = TimeSpan.FromSeconds(4);
         private DispatcherTimer _FeedUpdateTimer;
 
         private static readonly string _EmptyArticle = "No article content available.";
