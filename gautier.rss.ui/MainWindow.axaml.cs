@@ -25,7 +25,7 @@ namespace gautier.rss.ui
         private int _FeedIndex = -1;
 
         private readonly TimeSpan _QuickTimeSpan = TimeSpan.FromSeconds(0.7);
-        private readonly TimeSpan _MidTimeSpan = TimeSpan.FromSeconds(90000);
+        private readonly TimeSpan _MidTimeSpan = TimeSpan.FromSeconds(12);
         private DispatcherTimer _FeedUpdateTimer;
 
         private static readonly string _EmptyArticle = "No article content available.";
@@ -214,12 +214,19 @@ namespace gautier.rss.ui
 
             int ConfiguredFeedCount = ConfiguredFeeds.Count;
 
+	    ReaderTabs.IsEnabled = false;//Lock tabs. **** Lock start
+
             _Feeds = FeedDataExchange.GetAllFeeds(FeedConfiguration.SQLiteDbConnectionString);
 
             _ReaderTabItems.Clear();
             ReaderTabs.Items.Clear();
 
+	    /*Ensure this runs synchronously and the caller does the same. Upstream call chain is synchronous.*/
             Dispatcher.UIThread.Invoke(InitializeFeedTabs);
+
+            _FeedUpdateTimer.Interval = _QuickTimeSpan;
+
+	    ReaderTabs.IsEnabled = true;//Unlock tabs. **** Lock end
 
             _FeedUpdateTimer.Start();
         }
@@ -298,12 +305,8 @@ namespace gautier.rss.ui
         private async void UpdateFeedsOnInterval(object sender, EventArgs e)
         {
             _FeedUpdateTimer.Stop();
-            bool usingQuickInterval = _FeedUpdateTimer.Interval == _QuickTimeSpan;
 
-            if (usingQuickInterval)
-            {
-                _FeedUpdateTimer!.Interval = _MidTimeSpan;
-            }
+            _FeedUpdateTimer.Interval = _MidTimeSpan;
 
             await AcquireFeedsAsync();
         }
@@ -315,7 +318,6 @@ namespace gautier.rss.ui
                 _FeedUpdateTimer.Stop();
                 await DownloadFeedsAsync();
             }
-
             else
             {
                 FeedDataExchange.RemoveExpiredArticlesFromDatabase(FeedConfiguration.SQLiteDbConnectionString);
