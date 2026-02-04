@@ -25,7 +25,7 @@ namespace gautier.rss.ui
         private int _FeedIndex = -1;
 
         private readonly TimeSpan _QuickTimeSpan = TimeSpan.FromSeconds(0.7);
-        private readonly TimeSpan _MidTimeSpan = TimeSpan.FromSeconds(30);
+        private readonly TimeSpan _MidTimeSpan = TimeSpan.FromSeconds(47);
         private DispatcherTimer _FeedUpdateTimer;
 
         private static readonly string _EmptyArticle = "No article content available.";
@@ -196,6 +196,30 @@ namespace gautier.rss.ui
             }
         }
 
+        private void CheckRSSManagerUIUpdates(RSSManagerUI ui)
+        {
+            // Get the updated feeds from the manager
+            ObservableCollection<BindableFeed> ConfiguredFeeds = ui.Feeds;
+            int ConfiguredFeedCount = ConfiguredFeeds.Count;
+            // Update local feeds from database
+            _Feeds = FeedDataExchange.GetAllFeeds(FeedConfiguration.SQLiteDbConnectionString);
+            // Rebuild tabs based on current database state
+            _ReaderTabItems.Clear();
+            ReaderTabs.Items.Clear();
+            // Reinitialize feed configurations
+            _FeedIndex = _Feeds != null && _Feeds.Count > 0 ? 0 : -1;
+            InitializeFeedConfigurations();
+
+            if (ReaderTabs.Items.Count > 0)
+            {
+                ReaderTabs.SelectedIndex = 0;
+            }
+
+            ApplyFeed();
+            UIRoot.UpdateLayout();
+            ReaderTabs.UpdateLayout();
+        }
+        
         private void Headline_SelectionChanged(object sender, SelectionChangedEventArgs e) => ApplyArticle(Article);
 
         private void ReaderTabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -332,30 +356,6 @@ namespace gautier.rss.ui
             {
                 ReaderTabs.SelectedIndex = 0;
             }
-        }
-
-        private void CheckRSSManagerUIUpdates(RSSManagerUI ui)
-        {
-            // Get the updated feeds from the manager
-            ObservableCollection<BindableFeed> ConfiguredFeeds = ui.Feeds;
-            int ConfiguredFeedCount = ConfiguredFeeds.Count;
-            // Update local feeds from database
-            _Feeds = FeedDataExchange.GetAllFeeds(FeedConfiguration.SQLiteDbConnectionString);
-            // Rebuild tabs based on current database state
-            _ReaderTabItems.Clear();
-            ReaderTabs.Items.Clear();
-            // Reinitialize feed configurations
-            _FeedIndex = _Feeds != null && _Feeds.Count > 0 ? 0 : -1;
-            InitializeFeedConfigurations();
-
-            if (ReaderTabs.Items.Count > 0)
-            {
-                ReaderTabs.SelectedIndex = 0;
-            }
-
-            ApplyFeed();
-            UIRoot.UpdateLayout();
-            ReaderTabs.UpdateLayout();
         }
 
         private void AddFeedToUIFollowingManagementUpdate(SortedList<string, Feed> activeFeeds, BindableFeed configuredFeed)
