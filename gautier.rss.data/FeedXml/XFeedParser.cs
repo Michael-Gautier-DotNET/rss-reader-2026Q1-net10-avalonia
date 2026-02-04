@@ -1,4 +1,4 @@
-using System.Text;
+﻿using System.Text;
 using System.Xml;
 
 namespace gautier.rss.data.FeedXml
@@ -38,7 +38,7 @@ namespace gautier.rss.data.FeedXml
             get => _DocType;
         }
 
-        public XFeed ParseFile(in string filePath)
+        public XFeed ParseFile(string filePath)
         {
             XFeed feed = new();
             // Generate and insert the custom DTD properly
@@ -69,7 +69,7 @@ namespace gautier.rss.data.FeedXml
             return dtdBuilder.ToString();
         }
 
-        private void ParseNode(in XmlElement node, XFeed feed)
+        private void ParseNode(XmlElement node, XFeed feed)
         {
             XArticle Article = feed.Articles.Count > 0 ? feed.Articles.Last() : new();
 
@@ -290,7 +290,7 @@ namespace gautier.rss.data.FeedXml
             return;
         }
 
-        private static string GetHrefAttrValue(in XmlElement node)
+        private static string GetHrefAttrValue(XmlElement node)
         {
             string HRef = string.Empty;
 
@@ -314,7 +314,7 @@ namespace gautier.rss.data.FeedXml
             return HRef;
         }
 
-        private void DetectRSSVersion(in XmlElement node)
+        private void DetectRSSVersion(XmlElement node)
         {
             foreach (XmlAttribute Attr in node.Attributes)
             {
@@ -356,7 +356,7 @@ namespace gautier.rss.data.FeedXml
             return;
         }
 
-        private void DetectATOMVersion(in XmlElement node)
+        private void DetectATOMVersion(XmlElement node)
         {
             string NameSpaceValue = node.NamespaceURI;
 
@@ -384,7 +384,7 @@ namespace gautier.rss.data.FeedXml
             return;
         }
 
-        private void CheckAtomAttributes(in XmlElement node)
+        private void CheckAtomAttributes(XmlElement node)
         {
             foreach (XmlAttribute Attr in node.Attributes)
             {

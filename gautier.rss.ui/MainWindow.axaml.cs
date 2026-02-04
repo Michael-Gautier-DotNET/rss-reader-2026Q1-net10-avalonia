@@ -25,7 +25,7 @@ namespace gautier.rss.ui
         private int _FeedIndex = -1;
 
         private readonly TimeSpan _QuickTimeSpan = TimeSpan.FromSeconds(0.7);
-        private readonly TimeSpan _MidTimeSpan = TimeSpan.FromSeconds(12);
+        private readonly TimeSpan _MidTimeSpan = TimeSpan.FromSeconds(3);
         private DispatcherTimer _FeedUpdateTimer;
 
         private static readonly string _EmptyArticle = "No article content available.";
@@ -481,7 +481,7 @@ namespace gautier.rss.ui
             PruneExpiredArticles();
             SortedList<string, Feed> DbFeeds = FeedDataExchange.GetAllFeeds(FeedConfiguration.SQLiteDbConnectionString);
 
-            static async Task ExecuteDownloadAsync(Feed FeedEntry)
+            static void ExecuteDownload(Feed FeedEntry)
             {
                 string RSSXmlFilePath = RSSNetClient.DownloadFeed(FeedConfiguration.FeedSaveDirectoryPath, FeedEntry);
 
@@ -489,10 +489,7 @@ namespace gautier.rss.ui
                 {
                     string RSSIntegrationFilePath =
                         FeedFileUtil.GetRSSTabDelimitedFeedFilePath(FeedConfiguration.FeedSaveDirectoryPath, FeedEntry);
-                    bool RSSXmlFileIsNewer = FeedFileUtil.CheckSourceFileNewer(RSSXmlFilePath, RSSIntegrationFilePath);
 
-                    if (RSSXmlFileIsNewer)
-                    {
                         List<FeedArticle> Articles =
                             FeedFileConverter.TransformXmlFeedToFeedArticles(FeedConfiguration.FeedSaveDirectoryPath,
                                 FeedEntry);
@@ -506,13 +503,12 @@ namespace gautier.rss.ui
                             FeedDataExchange.ImportRSSFeedToDatabase(FeedConfiguration.FeedSaveDirectoryPath,
                                 FeedConfiguration.FeedDbFilePath, FeedEntry);
                         }
-                    }
                 }
             }
 
             foreach (Feed FeedEntry in DbFeeds.Values)
             {
-                await ExecuteDownloadAsync(FeedEntry);
+                ExecuteDownload(FeedEntry);
             }
 
             return;

@@ -1,20 +1,23 @@
-using System.Data.SQLite;
+﻿using System.Data.SQLite;
 using System.Text;
 
 namespace gautier.rss.data.RSSDb
 {
     public class SQLUtil
     {
-        public static string GetSQLiteConnectionString(string sqliteDbFilePath, int sqliteVersion) => $@"Data Source={sqliteDbFilePath}; Version={sqliteVersion};";
+        public static string GetSQLiteConnectionString(string sqliteDbFilePath, int sqliteVersion)
+        {
+            return $@"Data Source={sqliteDbFilePath}; Version={sqliteVersion};";
+        }
 
-        public static SQLiteConnection OpenSQLiteConnection(in string connectionString)
+        public static SQLiteConnection OpenSQLiteConnection(string connectionString)
         {
             SQLiteConnection SQLConn = new(connectionString);
             SQLConn.Open();
             return SQLConn;
         }
 
-        internal static StringBuilder CreateSQLInsertCMDText(in string tableName, in string[] columnNames)
+        internal static StringBuilder CreateSQLInsertCMDText(string tableName, string[] columnNames)
         {
             StringBuilder ColumnNameSB = new();
             ColumnNameSB.AppendLine($"INSERT INTO {tableName} (");
@@ -42,7 +45,7 @@ namespace gautier.rss.data.RSSDb
             return CommandText;
         }
 
-        internal static StringBuilder CreateSQLUpdateCMDText(in string tableName, in string[] columnNames)
+        internal static StringBuilder CreateSQLUpdateCMDText(string tableName, string[] columnNames)
         {
             StringBuilder ColumnNameSB = new();
             ColumnNameSB.AppendLine($"UPDATE {tableName} SET ");
@@ -67,14 +70,14 @@ namespace gautier.rss.data.RSSDb
             return CommandText;
         }
 
-        internal static string[] StripColumnByName(in string columnName, in string[] columnNames)
+        internal static string[] StripColumnByName(string columnName, string[] columnNames)
         {
             List<string> Cols = new(columnNames);
             Cols.Remove(columnName);
             return Cols.ToArray();
         }
 
-        internal static string[] StripColumnNames(in List<string> columnNamesToRemove, in string[] columnNames)
+        internal static string[] StripColumnNames(List<string> columnNamesToRemove, string[] columnNames)
         {
             List<string> Cols = new(columnNames);
 

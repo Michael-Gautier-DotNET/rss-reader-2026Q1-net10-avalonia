@@ -1,4 +1,4 @@
-using System.Data;
+﻿using System.Data;
 using System.Data.SQLite;
 
 namespace gautier.rss.data.RSSDb
@@ -27,7 +27,7 @@ namespace gautier.rss.data.RSSDb
             ];
         }
 
-        public static int CountAllRows(in SQLiteConnection sqlConn)
+        public static int CountAllRows(SQLiteConnection sqlConn)
         {
             int Count = 0;
             string CommandText = $"SELECT COUNT(*) FROM {_TableName};";
@@ -40,7 +40,7 @@ namespace gautier.rss.data.RSSDb
             return Count;
         }
 
-        public static int CountRows(in SQLiteConnection sqlConn, in string feedName)
+        public static int CountRows(SQLiteConnection sqlConn, string feedName)
         {
             int Count = 0;
             string CommandText = $"SELECT COUNT(*) FROM {_TableName} WHERE feed_name = @FeedName;";
@@ -54,7 +54,7 @@ namespace gautier.rss.data.RSSDb
             return Count;
         }
 
-        public static int CountRows(in SQLiteConnection sqlConn, in string feedName, in string articleUrl)
+        public static int CountRows(SQLiteConnection sqlConn, string feedName, string articleUrl)
         {
             int Count = 0;
             string CommandText = $"SELECT COUNT(*) FROM {_TableName} WHERE feed_name = @FeedName AND article_url = @ArticleUrl;";
@@ -69,19 +69,19 @@ namespace gautier.rss.data.RSSDb
             return Count;
         }
 
-        public static bool Exists(in SQLiteConnection sqlConn, in string feedName)
+        public static bool Exists(SQLiteConnection sqlConn, string feedName)
         {
             int Count = CountRows(sqlConn, feedName);
             return Count > 0;
         }
 
-        public static bool Exists(in SQLiteConnection sqlConn, in string feedName, in string articleUrl)
+        public static bool Exists(SQLiteConnection sqlConn, string feedName, string articleUrl)
         {
             int Count = CountRows(sqlConn, feedName, articleUrl);
             return Count > 0;
         }
 
-        internal static void MapSQLParametersToAllTableColumns(in SQLiteCommand cmd, in FeedArticle article, in string[] columnNames)
+        internal static void MapSQLParametersToAllTableColumns(SQLiteCommand cmd, FeedArticle article, string[] columnNames)
         {
             foreach (string? ColumnName in columnNames)
             {
@@ -134,7 +134,7 @@ namespace gautier.rss.data.RSSDb
             return;
         }
 
-        public static List<FeedArticle> GetAllRows(in SQLiteConnection sqlConn)
+        public static List<FeedArticle> GetAllRows(SQLiteConnection sqlConn)
         {
             List<FeedArticle> Rows = new();
             string CommandText = $"SELECT * FROM {_TableName};";
@@ -150,7 +150,7 @@ namespace gautier.rss.data.RSSDb
             return Rows;
         }
 
-        public static List<FeedArticle> GetRows(in SQLiteConnection sqlConn, in string feedName)
+        public static List<FeedArticle> GetRows(SQLiteConnection sqlConn, string feedName)
         {
             List<FeedArticle> Rows = new();
             string CommandText = $"SELECT * FROM {_TableName} WHERE feed_name = @FeedName;";
@@ -168,7 +168,7 @@ namespace gautier.rss.data.RSSDb
             return Rows;
         }
 
-        private static void CollectRows(in SQLiteDataReader reader, in List<FeedArticle> rows)
+        private static void CollectRows(SQLiteDataReader reader, List<FeedArticle> rows)
         {
             int ColCount = reader.FieldCount;
 

@@ -1,4 +1,4 @@
-using System.Data.SQLite;
+﻿using System.Data.SQLite;
 using System.Globalization;
 using System.Text;
 
@@ -16,7 +16,7 @@ namespace gautier.rss.data
         /// <summary>
         /// Designed to generate static local files even if they are later accidentally deleted.
         /// </summary>
-        public static void CreateStaticFeedFiles(in string feedSaveDirectoryPath, in string feedDbFilePath, in Feed[] feedInfos)
+        public static void CreateStaticFeedFiles(string feedSaveDirectoryPath, string feedDbFilePath, Feed[] feedInfos)
         {
             if (Directory.Exists(feedSaveDirectoryPath) == false)
             {
@@ -40,7 +40,7 @@ namespace gautier.rss.data
              *          The UI version of this program will not have these requirements since RSS feed configuration will be
              *             driven by a UI screen and not subject to self-sustained start-up automation as is the case here.
              */
-            foreach (Feed FeedInfo in feedInfos)
+            foreach (Feed? FeedInfo in feedInfos)
             {
                 string FeedFilePath = FeedFileUtil.GetRSSXmlFeedFilePath(feedSaveDirectoryPath, FeedInfo);
                 /*
@@ -66,17 +66,17 @@ namespace gautier.rss.data
                  *    if the feed should be retrieved versus reusing a local cache file.
                  */
                 if (Exists)
-                /*
-                 * Go into a complex logic cycle.
-                 *      The main goal is to access the feed based on the columns:
-                            "last_retrieved",
-                            "retrieve_limit_hrs"
+                    /*
+                     * Go into a complex logic cycle.
+                     *      The main goal is to access the feed based on the columns:
+                                "last_retrieved",
+                                "retrieve_limit_hrs"
 
-                    Remember to set the ShouldCacheFileBeCreated = false when
-                        there is an indication a feed website was recently accessed.
-                    Even when there is no local file but the feed was accessed over the network,
-                    that situation must still be respected to avoid future access issues.
-                 */
+                        Remember to set the ShouldCacheFileBeCreated = false when
+                            there is an indication a feed website was recently accessed.
+                        Even when there is no local file but the feed was accessed over the network,
+                        that situation must still be respected to avoid future access issues.
+                     */
                 {
                     bool FeedCanBeUpdated = RSSNetClient.CheckFeedIsEligibleForUpdate(FeedInfo);
 
@@ -110,11 +110,11 @@ namespace gautier.rss.data
             return;
         }
 
-        public static void TransformStaticFeedFiles(in string feedSaveDirectoryPath, in Feed[] feeds)
+        public static void TransformStaticFeedFiles(string feedSaveDirectoryPath, Feed[] feeds)
         {
             SortedList<string, List<FeedArticle>> Feeds = TransformXmlFeedToFeedArticles(feedSaveDirectoryPath, feeds);
 
-            foreach (Feed FeedInfo in feeds)
+            foreach (Feed? FeedInfo in feeds)
             {
                 if (Feeds.ContainsKey(FeedInfo.FeedName) == false)
                 {
@@ -127,14 +127,14 @@ namespace gautier.rss.data
             return;
         }
 
-        public static string WriteRSSArticlesToFile(in string feedSaveDirectoryPath, in Feed feed, in List<FeedArticle> articles)
+        public static string WriteRSSArticlesToFile(string feedSaveDirectoryPath, Feed feed, List<FeedArticle> articles)
         {
             StringBuilder RSSFeedFileOutput = new();
             string NormalizedFeedFilePath = FeedFileUtil.GetRSSTabDelimitedFeedFilePath(feedSaveDirectoryPath, feed);
 
             using (StreamWriter RSSFeedFile = new(NormalizedFeedFilePath, false))
             {
-                foreach (FeedArticle Article in articles)
+                foreach (FeedArticle? Article in articles)
                 {
                     string HeadlineText = Article.HeadlineText;
                     string ArticleSummary = Article.ArticleSummary;
@@ -159,11 +159,11 @@ namespace gautier.rss.data
             return NormalizedFeedFilePath;
         }
 
-        public static SortedList<string, List<FeedArticle>> TransformXmlFeedToFeedArticles(in string feedSaveDirectoryPath, in Feed[] feeds)
+        public static SortedList<string, List<FeedArticle>> TransformXmlFeedToFeedArticles(string feedSaveDirectoryPath, Feed[] feeds)
         {
             SortedList<string, List<FeedArticle>> FeedArticles = new();
 
-            foreach (Feed FeedInfo in feeds)
+            foreach (Feed? FeedInfo in feeds)
             {
                 List<FeedArticle> Articles = TransformXmlFeedToFeedArticles(feedSaveDirectoryPath, FeedInfo);
                 FeedArticles[FeedInfo.FeedName] = Articles;
@@ -172,13 +172,13 @@ namespace gautier.rss.data
             return FeedArticles;
         }
 
-        public static List<FeedArticle> TransformXmlFeedToFeedArticles(in string feedSaveDirectoryPath, in Feed feed)
+        public static List<FeedArticle> TransformXmlFeedToFeedArticles(string feedSaveDirectoryPath, Feed feed)
         {
             List<FeedArticle> Articles = new();
             string RSSFeedFilePath = FeedFileUtil.GetRSSXmlFeedFilePath(feedSaveDirectoryPath, feed);
             XFeed RSSFeed = RSSNetClient.CreateRSSXFeed(RSSFeedFilePath);
 
-            foreach (XArticle RSSItem in RSSFeed.Articles)
+            foreach (XArticle? RSSItem in RSSFeed.Articles)
             {
                 FeedArticle FeedItem = CreateRSSFeedArticle(feed, RSSItem);
                 Articles.Add(FeedItem);
@@ -187,7 +187,7 @@ namespace gautier.rss.data
             return Articles;
         }
 
-        private static FeedArticle CreateRSSFeedArticle(in Feed feed, in XArticle article)
+        private static FeedArticle CreateRSSFeedArticle(Feed feed, XArticle article)
         {
             string ArticleText = article.ContentEncoded;
             string ArticleUrl = article.Link;
@@ -206,7 +206,7 @@ namespace gautier.rss.data
             };
         }
 
-        public static Feed[] GetStaticFeedInfos(in string feedsFilePath)
+        public static Feed[] GetStaticFeedInfos(string feedsFilePath)
         {
             List<Feed> Feeds = new();
             SortedList<string, string> FeedByName = new();

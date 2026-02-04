@@ -1,4 +1,4 @@
-namespace gautier.rss.data.FeedXml
+﻿namespace gautier.rss.data.FeedXml
 {
     /*
      * Class design credit goes to Newsboat RSS API

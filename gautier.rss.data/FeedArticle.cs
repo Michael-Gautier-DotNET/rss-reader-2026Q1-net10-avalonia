@@ -1,11 +1,10 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 namespace gautier.rss.data
 {
     [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
-    public struct FeedArticle
+    public class FeedArticle
     {
-        public FeedArticle() { }
         public int DbId { get; set; } = -1;
         public string FeedName { get; set; } = string.Empty;
         public string HeadlineText { get; set; } = string.Empty;
@@ -15,6 +14,9 @@ namespace gautier.rss.data
         public string ArticleUrl { get; set; } = string.Empty;
         public string RowInsertDateTime { get; set; } = string.Empty;
 
-        private string GetDebuggerDisplay() => $"{FeedName} {HeadlineText} {ArticleUrl}";
+        private string GetDebuggerDisplay()
+        {
+            return $"{FeedName} {HeadlineText} {ArticleUrl}";
+        }
     }
 }

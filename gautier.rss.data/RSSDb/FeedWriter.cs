@@ -1,4 +1,4 @@
-using System.Data.SQLite;
+﻿using System.Data.SQLite;
 using System.Text;
 
 namespace gautier.rss.data.RSSDb
@@ -7,7 +7,7 @@ namespace gautier.rss.data.RSSDb
     {
         private static readonly string[] _ColumnNames = FeedReader.TableColumnNames;
 
-        internal static void AddFeed(in SQLiteConnection sqlConn, in Feed feedHeader)
+        internal static void AddFeed(SQLiteConnection sqlConn, Feed feedHeader)
         {
             string[] ColumnNames = SQLUtil.StripColumnByName("id", _ColumnNames);
             StringBuilder CommandText = SQLUtil.CreateSQLInsertCMDText(FeedReader.TableName, ColumnNames);
@@ -21,7 +21,7 @@ namespace gautier.rss.data.RSSDb
             return;
         }
 
-        internal static void ModifyFeedById(in SQLiteConnection sqlConn, in Feed feedHeader)
+        internal static void ModifyFeedById(SQLiteConnection sqlConn, Feed feedHeader)
         {
             string[] ColumnNames = SQLUtil.StripColumnByName("id", _ColumnNames);
             StringBuilder CommandText = SQLUtil.CreateSQLUpdateCMDText(FeedReader.TableName, ColumnNames);
@@ -36,7 +36,7 @@ namespace gautier.rss.data.RSSDb
             return;
         }
 
-        internal static void ModifyFeed(in SQLiteConnection sqlConn, in Feed feedHeader)
+        internal static void ModifyFeed(SQLiteConnection sqlConn, Feed feedHeader)
         {
             string[] ColumnNames = SQLUtil.StripColumnNames(new()
             {
@@ -54,7 +54,7 @@ namespace gautier.rss.data.RSSDb
             return;
         }
 
-        internal static void DeleteFeedById(in SQLiteConnection sqlConn, int id)
+        internal static void DeleteFeedById(SQLiteConnection sqlConn, int id)
         {
             string CommandText = $"DELETE FROM {FeedReader.TableName} WHERE id = @Id;";
 
