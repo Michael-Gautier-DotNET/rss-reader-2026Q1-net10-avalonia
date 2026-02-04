@@ -416,3 +416,7 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+#build artifacts
+gautier.rss.ui/*.txt
+gautier.rss.ui/*.xml
