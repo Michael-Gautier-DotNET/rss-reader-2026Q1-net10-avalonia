@@ -216,10 +216,7 @@ namespace gautier.rss.data
             return Articles;
         }
 
-        private static string GetNormalizedFeedFilePath(in string feedSaveDirectoryPath, in Feed feedInfo)
-        {
-            return Path.Combine(feedSaveDirectoryPath, $"{feedInfo.FeedName}.txt");
-        }
+        private static string GetNormalizedFeedFilePath(in string feedSaveDirectoryPath, in Feed feedInfo) => Path.Combine(feedSaveDirectoryPath, $"{feedInfo.FeedName}.txt");
 
         public static void WriteRSSArticlesToDatabase(string feedDbFilePath, SortedList<string, List<FeedArticleUnion>> feedsArticles)
         {

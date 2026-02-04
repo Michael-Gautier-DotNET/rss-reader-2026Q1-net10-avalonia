@@ -1,84 +1,109 @@
+# ========================================
+# .editorconfig.strict - MAXIMUM STRICTNESS
+# Enforces modern C# with build-breaking errors.
+# ========================================
 root = true
 
-# ====================
-# Core File Formatting
-# ====================
+# Core file formatting
 [*]
 indent_style = space
 indent_size = 4
 charset = utf-8
 insert_final_newline = true
 trim_trailing_whitespace = true
-end_of_line = lf # Matches your --lineend=linux
+end_of_line = lf
 
 # ====================
-# C# Formatting Rules
+# .NET Project-wide settings
+# ====================
+[*.{cs,vb}]
+# ENABLE NULLABLE REFERENCE TYPES & TREAT WARNINGS AS ERRORS
+dotnet_diagnostic.CS8618.severity = error # Non-nullable property uninitialized.
+dotnet_diagnostic.CS8600.severity = error # Converting null literal to non-nullable.
+dotnet_diagnostic.CS8602.severity = error # Dereference of a possibly null reference.
+dotnet_diagnostic.CS8603.severity = error # Possible null reference return.
+
+# ====================
+# C# Formatting & Style (ERROR level)
 # ====================
 [*.cs]
 
-# Indentation & Braces (matches your Allman/BSD style)
+# Formatting (same as V1, ensures consistency)
 csharp_new_line_before_open_brace = all
 csharp_new_line_before_else = true
 csharp_new_line_before_catch = true
 csharp_new_line_before_finally = true
-
-# Indentation details (mirrors your astyle --indent-* rules)
 csharp_indent_case_contents = true
 csharp_indent_switch_labels = true
-csharp_indent_block_contents = true
-
-# Spacing preferences
-csharp_space_after_keywords_in_control_flow_statements = true # if (condition)
-csharp_space_between_method_call_parameter_list_parentheses = false # Method(arg)
-csharp_space_between_parentheses = none
-csharp_space_after_colon_in_inheritance_clause = true
+csharp_space_after_keywords_in_control_flow_statements = true
+csharp_space_between_method_call_parameter_list_parentheses = false
 
 # ====================
-# Naming Conventions
+# CODE STYLE RULES - SET TO 'error'
 # ====================
-# Your code uses PascalCase for public members and camelCase for locals.
-# These rules will flag deviations in the IDE.
 
-# Public/Internal members: PascalCase
-dotnet_naming_rule.public_members_should_be_pascal_case.severity = suggestion
+# 'var' PREFERENCE (enforces consistency)
+csharp_style_var_for_builtin_types = true:error
+csharp_style_var_when_type_is_apparent = true:error
+csharp_style_var_elsewhere = false:error # Use explicit type where 'var' isn't obvious.
+
+# EXPRESSION-BODIED MEMBERS (enforces conciseness)
+csharp_style_expression_bodied_methods = when_on_single_line:error
+csharp_style_expression_bodied_accessors = when_on_single_line:error
+csharp_style_expression_bodied_constructors = when_on_single_line:error
+csharp_style_expression_bodied_operators = when_on_single_line:error
+csharp_style_expression_bodied_lambdas = when_on_single_line:error
+
+# PATTERN MATCHING PREFERENCES (enforces modernity)
+csharp_style_prefer_pattern_matching = true:error
+csharp_style_prefer_switch_expression = true:error
+csharp_style_prefer_not_pattern = true:error
+
+# USING DECLARATIONS & OTHER MODERN CONVENTIONS
+csharp_style_prefer_simple_using_statement = true:error
+csharp_style_prefer_local_over_anonymous_function = true:error
+
+# ACCESSIBILITY MODIFIERS (enforces explicitness)
+dotnet_style_require_accessibility_modifiers = always:error # e.g., requires 'private'
+
+# READONLY FIELDS (enforces immutability)
+dotnet_style_readonly_field = true:error
+
+# ====================
+# NAMING CONVENTIONS - SET TO 'error'
+# ====================
+
+# Public members: PascalCase (ERROR)
+dotnet_naming_rule.public_members_should_be_pascal_case.severity = error
 dotnet_naming_rule.public_members_should_be_pascal_case.symbols = public_symbols
 dotnet_naming_rule.public_members_should_be_pascal_case.style = pascal_case_style
-
 dotnet_naming_symbols.public_symbols.applicable_kinds = property, method, field, event, delegate
 dotnet_naming_symbols.public_symbols.applicable_accessibilities = public, internal, protected, protected_internal, private_protected
-dotnet_naming_symbols.public_symbols.required_modifiers = 
-
 dotnet_naming_style.pascal_case_style.capitalization = pascal_case
 
-# Parameters and local variables: camelCase (your style, e.g., 'sqlConnectionString')
-dotnet_naming_rule.parameters_and_locals_should_be_camel_case.severity = suggestion
-dotnet_naming_rule.parameters_and_locals_should_be_camel_case.symbols = parameters_and_locals
-dotnet_naming_rule.parameters_and_locals_should_be_camel_case.style = camel_case_style
+# Async method names must end with "Async" (ERROR)
+dotnet_naming_rule.async_methods_end_with_async.severity = error
+dotnet_naming_rule.async_methods_end_with_async.symbols = async_methods
+dotnet_naming_rule.async_methods_end_with_async.style = async_style
+dotnet_naming_symbols.async_methods.applicable_kinds = method
+dotnet_naming_symbols.async_methods.required_modifiers = async
+dotnet_naming_style.async_style.capitalization = pascal_case
+dotnet_naming_style.async_style.required_suffix = Async
 
-dotnet_naming_symbols.parameters_and_locals.applicable_kinds = parameter, local
-dotnet_naming_style.camel_case_style.capitalization = camel_case
+# Private instance fields: _camelCase (ERROR)
+dotnet_naming_rule.private_instance_fields.severity = error
+dotnet_naming_rule.private_instance_fields.symbols = private_instance_fields
+dotnet_naming_rule.private_instance_fields.style = private_instance_field_style
+dotnet_naming_symbols.private_instance_fields.applicable_kinds = field
+dotnet_naming_symbols.private_instance_fields.applicable_accessibilities = private
+dotnet_naming_style.private_instance_field_style.capitalization = camel_case
+dotnet_naming_style.private_instance_field_style.required_prefix = _
 
-# ====================
-# Modern C# Style Preferences (SUGGESTIONS)
-# ====================
-# These are set to 'suggestion' severity. They appear as IDE hints (lightbulb)
-# you can apply with Ctrl+., encouraging exploration without breaking your flow.
-
-# 1. Prefer 'var' when type is obvious (e.g., right-hand side is 'new' or a cast)
-csharp_style_var_when_type_is_apparent = true:suggestion
-
-# 2. Use expression-bodied members for simple getters/methods
-csharp_style_expression_bodied_methods = when_on_single_line:suggestion
-csharp_style_expression_bodied_accessors = when_on_single_line:suggestion
-csharp_style_expression_bodied_constructors = when_on_single_line:suggestion
-csharp_style_expression_bodied_operators = when_on_single_line:suggestion
-csharp_style_expression_bodied_lambdas = when_on_single_line:suggestion
-
-# 3. Prefer pattern matching (you already use `is not null`)
-csharp_style_prefer_pattern_matching = true:suggestion
-
-# 4. Use simple 'using' declaration (like you do: 'using StreamReader LineReader = ...')
-csharp_style_prefer_simple_using_statement = true:suggestion
-
-# 5. Prefer switch expressions for clarity over large switch statements
-csharp_style_prefer_switch_expression = true:suggestion
+# Static fields: s_camelCase (ERROR)
+dotnet_naming_rule.static_fields.severity = error
+dotnet_naming_rule.static_fields.symbols = static_fields
+dotnet_naming_rule.static_fields.style = static_field_style
+dotnet_naming_symbols.static_fields.applicable_kinds = field
+dotnet_naming_symbols.static_fields.required_modifiers = static
+dotnet_naming_style.static_field_style.capitalization = camel_case
+dotnet_naming_style.static_field_style.required_prefix = s_

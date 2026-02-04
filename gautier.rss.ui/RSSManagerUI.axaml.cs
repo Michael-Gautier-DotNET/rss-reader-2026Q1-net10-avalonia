@@ -12,7 +12,7 @@ namespace gautier.rss.ui
 {
     public partial class RSSManagerUI : Window
     {
-        private SortedList<string, Feed> _OriginalFeeds = new();
+        private readonly SortedList<string, Feed> _OriginalFeeds = new();
         private ObservableCollection<BindableFeed> _Feeds = new();
 
         public ObservableCollection<BindableFeed> Feeds
@@ -190,7 +190,7 @@ namespace gautier.rss.ui
 
                 if (!Found)
                 {
-                    BindableFeed FeedOutput = BindableFeed.ConvertFeedNarrow(UpdatedFeed);
+                    var FeedOutput = BindableFeed.ConvertFeedNarrow(UpdatedFeed);
                     _Feeds.Add(FeedOutput);
                     FeedsGrid.SelectedItem = FeedOutput;
                 }
@@ -217,11 +217,11 @@ namespace gautier.rss.ui
         {
             int ErrorCount = 0;
             StringBuilder Errors = new();
-            Action<string> DispatchError = (string errorMessage) =>
+            void DispatchError(string errorMessage)
             {
                 Errors.AppendLine(errorMessage);
                 ErrorCount++;
-            };
+            }
             string FeedNameText = FeedName.Text;
             string FeedUrlText = FeedUrl.Text;
 

@@ -5,10 +5,7 @@ namespace gautier.rss.data.RSSDb
 {
     public class SQLUtil
     {
-        public static string GetSQLiteConnectionString(string sqliteDbFilePath, int sqliteVersion)
-        {
-            return $@"Data Source={sqliteDbFilePath}; Version={sqliteVersion};";
-        }
+        public static string GetSQLiteConnectionString(string sqliteDbFilePath, int sqliteVersion) => $@"Data Source={sqliteDbFilePath}; Version={sqliteVersion};";
 
         public static SQLiteConnection OpenSQLiteConnection(in string connectionString)
         {

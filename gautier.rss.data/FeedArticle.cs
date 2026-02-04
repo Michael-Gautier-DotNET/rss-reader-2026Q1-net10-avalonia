@@ -15,9 +15,6 @@ namespace gautier.rss.data
         public string ArticleUrl { get; set; } = string.Empty;
         public string RowInsertDateTime { get; set; } = string.Empty;
 
-        private string GetDebuggerDisplay()
-        {
-            return $"{FeedName} {HeadlineText} {ArticleUrl}";
-        }
+        private string GetDebuggerDisplay() => $"{FeedName} {HeadlineText} {ArticleUrl}";
     }
 }

@@ -30,10 +30,7 @@ namespace gautier.rss.ui
 
         private static readonly string _EmptyArticle = "No article content available.";
 
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
+        public MainWindow() => InitializeComponent();
 
         private void Window_Initialized(object sender, EventArgs e)
         {
@@ -199,10 +196,7 @@ namespace gautier.rss.ui
             }
         }
 
-        private void Headline_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            ApplyArticle(Article);
-        }
+        private void Headline_SelectionChanged(object sender, SelectionChangedEventArgs e) => ApplyArticle(Article);
 
         private void ReaderTabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -394,7 +388,7 @@ namespace gautier.rss.ui
 
                 if (foundTab != null)
                 {
-                    ListBox articlesUI = foundTab.Content as ListBox;
+                    var articlesUI = foundTab.Content as ListBox;
 
                     if (!hasExistingTabs && ReaderTabs.Items.Count > 0)
                     {
@@ -534,7 +528,7 @@ namespace gautier.rss.ui
                 );
                 List<string> articleUrls = new(articles.Keys);
                 TabItem foundTab = FindRSSFeedTab(feedName);
-                ListBox articlesUI = foundTab?.Content as ListBox;
+                var articlesUI = foundTab?.Content as ListBox;
 
                 if (articlesUI.ItemsSource is ObservableCollection<FeedArticle> indexedFeedArticles)
                 {
