@@ -12,7 +12,7 @@
     MinWidth="860"
     MinHeight="440"
     SizeToContent="Manual"
-    WindowState="Normal"
+    WindowState="Maximized"
     WindowStartupLocation="CenterScreen"
     Initialized="Window_Initialized">
     <!-- Application ideally optimized 1080p screen resolutions.
