@@ -420,3 +420,5 @@ FodyWeavers.xsd
 #build artifacts
 gautier.rss.ui/*.txt
 gautier.rss.ui/*.xml
+
+.idea/
