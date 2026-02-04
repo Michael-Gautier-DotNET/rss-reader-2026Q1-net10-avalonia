@@ -73,9 +73,9 @@ namespace gautier.rss.ui.UIData
         {
             ObservableCollection<BindableFeed>? BFeeds = new();
 
-            foreach (Feed? FeedEntry in feeds.Values)
+            foreach (Feed FeedEntry in feeds.Values)
             {
-                BindableFeed? BFeed = ConvertFeed(FeedEntry);
+                BindableFeed BFeed = ConvertFeed(FeedEntry);
                 BFeeds.Add(BFeed);
             }
 
@@ -88,7 +88,7 @@ namespace gautier.rss.ui.UIData
 
             foreach (BindableFeed? BFeed in feeds)
             {
-                Feed? DFeed = ConvertFeed(BFeed);
+                Feed DFeed = ConvertFeed(BFeed);
                 DFeeds.Add(DFeed);
             }
 

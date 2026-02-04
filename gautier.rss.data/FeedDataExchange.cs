@@ -1,4 +1,4 @@
-﻿using System.Data.SQLite;
+using System.Data.SQLite;
 using System.Globalization;
 
 using gautier.rss.data.RSSDb;
@@ -97,7 +97,7 @@ namespace gautier.rss.data
             return;
         }
 
-        public static List<FeedArticleUnion> ImportRSSFeedToDatabase(in string feedSaveDirectoryPath, in string feedDbFilePath, in Feed feed)
+        public static List<FeedArticleUnion> ImportRSSFeedToDatabase(in string feedSaveDirectoryPath, in string feedDbFilePath, Feed feed)
         {
             List<FeedArticleUnion> Articles = new();
             DateTime ModificationDateTime = DateTime.Now;
@@ -113,6 +113,7 @@ namespace gautier.rss.data
                 string FileLine = string.Empty;
                 string PreviousURL = string.Empty;
                 FeedArticleUnion FeedArticlePair = new();
+                FeedArticle FA = FeedArticlePair.ArticleDetail;
                 bool InText = false;
                 List<string> LineHeaders = new()
                 {
@@ -146,18 +147,18 @@ namespace gautier.rss.data
 
                     if (Col1 == "SUM")
                     {
-                        FeedArticlePair.ArticleDetail.ArticleSummary = Col2;
+                        FA.ArticleSummary = Col2;
                     }
 
                     if (Col1 == "TEXT")
                     {
                         InText = true;
-                        FeedArticlePair.ArticleDetail.ArticleText = Col2;
+                        FA.ArticleText = Col2;
                     }
 
                     if (LineHeaders.Contains(Col1) == false && InText)
                     {
-                        FeedArticlePair.ArticleDetail.ArticleText += FileLine;
+                        FA.ArticleText += FileLine;
                     }
 
                     if (Col1 == "URL" && PreviousURL != Col2)
@@ -170,24 +171,25 @@ namespace gautier.rss.data
                                 FeedName = feed.FeedName,
                             },
                         };
-                        FeedArticlePair.ArticleDetail.RowInsertDateTime = ModificationDateTimeText;
+                        FA = FeedArticlePair.ArticleDetail;
+                        FA.RowInsertDateTime = ModificationDateTimeText;
                         Articles.Add(FeedArticlePair);
                         PreviousURL = Col2;
                     }
 
                     if (Col1 == "URL")
                     {
-                        FeedArticlePair.ArticleDetail.ArticleUrl = Col2;
+                        FA.ArticleUrl = Col2;
                     }
 
                     if (Col1 == "DATE")
                     {
-                        FeedArticlePair.ArticleDetail.ArticleDate = Col2;
+                        FA.ArticleDate = Col2;
                     }
 
                     if (Col1 == "HEAD")
                     {
-                        FeedArticlePair.ArticleDetail.HeadlineText = Col2;
+                        FA.HeadlineText = Col2;
                     }
                 }
             }
@@ -223,7 +225,7 @@ namespace gautier.rss.data
         {
             string ConnectionString = SQLUtil.GetSQLiteConnectionString(feedDbFilePath, 3);
             using SQLiteConnection SQLConn = SQLUtil.OpenSQLiteConnection(ConnectionString);
-            IList<string>? FeedNames = feedsArticles.Keys;
+            IList<string> FeedNames = feedsArticles.Keys;
             SortedList<string, Feed> Feeds = CollectFeeds(feedsArticles, FeedNames);
             /*Insert or Update feeds and feeds_articles tables*/
             UpdateRSSTables(feedsArticles, SQLConn, FeedNames, Feeds);
@@ -234,15 +236,15 @@ namespace gautier.rss.data
         {
             SortedList<string, Feed> Feeds = new();
 
-            foreach (string? FeedName in feedNames)
+            foreach (string FeedName in feedNames)
             {
                 if (Feeds.ContainsKey(FeedName) == false)
                 {
-                    List<FeedArticleUnion>? FUL = feedsArticles[FeedName];
+                    List<FeedArticleUnion> FUL = feedsArticles[FeedName];
 
                     if (FUL.Count > 0)
                     {
-                        FeedArticleUnion? FU = FUL[0];
+                        FeedArticleUnion FU = FUL[0];
                         Feeds[FeedName] = FU.FeedHeader;
                     }
                 }
@@ -253,14 +255,14 @@ namespace gautier.rss.data
 
         private static void UpdateRSSTables(in SortedList<string, List<FeedArticleUnion>> feedsArticles, in SQLiteConnection sqlConn, in IList<string> feedNames, in SortedList<string, Feed> feeds)
         {
-            foreach (string? FeedName in feedNames)
+            foreach (string FeedName in feedNames)
             {
-                Feed? FeedHeader = feeds[FeedName];
+                Feed FeedHeader = feeds[FeedName];
                 List<FeedArticleUnion> FeedArticles = feedsArticles[FeedName];
                 /*Insert or Update feeds table*/
                 ModifyFeed(sqlConn, FeedHeader);
 
-                foreach (FeedArticleUnion? article in FeedArticles)
+                foreach (FeedArticleUnion article in FeedArticles)
                 {
                     /*Insert or Update feeds_articles table*/
                     ModifyFeedArticle(sqlConn, FeedHeader, article);
@@ -336,9 +338,9 @@ namespace gautier.rss.data
             if (FeedEntries.Count > 0)
             {
                 /*Feed entries from the database.*/
-                MergeValidateFeedEntries(FeedEntries, StaticFeedEntries, FeedUrls);
+                FeedEntries = MergeValidateFeedEntries(FeedEntries, StaticFeedEntries, FeedUrls);
                 /*Feed entries from the file.*/
-                MergeValidateFeedEntries(StaticFeedEntries, FeedEntries, FeedUrls);
+                StaticFeedEntries = MergeValidateFeedEntries(StaticFeedEntries, FeedEntries, FeedUrls);
             }
 
             else
@@ -349,10 +351,15 @@ namespace gautier.rss.data
             return FeedEntries.ToArray();
         }
 
-        private static void MergeValidateFeedEntries(in List<Feed> leftSideValues, in List<Feed> rightSideValues, in List<string> secondKeys)
+        private static List<Feed> MergeValidateFeedEntries(in List<Feed> leftSideValues, in List<Feed> rightSideValues, in List<string> secondKeys)
         {
+            List<Feed> MergedValues = new();
+
             foreach (Feed LeftEntry in leftSideValues)
             {
+                Feed Updated = LeftEntry;
+                MergedValues.Add(Updated);
+
                 string SecondKey = LeftEntry.FeedUrl.ToLower();
 
                 if (secondKeys.Contains(SecondKey))
@@ -385,14 +392,14 @@ namespace gautier.rss.data
                              *          may want to compare the
                              *              file's last modifed time to the data record's last retrieved time.
                              */
-                            LeftEntry.FeedUrl = RightSideSecondKey;
+                            Updated.FeedUrl = RightSideSecondKey;
                             secondKeys.Add(RightSideSecondKey);
                         }
                     }
                 }
             }
 
-            return;
+            return MergedValues;
         }
 
         public static Feed UpdateFeedConfigurationInDatabase(in string feedDbFilePath, in Feed feed)

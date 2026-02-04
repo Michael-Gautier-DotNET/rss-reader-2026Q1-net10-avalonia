@@ -1,4 +1,4 @@
-﻿using System.Data.SQLite;
+using System.Data.SQLite;
 using System.Globalization;
 using System.Text;
 
@@ -40,7 +40,7 @@ namespace gautier.rss.data
              *          The UI version of this program will not have these requirements since RSS feed configuration will be
              *             driven by a UI screen and not subject to self-sustained start-up automation as is the case here.
              */
-            foreach (Feed? FeedInfo in feedInfos)
+            foreach (Feed FeedInfo in feedInfos)
             {
                 string FeedFilePath = FeedFileUtil.GetRSSXmlFeedFilePath(feedSaveDirectoryPath, FeedInfo);
                 /*
@@ -66,17 +66,17 @@ namespace gautier.rss.data
                  *    if the feed should be retrieved versus reusing a local cache file.
                  */
                 if (Exists)
-                    /*
-                     * Go into a complex logic cycle.
-                     *      The main goal is to access the feed based on the columns:
-                                "last_retrieved",
-                                "retrieve_limit_hrs"
+                /*
+                 * Go into a complex logic cycle.
+                 *      The main goal is to access the feed based on the columns:
+                            "last_retrieved",
+                            "retrieve_limit_hrs"
 
-                        Remember to set the ShouldCacheFileBeCreated = false when
-                            there is an indication a feed website was recently accessed.
-                        Even when there is no local file but the feed was accessed over the network,
-                        that situation must still be respected to avoid future access issues.
-                     */
+                    Remember to set the ShouldCacheFileBeCreated = false when
+                        there is an indication a feed website was recently accessed.
+                    Even when there is no local file but the feed was accessed over the network,
+                    that situation must still be respected to avoid future access issues.
+                 */
                 {
                     bool FeedCanBeUpdated = RSSNetClient.CheckFeedIsEligibleForUpdate(FeedInfo);
 
@@ -114,7 +114,7 @@ namespace gautier.rss.data
         {
             SortedList<string, List<FeedArticle>> Feeds = TransformXmlFeedToFeedArticles(feedSaveDirectoryPath, feeds);
 
-            foreach (Feed? FeedInfo in feeds)
+            foreach (Feed FeedInfo in feeds)
             {
                 if (Feeds.ContainsKey(FeedInfo.FeedName) == false)
                 {
@@ -134,7 +134,7 @@ namespace gautier.rss.data
 
             using (StreamWriter RSSFeedFile = new(NormalizedFeedFilePath, false))
             {
-                foreach (FeedArticle? Article in articles)
+                foreach (FeedArticle Article in articles)
                 {
                     string HeadlineText = Article.HeadlineText;
                     string ArticleSummary = Article.ArticleSummary;
@@ -163,7 +163,7 @@ namespace gautier.rss.data
         {
             SortedList<string, List<FeedArticle>> FeedArticles = new();
 
-            foreach (Feed? FeedInfo in feeds)
+            foreach (Feed FeedInfo in feeds)
             {
                 List<FeedArticle> Articles = TransformXmlFeedToFeedArticles(feedSaveDirectoryPath, FeedInfo);
                 FeedArticles[FeedInfo.FeedName] = Articles;
@@ -178,7 +178,7 @@ namespace gautier.rss.data
             string RSSFeedFilePath = FeedFileUtil.GetRSSXmlFeedFilePath(feedSaveDirectoryPath, feed);
             XFeed RSSFeed = RSSNetClient.CreateRSSXFeed(RSSFeedFilePath);
 
-            foreach (XArticle? RSSItem in RSSFeed.Articles)
+            foreach (XArticle RSSItem in RSSFeed.Articles)
             {
                 FeedArticle FeedItem = CreateRSSFeedArticle(feed, RSSItem);
                 Articles.Add(FeedItem);

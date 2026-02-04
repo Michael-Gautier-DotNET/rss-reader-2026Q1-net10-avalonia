@@ -106,7 +106,7 @@ namespace gautier.rss.ui
 
         private BindableFeed ResetInput()
         {
-            BindableFeed? BFeed = new();
+            BindableFeed BFeed = new();
 
             if (FeedName != null)
             {
@@ -147,7 +147,7 @@ namespace gautier.rss.ui
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            BindableFeed? CFeed = CurrentFeed ?? new BindableFeed();
+            BindableFeed CFeed = CurrentFeed ?? new BindableFeed();
             bool InputIsValid = CheckInput(CFeed);
 
             if (!InputIsValid)
@@ -167,8 +167,8 @@ namespace gautier.rss.ui
                 CFeed.LastRetrieved = DateTime.Today.AddDays(-4);
             }
 
-            Feed? DbInputFeed = BindableFeed.ConvertFeed(CFeed);
-            Feed? UpdatedFeed = FeedDataExchange.UpdateFeedConfigurationInDatabase(
+            Feed DbInputFeed = BindableFeed.ConvertFeed(CFeed);
+            Feed UpdatedFeed = FeedDataExchange.UpdateFeedConfigurationInDatabase(
                 FeedConfiguration.FeedDbFilePath,
                 DbInputFeed
             );
@@ -178,7 +178,7 @@ namespace gautier.rss.ui
             {
                 bool Found = false;
 
-                foreach (BindableFeed? FeedEntry in _Feeds)
+                foreach (BindableFeed FeedEntry in _Feeds)
                 {
                     Found = UpdatedFeed.FeedName == FeedEntry.Name;
 
@@ -190,14 +190,14 @@ namespace gautier.rss.ui
 
                 if (!Found)
                 {
-                    BindableFeed? FeedOutput = BindableFeed.ConvertFeedNarrow(UpdatedFeed);
+                    BindableFeed FeedOutput = BindableFeed.ConvertFeedNarrow(UpdatedFeed);
                     _Feeds.Add(FeedOutput);
                     FeedsGrid.SelectedItem = FeedOutput;
                 }
 
                 else
                 {
-                    foreach (BindableFeed? FeedEntry in _Feeds)
+                    foreach (BindableFeed FeedEntry in _Feeds)
                     {
                         if (FeedEntry.Name == UpdatedFeed.FeedName)
                         {
@@ -216,14 +216,14 @@ namespace gautier.rss.ui
         private bool CheckInput(in BindableFeed feed)
         {
             int ErrorCount = 0;
-            StringBuilder? Errors = new();
-            Action<string>? DispatchError = (string errorMessage) =>
+            StringBuilder Errors = new();
+            Action<string> DispatchError = (string errorMessage) =>
             {
                 Errors.AppendLine(errorMessage);
                 ErrorCount++;
             };
-            string? FeedNameText = FeedName.Text;
-            string? FeedUrlText = FeedUrl.Text;
+            string FeedNameText = FeedName.Text;
+            string FeedUrlText = FeedUrl.Text;
 
             if (string.IsNullOrWhiteSpace(FeedNameText))
             {
@@ -236,11 +236,11 @@ namespace gautier.rss.ui
             }
 
             // Unique Name Validation
-            SortedList<string, int>? Names = new();
+            SortedList<string, int> Names = new();
 
-            foreach (BindableFeed? FeedEntry in _Feeds)
+            foreach (BindableFeed FeedEntry in _Feeds)
             {
-                string? EntryFeedName = FeedEntry.Name;
+                string EntryFeedName = FeedEntry.Name;
 
                 if (Names.ContainsKey(EntryFeedName))
                 {
@@ -264,11 +264,11 @@ namespace gautier.rss.ui
             }
 
             // Unique URL Validation
-            SortedList<string, int>? Urls = new();
+            SortedList<string, int> Urls = new();
 
-            foreach (BindableFeed? FeedEntry in _Feeds)
+            foreach (BindableFeed FeedEntry in _Feeds)
             {
-                string? EntryUrl = FeedEntry.Url;
+                string EntryUrl = FeedEntry.Url;
 
                 if (Urls.ContainsKey(EntryUrl))
                 {
@@ -305,7 +305,7 @@ namespace gautier.rss.ui
 
             if (!IsValid)
             {
-                Window? messageBox = new()
+                Window messageBox = new()
                 {
                     Title = "Validation Error",
                     Content = new TextBlock { Text = Errors.ToString() },
@@ -320,7 +320,7 @@ namespace gautier.rss.ui
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            BindableFeed? CFeed = CurrentFeed;
+            BindableFeed CFeed = CurrentFeed;
 
             if (CFeed != null && CFeed.Id > 0)
             {
@@ -353,7 +353,7 @@ namespace gautier.rss.ui
             // DEBUG: Check what we're binding
             Console.WriteLine($"DEBUG: Binding {_Feeds.Count} feeds to DataGrid");
 
-            foreach (BindableFeed? feed in _Feeds)
+            foreach (BindableFeed feed in _Feeds)
             {
                 Console.WriteLine($"  - {feed.Name}: {feed.Url}");
             }
@@ -382,7 +382,7 @@ namespace gautier.rss.ui
             // ResetInput has side-effects. It clears the input fields and returns a default instance.
             // Handles cases where changing selected index is not recognized by the Grid.
             // Such a case can be when there are no rows yet.
-            BindableFeed? BFeed = CurrentFeed ?? ResetInput();
+            BindableFeed BFeed = CurrentFeed ?? ResetInput();
 
             if (FeedName != null)
             {
