@@ -1,234 +1,268 @@
-<Window xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:uidata="clr-namespace:gautier.rss.ui.UIData"
-        mc:Ignorable="d"
-        x:Class="gautier.rss.ui.RSSManagerUI"
-        Title="Gautier RSS | Feed Manager"
-        Width="1344"
-        Height="756"
-        MinWidth="860"
-        MinHeight="440"
-        SizeToContent="Manual"
-        WindowState="Normal"
-        WindowStartupLocation="CenterScreen">
-
-    <Grid Name="UIRoot" Margin="8">
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uidata="clr-namespace:gautier.rss.ui.UIData"
+    mc:Ignorable="d"
+    x:Class="gautier.rss.ui.RSSManagerUI"
+    Title="Gautier RSS | Feed Manager"
+    Width="1344"
+    Height="756"
+    MinWidth="860"
+    MinHeight="440"
+    SizeToContent="Manual"
+    WindowState="Normal"
+    WindowStartupLocation="CenterScreen">
+    <Grid
+        Name="UIRoot"
+        Margin="8">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />  <!-- Input Section -->
-            <RowDefinition Height="*" />     <!-- DataGrid -->
-            <RowDefinition Height="Auto" />  <!-- Buttons -->
+            <RowDefinition
+                Height="Auto" />
+            <!-- Input Section -->
+            <RowDefinition
+                Height="*" />
+            <!-- DataGrid -->
+            <RowDefinition
+                Height="Auto" />
+            <!-- Buttons -->
         </Grid.RowDefinitions>
-
         <!-- Input Section -->
-        <Grid Name="FeedInputGrid" Grid.Row="0" Margin="0,0,0,8">
+        <Grid
+            Name="FeedInputGrid"
+            Grid.Row="0"
+            Margin="0,0,0,8">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />  <!-- Feed Name Label -->
-                <ColumnDefinition Width="*" />     <!-- Feed Name Input -->
-                <ColumnDefinition Width="Auto" />  <!-- Feed URL Label -->
-                <ColumnDefinition Width="2*" />    <!-- Feed URL Input -->
-                <ColumnDefinition Width="Auto" />  <!-- Retrieve Limit Label -->
-                <ColumnDefinition Width="Auto" />  <!-- Retrieve Limit Slider -->
-                <ColumnDefinition Width="Auto" />  <!-- Retrieve Limit Value -->
-                <ColumnDefinition Width="Auto" />  <!-- Retention Days Label -->
-                <ColumnDefinition Width="Auto" />  <!-- Retention Days Slider -->
-                <ColumnDefinition Width="Auto" />  <!-- Retention Days Value -->
+                <ColumnDefinition
+                    Width="Auto" />
+                <!-- Feed Name Label -->
+                <ColumnDefinition
+                    Width="*" />
+                <!-- Feed Name Input -->
+                <ColumnDefinition
+                    Width="Auto" />
+                <!-- Feed URL Label -->
+                <ColumnDefinition
+                    Width="2*" />
+                <!-- Feed URL Input -->
+                <ColumnDefinition
+                    Width="Auto" />
+                <!-- Retrieve Limit Label -->
+                <ColumnDefinition
+                    Width="Auto" />
+                <!-- Retrieve Limit Slider -->
+                <ColumnDefinition
+                    Width="Auto" />
+                <!-- Retrieve Limit Value -->
+                <ColumnDefinition
+                    Width="Auto" />
+                <!-- Retention Days Label -->
+                <ColumnDefinition
+                    Width="Auto" />
+                <!-- Retention Days Slider -->
+                <ColumnDefinition
+                    Width="Auto" />
+                <!-- Retention Days Value -->
             </Grid.ColumnDefinitions>
-
             <!-- Background Layer -->
-            <Label Grid.Column="0" Grid.ColumnSpan="10"
-                   BorderBrush="Orange"
-                   BorderThickness="1"
-                   Background="#47210B"
-                   HorizontalAlignment="Stretch"
-                   VerticalAlignment="Stretch" />
-
+            <Label
+                Grid.Column="0"
+                Grid.ColumnSpan="10"
+                BorderBrush="Orange"
+                BorderThickness="1"
+                Background="#47210B"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch" />
             <!-- Feed Name -->
-            <Label Grid.Column="0"
-                   Content="Feed Name"
-                   Foreground="#FFF8A8"
-                   Margin="12"
-                   VerticalAlignment="Center" />
-
-            <TextBox Grid.Column="1"
-                     Name="FeedName"
-                     MaxLength="800"
-                     BorderBrush="#FFF8A8"
-                     Margin="12"
-                     VerticalAlignment="Center" />
-
+            <Label
+                Grid.Column="0"
+                Content="Feed Name"
+                Foreground="#FFF8A8"
+                Margin="12"
+                VerticalAlignment="Center" />
+            <TextBox
+                Grid.Column="1"
+                Name="FeedName"
+                MaxLength="800"
+                BorderBrush="#FFF8A8"
+                Margin="12"
+                VerticalAlignment="Center" />
             <!-- Feed URL -->
-            <Label Grid.Column="2"
-                   Content="Feed URL"
-                   Foreground="#FFF8A8"
-                   Margin="12"
-                   VerticalAlignment="Center" />
-
-            <TextBox Grid.Column="3"
-                     Name="FeedUrl"
-                     MaxLength="10000"
-                     BorderBrush="#FFF8A8"
-                     Margin="12"
-                     VerticalAlignment="Center" />
-
+            <Label
+                Grid.Column="2"
+                Content="Feed URL"
+                Foreground="#FFF8A8"
+                Margin="12"
+                VerticalAlignment="Center" />
+            <TextBox
+                Grid.Column="3"
+                Name="FeedUrl"
+                MaxLength="10000"
+                BorderBrush="#FFF8A8"
+                Margin="12"
+                VerticalAlignment="Center" />
             <!-- Retrieve Limit -->
-            <Label Grid.Column="4"
-                   Content="Update Loop (in Hours)"
-                   Foreground="#FFF8A8"
-                   Margin="12"
-                   VerticalAlignment="Center" />
-
-            <Slider Grid.Column="5"
-                    Name="RetrieveLimitHrs"
-                    Minimum="1"
-                    Maximum="14"
-                    Value="1"
-                    TickFrequency="1"
-                    TickPlacement="TopLeft"
-                    Foreground="#FFF8A8"
-                    Width="150"
-                    Margin="12"
-                    VerticalAlignment="Center" />
-
+            <Label
+                Grid.Column="4"
+                Content="Update Loop (in Hours)"
+                Foreground="#FFF8A8"
+                Margin="12"
+                VerticalAlignment="Center" />
+            <Slider
+                Grid.Column="5"
+                Name="RetrieveLimitHrs"
+                Minimum="1"
+                Maximum="14"
+                Value="1"
+                TickFrequency="1"
+                TickPlacement="TopLeft"
+                Foreground="#FFF8A8"
+                Width="150"
+                Margin="12"
+                VerticalAlignment="Center" />
             <!-- Retrieve Limit Value Display -->
-            <Border Grid.Column="6"
-                    BorderBrush="#FFF8A8"
-                    BorderThickness="1"
-                    Background="#47210B"
-                    CornerRadius="3"
-                    Margin="0,12,12,12"
-                    VerticalAlignment="Center">
-                <TextBlock Name="RetrieveLimitHrsValue"
-                           Text="1"
-                           Foreground="#FFF8A8"
-                           FontWeight="Bold"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
-                           Margin="6,2"
-                           MinWidth="24" />
-            </Border>
-
-            <!-- Retention Days -->
-            <Label Grid.Column="7"
-                   Content="Article Expires (in Days)"
-                   Foreground="#FFF8A8"
-                   Margin="12"
-                   VerticalAlignment="Center" />
-
-            <Slider Grid.Column="8"
-                    Name="RetentionDays"
-                    Minimum="1"
-                    Maximum="60"
-                    Value="45"
-                    TickFrequency="1"
-                    TickPlacement="TopLeft"
+            <Border
+                Grid.Column="6"
+                BorderBrush="#FFF8A8"
+                BorderThickness="1"
+                Background="#47210B"
+                CornerRadius="3"
+                Margin="0,12,12,12"
+                VerticalAlignment="Center">
+                <TextBlock
+                    Name="RetrieveLimitHrsValue"
+                    Text="1"
                     Foreground="#FFF8A8"
-                    Width="150"
-                    Margin="12"
-                    VerticalAlignment="Center" />
-
+                    FontWeight="Bold"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Margin="6,2"
+                    MinWidth="24" />
+            </Border>
+            <!-- Retention Days -->
+            <Label
+                Grid.Column="7"
+                Content="Article Expires (in Days)"
+                Foreground="#FFF8A8"
+                Margin="12"
+                VerticalAlignment="Center" />
+            <Slider
+                Grid.Column="8"
+                Name="RetentionDays"
+                Minimum="1"
+                Maximum="60"
+                Value="45"
+                TickFrequency="1"
+                TickPlacement="TopLeft"
+                Foreground="#FFF8A8"
+                Width="150"
+                Margin="12"
+                VerticalAlignment="Center" />
             <!-- Retention Days Value Display -->
-            <Border Grid.Column="9"
-                    BorderBrush="#FFF8A8"
-                    BorderThickness="1"
-                    Background="#47210B"
-                    CornerRadius="3"
-                    Margin="0,12,12,12"
-                    VerticalAlignment="Center">
-                <TextBlock Name="RetentionDaysValue"
-                           Text="45"
-                           Foreground="#FFF8A8"
-                           FontWeight="Bold"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
-                           Margin="6,2"
-                           MinWidth="24" />
+            <Border
+                Grid.Column="9"
+                BorderBrush="#FFF8A8"
+                BorderThickness="1"
+                Background="#47210B"
+                CornerRadius="3"
+                Margin="0,12,12,12"
+                VerticalAlignment="Center">
+                <TextBlock
+                    Name="RetentionDaysValue"
+                    Text="45"
+                    Foreground="#FFF8A8"
+                    FontWeight="Bold"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Margin="6,2"
+                    MinWidth="24" />
             </Border>
         </Grid>
-
         <!-- DataGrid Section -->
-
-
         <!-- DataGrid Section -->
-        <Border Grid.Row="1"
-                BorderBrush="Red"
-                BorderThickness="3"
-                Background="Yellow"
-                Margin="0,0,0,8">
-
-
-            <DataGrid Name="FeedsGrid"
-                      x:DataType="uidata:BindableFeed"
-                      AutoGenerateColumns="False"
-                      IsReadOnly="True"
-                      SelectionMode="Single"
-                      HorizontalAlignment="Stretch"
-                      VerticalAlignment="Stretch"
-                      Background="Orange"
-                      BorderBrush="RosyBrown"
-                      BorderThickness="1"
-                      MinHeight="200"
-                      MinWidth="200"
-                      HeadersVisibility="All"
-                      GridLinesVisibility="All"
-                      IsVisible="True"
-                      VerticalScrollBarVisibility="Visible"
-                      SelectionChanged="FeedsGrid_SelectionChanged">
+        <Border
+            Grid.Row="1"
+            BorderBrush="Red"
+            BorderThickness="3"
+            Background="Yellow"
+            Margin="0,0,0,8">
+            <DataGrid
+                Name="FeedsGrid"
+                x:DataType="uidata:BindableFeed"
+                AutoGenerateColumns="False"
+                IsReadOnly="True"
+                SelectionMode="Single"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Background="Orange"
+                BorderBrush="RosyBrown"
+                BorderThickness="1"
+                MinHeight="200"
+                MinWidth="200"
+                HeadersVisibility="All"
+                GridLinesVisibility="All"
+                IsVisible="True"
+                VerticalScrollBarVisibility="Visible"
+                SelectionChanged="FeedsGrid_SelectionChanged">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Name"
-                                        Binding="{Binding Name}" />
-                    <DataGridTextColumn Header="URL"
-                                        Binding="{Binding Url}" />
-                    <DataGridTextColumn Header="Retrieve Limit (Hrs)"
-                                        Binding="{Binding RetrieveLimitHrs}" />
-                    <DataGridTextColumn Header="Retention Days"
-                                        Binding="{Binding RetentionDays}" />
-                    <DataGridTextColumn Header="Last Retrieved"
-                                        Binding="{Binding LastRetrieved}" />
+                    <DataGridTextColumn
+                        Header="Name"
+                        Binding="{Binding Name}" />
+                    <DataGridTextColumn
+                        Header="URL"
+                        Binding="{Binding Url}" />
+                    <DataGridTextColumn
+                        Header="Retrieve Limit (Hrs)"
+                        Binding="{Binding RetrieveLimitHrs}" />
+                    <DataGridTextColumn
+                        Header="Retention Days"
+                        Binding="{Binding RetentionDays}" />
+                    <DataGridTextColumn
+                        Header="Last Retrieved"
+                        Binding="{Binding LastRetrieved}" />
                 </DataGrid.Columns>
             </DataGrid>
-
-
         </Border>
-
-
         <!-- Buttons Section -->
-        <StackPanel Grid.Row="2"
-                        Background="#D40000"
-                        FlowDirection="RightToLeft"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Center"
-                        Orientation="Horizontal">
-            <Button Name="NewButton"
-                    Content="New Feed"
-                    Click="NewButton_Click"
-                    Background="Orange"
-                    BorderBrush="OrangeRed"
-                    BorderThickness="1"
-                    Margin="4"
-                    Padding="8,4"
-                    MinWidth="100" />
-
-            <Button Name="SaveButton"
-                    Content="Save Feed"
-                    Click="SaveButton_Click"
-                    Background="Orange"
-                    BorderBrush="OrangeRed"
-                    BorderThickness="1"
-                    Margin="4"
-                    Padding="8,4"
-                    MinWidth="100" />
-
-            <Button Name="DeleteButton"
-                    Content="Delete Feed"
-                    Click="DeleteButton_Click"
-                    Background="Orange"
-                    BorderBrush="OrangeRed"
-                    BorderThickness="1"
-                    Margin="4"
-                    Padding="8,4"
-                    MinWidth="100" />
+        <StackPanel
+            Grid.Row="2"
+            Background="#D40000"
+            FlowDirection="RightToLeft"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Center"
+            Orientation="Horizontal">
+            <Button
+                Name="NewButton"
+                Content="New Feed"
+                Click="NewButton_Click"
+                Background="Orange"
+                BorderBrush="OrangeRed"
+                BorderThickness="1"
+                Margin="4"
+                Padding="8,4"
+                MinWidth="100" />
+            <Button
+                Name="SaveButton"
+                Content="Save Feed"
+                Click="SaveButton_Click"
+                Background="Orange"
+                BorderBrush="OrangeRed"
+                BorderThickness="1"
+                Margin="4"
+                Padding="8,4"
+                MinWidth="100" />
+            <Button
+                Name="DeleteButton"
+                Content="Delete Feed"
+                Click="DeleteButton_Click"
+                Background="Orange"
+                BorderBrush="OrangeRed"
+                BorderThickness="1"
+                Margin="4"
+                Padding="8,4"
+                MinWidth="100" />
         </StackPanel>
     </Grid>
 </Window>
