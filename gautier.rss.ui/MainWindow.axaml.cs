@@ -25,7 +25,7 @@ namespace gautier.rss.ui
         private int _FeedIndex = -1;
 
         private readonly TimeSpan _QuickTimeSpan = TimeSpan.FromSeconds(0.7);
-        private readonly TimeSpan _MidTimeSpan = TimeSpan.FromSeconds(47);
+        private readonly TimeSpan _MidTimeSpan = TimeSpan.FromSeconds(90000);
         private DispatcherTimer _FeedUpdateTimer;
 
         private static readonly string _EmptyArticle = "No article content available.";
@@ -153,7 +153,7 @@ namespace gautier.rss.ui
 
         private ListBox FeedHeadlines
         {
-            get => ReaderTab.Content as ListBox;
+            get => ReaderTab?.Content as ListBox;
         }
 
         private FeedArticle Article
@@ -186,40 +186,44 @@ namespace gautier.rss.ui
 
         private void ReaderManagerButton_Click(object sender, RoutedEventArgs e)
         {
-            if (_FeedsInitialized)
+            if (!_FeedsInitialized)
             {
-                _FeedUpdateTimer.Stop();
-                RSSManagerUI managerWindow = new();
-                managerWindow.ShowDialog(this);
-                CheckRSSManagerUIUpdates(managerWindow);
-                _FeedUpdateTimer.Start();
+                return;
             }
+
+            _FeedsInitialized = false;//Behavior of Avalonia is different than WPF when it comes to Window open and selection changed events. Need a guard at this time.
+            _FeedUpdateTimer.Stop();
+
+            ReaderTabs.SelectionChanged -= ReaderTabs_SelectionChanged;
+
+            RSSManagerUI managerWindow = new();
+
+            managerWindow.Closed += (localSender, localEventArgs) => CheckRSSManagerUIUpdates(managerWindow);
+
+            managerWindow.ShowDialog(this);
         }
 
         private void CheckRSSManagerUIUpdates(RSSManagerUI ui)
         {
-            // Get the updated feeds from the manager
-            ObservableCollection<BindableFeed> ConfiguredFeeds = ui.Feeds;
-            int ConfiguredFeedCount = ConfiguredFeeds.Count;
-            // Update local feeds from database
-            _Feeds = FeedDataExchange.GetAllFeeds(FeedConfiguration.SQLiteDbConnectionString);
-            // Rebuild tabs based on current database state
-            _ReaderTabItems.Clear();
-            ReaderTabs.Items.Clear();
-            // Reinitialize feed configurations
-            _FeedIndex = _Feeds != null && _Feeds.Count > 0 ? 0 : -1;
-            InitializeFeedConfigurations();
-
-            if (ReaderTabs.Items.Count > 0)
+            if (_FeedsInitialized)
             {
-                ReaderTabs.SelectedIndex = 0;
+                return;
             }
 
-            ApplyFeed();
-            UIRoot.UpdateLayout();
-            ReaderTabs.UpdateLayout();
+            ObservableCollection<BindableFeed> ConfiguredFeeds = ui.Feeds;
+
+            int ConfiguredFeedCount = ConfiguredFeeds.Count;
+
+            _Feeds = FeedDataExchange.GetAllFeeds(FeedConfiguration.SQLiteDbConnectionString);
+
+            _ReaderTabItems.Clear();
+            ReaderTabs.Items.Clear();
+
+            Dispatcher.UIThread.Invoke(InitializeFeedTabs);
+
+            _FeedUpdateTimer.Start();
         }
-        
+
         private void Headline_SelectionChanged(object sender, SelectionChangedEventArgs e) => ApplyArticle(Article);
 
         private void ReaderTabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -230,6 +234,7 @@ namespace gautier.rss.ui
             }
 
             _FeedIndex = ReaderTabs.SelectedIndex;
+
             ApplyFeed();
         }
 
@@ -284,7 +289,7 @@ namespace gautier.rss.ui
                 }
             }
 
-            if (FeedHeadlines.SelectedItem != null)
+            if (FeedHeadlines?.SelectedItem != null)
             {
                 ApplyArticle(this.Article);
             }
