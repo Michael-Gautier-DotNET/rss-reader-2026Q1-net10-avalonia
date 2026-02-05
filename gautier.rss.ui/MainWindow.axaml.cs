@@ -98,29 +98,45 @@ namespace gautier.rss.ui
             {
                 string RSSXmlFilePath = RSSNetClient.DownloadFeed(FeedConfiguration.FeedSaveDirectoryPath, FeedEntry);
 
+                Console.WriteLine($"\t\t UI {nameof(DownloadFeedsAsync)} {FeedEntry.FeedName} {FeedEntry.FeedUrl} {RSSXmlFilePath}");
+
                 if (File.Exists(RSSXmlFilePath))
                 {
                     string RSSIntegrationFilePath =
                         FeedFileUtil.GetRSSTabDelimitedFeedFilePath(FeedConfiguration.FeedSaveDirectoryPath, FeedEntry);
 
+                    Console.WriteLine($"\t\t UI {nameof(DownloadFeedsAsync)} {FeedEntry.FeedName} {FeedEntry.FeedUrl} {RSSIntegrationFilePath}");
+
                     List<FeedArticle> Articles =
                         FeedFileConverter.TransformXmlFeedToFeedArticles(FeedConfiguration.FeedSaveDirectoryPath,
                             FeedEntry);
+
+                    Console.WriteLine($"\t\t UI {nameof(DownloadFeedsAsync)} {FeedEntry.FeedName} {FeedEntry.FeedUrl} saved to: {FeedConfiguration.FeedSaveDirectoryPath}");
+
                     string RSSTabDelimitedFilePath =
                         FeedFileConverter.WriteRSSArticlesToFile(FeedConfiguration.FeedSaveDirectoryPath, FeedEntry,
                             Articles);
+
+                    Console.WriteLine($"\t\t UI {nameof(DownloadFeedsAsync)} {FeedEntry.FeedName} {FeedEntry.FeedUrl} delimited in: {FeedConfiguration.FeedSaveDirectoryPath}");
+
                     bool RSSIntegrationPathIsValid = RSSIntegrationFilePath == RSSTabDelimitedFilePath;
 
+                    Console.WriteLine($"\t\t UI {nameof(DownloadFeedsAsync)} {FeedEntry.FeedName} {FeedEntry.FeedUrl} integration path valid: {RSSIntegrationPathIsValid}");
                     if (RSSIntegrationPathIsValid && File.Exists(RSSTabDelimitedFilePath))
                     {
+                        Console.WriteLine($"\t\t UI {nameof(DownloadFeedsAsync)} {FeedEntry.FeedName} {FeedEntry.FeedUrl} DATABASE IMPORT {RSSTabDelimitedFilePath}");
                         FeedDataExchange.ImportRSSFeedToDatabase(FeedConfiguration.FeedSaveDirectoryPath,
                             FeedConfiguration.FeedDbFilePath, FeedEntry);
                     }
                 }
             }
 
+            Console.WriteLine($"\t\t UI {nameof(DownloadFeedsAsync)} {DbFeeds} Feeds");
+
             foreach (Feed FeedEntry in DbFeeds.Values)
             {
+                Console.WriteLine($"\t\t UI {nameof(DownloadFeedsAsync)} Processing {FeedEntry.FeedName} {FeedEntry.FeedUrl} Last Retrieved {FeedEntry.LastRetrieved}");
+
                 ExecuteDownload(FeedEntry);
             }
 
