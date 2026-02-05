@@ -209,7 +209,8 @@ namespace gautier.rss.data
                 string ConnectionString = SQLUtil.GetSQLiteConnectionString(feedDbFilePath, 3);
                 using SQLiteConnection SQLConn = SQLUtil.OpenSQLiteConnection(ConnectionString);
 
-                Console.WriteLine($"DATA LAYER INTERFACE {nameof(ImportRSSFeedToDatabase)} Feeds {Feeds.Count} FeedNames {FeedNames.Count} FeedsArticles {FeedsArticles.Count}");
+                /*Leave these quick diagnostic statements. They are useful in a pinch.*/
+                //Console.WriteLine($"DATA LAYER INTERFACE {nameof(ImportRSSFeedToDatabase)} Feeds {Feeds.Count} FeedNames {FeedNames.Count} FeedsArticles {FeedsArticles.Count}");
                 UpdateRSSTables(FeedsArticles, SQLConn, FeedNames, Feeds);
             }
 
@@ -259,11 +260,13 @@ namespace gautier.rss.data
                 /*Insert or Update feeds table*/
                 ModifyFeed(sqlConn, FeedHeader);
 
-                Console.WriteLine($"DATA LAYER INTERFACE {nameof(UpdateRSSTables)} STEP 1 ALL Feed Names {feedNames.Count} then Feed {FeedName} FeedsArticles {FeedArticles.Count}");
+                /*Leave these quick diagnostic statements. They are useful in a pinch.*/
+                //Console.WriteLine($"DATA LAYER INTERFACE {nameof(UpdateRSSTables)} STEP 1 ALL Feed Names {feedNames.Count} then Feed {FeedName} FeedsArticles {FeedArticles.Count}");
 
                 foreach (FeedArticleUnion? article in FeedArticles)
                 {
-                    Console.WriteLine($"DATA LAYER INTERFACE {nameof(UpdateRSSTables)} STEP 2 Headline {article.ArticleDetail.HeadlineText} Summary {article.ArticleDetail.ArticleSummary} Text {article.ArticleDetail.ArticleText} URL {article.ArticleDetail.ArticleUrl}");
+                    /*Leave these quick diagnostic statements. They are useful in a pinch.*/
+                    //Console.WriteLine($"DATA LAYER INTERFACE {nameof(UpdateRSSTables)} STEP 2 Headline {article.ArticleDetail.HeadlineText} Summary {article.ArticleDetail.ArticleSummary} Text {article.ArticleDetail.ArticleText} URL {article.ArticleDetail.ArticleUrl}");
 
                     /*Insert or Update feeds_articles table*/
                     ModifyFeedArticle(sqlConn, FeedHeader, article);
