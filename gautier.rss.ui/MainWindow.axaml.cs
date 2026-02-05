@@ -16,13 +16,9 @@ namespace gautier.rss.ui
 {
     public partial class MainWindow : Window
     {
-        private readonly List<TabItem> _ReaderTabItems = [];
-
-        private bool _FeedsInitialized = false;
         private DateTime _LastExpireCheck = DateTime.Now;
         private SortedList<string, Feed> _Feeds = null;
-        private SortedList<string, FeedArticle> _FeedsArticles = null;
-        private int _FeedIndex = -1;
+        private SortedList<string, Feed> _FeedsBefore = null;
 
         private readonly TimeSpan _QuickTimeSpan = TimeSpan.FromSeconds(0.7);
         private readonly TimeSpan _MidTimeSpan = TimeSpan.FromSeconds(3);
@@ -30,14 +26,9 @@ namespace gautier.rss.ui
 
         private static readonly string _EmptyArticle = "No article content available.";
 
-        private bool IsFeedIndexValid
-        {
-            get => _FeedIndex > -1 && _FeedIndex < _ReaderTabItems.Count;
-        }
-
         private TabItem ReaderTab
         {
-            get => IsFeedIndexValid ? _ReaderTabItems[_FeedIndex] : null;
+            get => ReaderTabs.SelectedItem as TabItem;
         }
 
         private ListBox FeedHeadlines
@@ -58,6 +49,7 @@ namespace gautier.rss.ui
             {
                 Interval = _QuickTimeSpan,
             };
+
             _FeedUpdateTimer.Tick += UpdateFeedsOnInterval;
             _FeedUpdateTimer.Start();
         }
@@ -73,20 +65,19 @@ namespace gautier.rss.ui
 
         private async Task AcquireFeedsAsync()
         {
-            if (_FeedsInitialized)
-            {
-                _FeedUpdateTimer.Stop();
-                await DownloadFeedsAsync();
-            }
-            else
+            await DownloadFeedsAsync();
+
+            lock (_FeedUpdateTimer)
             {
                 FeedDataExchange.RemoveExpiredArticlesFromDatabase(FeedConfiguration.SQLiteDbConnectionString);
+                if (_FeedsBefore == null)
+                {
+                    _FeedsBefore = _Feeds;
+                }
+
                 _Feeds = FeedDataExchange.GetAllFeeds(FeedConfiguration.SQLiteDbConnectionString);
             }
-
-            await Dispatcher.UIThread.InvokeAsync(InitializeFeedTabs);
-
-            _FeedUpdateTimer.Start();
+            await Dispatcher.UIThread.InvokeAsync(UpdateFeedTabs);
         }
 
         private async Task DownloadFeedsAsync()
@@ -98,40 +89,41 @@ namespace gautier.rss.ui
             {
                 string RSSXmlFilePath = RSSNetClient.DownloadFeed(FeedConfiguration.FeedSaveDirectoryPath, FeedEntry);
 
-                Console.WriteLine($"\t\t UI {nameof(DownloadFeedsAsync)} {FeedEntry.FeedName} {FeedEntry.FeedUrl} {RSSXmlFilePath}");
+                /*Leave these quick diagnostic statements. They are useful in a pinch.*/
+                //Console.WriteLine($"\t\t UI {nameof(DownloadFeedsAsync)} {FeedEntry.FeedName} {FeedEntry.FeedUrl} {RSSXmlFilePath}");
 
                 if (File.Exists(RSSXmlFilePath))
                 {
                     string RSSIntegrationFilePath =
                         FeedFileUtil.GetRSSTabDelimitedFeedFilePath(FeedConfiguration.FeedSaveDirectoryPath, FeedEntry);
 
-                    Console.WriteLine($"\t\t UI {nameof(DownloadFeedsAsync)} {FeedEntry.FeedName} {FeedEntry.FeedUrl} {RSSIntegrationFilePath}");
+                    //Console.WriteLine($"\t\t UI {nameof(DownloadFeedsAsync)} {FeedEntry.FeedName} {FeedEntry.FeedUrl} {RSSIntegrationFilePath}");
 
                     List<FeedArticle> Articles =
                         FeedFileConverter.TransformXmlFeedToFeedArticles(FeedConfiguration.FeedSaveDirectoryPath,
                             FeedEntry);
 
-                    Console.WriteLine($"\t\t UI {nameof(DownloadFeedsAsync)} {FeedEntry.FeedName} {FeedEntry.FeedUrl} saved to: {FeedConfiguration.FeedSaveDirectoryPath}");
+                    //Console.WriteLine($"\t\t UI {nameof(DownloadFeedsAsync)} {FeedEntry.FeedName} {FeedEntry.FeedUrl} saved to: {FeedConfiguration.FeedSaveDirectoryPath}");
 
                     string RSSTabDelimitedFilePath =
                         FeedFileConverter.WriteRSSArticlesToFile(FeedConfiguration.FeedSaveDirectoryPath, FeedEntry,
                             Articles);
 
-                    Console.WriteLine($"\t\t UI {nameof(DownloadFeedsAsync)} {FeedEntry.FeedName} {FeedEntry.FeedUrl} delimited in: {FeedConfiguration.FeedSaveDirectoryPath}");
+                    //Console.WriteLine($"\t\t UI {nameof(DownloadFeedsAsync)} {FeedEntry.FeedName} {FeedEntry.FeedUrl} delimited in: {FeedConfiguration.FeedSaveDirectoryPath}");
 
                     bool RSSIntegrationPathIsValid = RSSIntegrationFilePath == RSSTabDelimitedFilePath;
 
-                    Console.WriteLine($"\t\t UI {nameof(DownloadFeedsAsync)} {FeedEntry.FeedName} {FeedEntry.FeedUrl} integration path valid: {RSSIntegrationPathIsValid}");
+                    //Console.WriteLine($"\t\t UI {nameof(DownloadFeedsAsync)} {FeedEntry.FeedName} {FeedEntry.FeedUrl} integration path valid: {RSSIntegrationPathIsValid}");
                     if (RSSIntegrationPathIsValid && File.Exists(RSSTabDelimitedFilePath))
                     {
-                        Console.WriteLine($"\t\t UI {nameof(DownloadFeedsAsync)} {FeedEntry.FeedName} {FeedEntry.FeedUrl} DATABASE IMPORT {RSSTabDelimitedFilePath}");
+                        //Console.WriteLine($"\t\t UI {nameof(DownloadFeedsAsync)} {FeedEntry.FeedName} {FeedEntry.FeedUrl} DATABASE IMPORT {RSSTabDelimitedFilePath}");
                         FeedDataExchange.ImportRSSFeedToDatabase(FeedConfiguration.FeedSaveDirectoryPath,
                             FeedConfiguration.FeedDbFilePath, FeedEntry);
                     }
                 }
             }
 
-            Console.WriteLine($"\t\t UI {nameof(DownloadFeedsAsync)} {DbFeeds} Feeds");
+            Console.WriteLine($"\t\t UI {nameof(DownloadFeedsAsync)} {DbFeeds.Count} Feeds");
 
             foreach (Feed FeedEntry in DbFeeds.Values)
             {
@@ -154,155 +146,142 @@ namespace gautier.rss.ui
             }
         }
 
-        private async void InitializeFeedTabs()
+        private async void UpdateFeedTabs()
         {
-            if (_FeedsInitialized)
+            ReaderManagerButton.IsEnabled = false;
+            try
             {
-                ApplyNewFeeds();
+                SyncTabs();
             }
-
-            else
+            finally
             {
-                _FeedIndex = _Feeds != null && _Feeds.Count > 0 ? 0 : -1;
-                InitializeFeedConfigurations();
-                ApplyFeed();
-                _FeedsInitialized = true;
-                ReaderTabs.SelectionChanged += ReaderTabs_SelectionChanged;
                 ReaderManagerButton.IsEnabled = true;
+
+                _FeedUpdateTimer.Start();
             }
         }
 
-        private void InitializeFeedConfigurations()
+        private void SyncTabs()
         {
-            if (_Feeds == null)
+            RemoveOrphanedTabs();
+
+            //Add new tabs
+            foreach (Feed FeedEntry in _Feeds.Values)
+            {
+                var FeedUrl = FeedEntry.FeedUrl;
+
+                var Exists = GetTabByUrl(FeedUrl) != null;
+
+                if (Exists == false)
+                {
+                    TabItem FeedTab = AddRSSTab(FeedEntry);
+
+                    AddArticles(FeedEntry, FeedTab);
+                }
+            }
+        }
+
+        private void RemoveOrphanedTabs()
+        {
+            if (_FeedsBefore == null)
             {
                 return;
             }
 
-            foreach (string feedName in _Feeds.Keys)
+            //Remove tabs that are no longer in the database
+            foreach (Feed FeedEntry in _FeedsBefore.Values)
             {
-                AddRSSTab(feedName);
+                var FeedUrl = FeedEntry.FeedUrl;
+
+                var Exists = true;
+
+                foreach (Feed ActiveFeedEntry in _Feeds.Values)
+                {
+                    Exists = (ActiveFeedEntry.FeedUrl == FeedUrl);
+
+                    if (Exists)
+                    {
+                        break;
+                    }
+                }
+
+                if (Exists == false)
+                {
+                    TabItem FeedTab = GetTabByUrl(FeedUrl);
+                    ReaderTabs.Items.Remove(FeedTab);
+                }
             }
 
-            if (ReaderTabs.Items.Count > 0)
-            {
-                ReaderTabs.SelectedIndex = 0;
-            }
+            _FeedsBefore = null;
         }
 
-        private void AddRSSTab(string name)
+        private TabItem AddRSSTab(Feed feed)
         {
-            ListBox listBox = new()
+            ListBox Contents = new()
             {
                 Background = Brushes.Transparent,
                 BorderThickness = new(0),
-                FontSize = 16
+                FontSize = 16,
+                ItemsSource = new ObservableCollection<FeedArticle>()
             };
-            App.SetDisplayMemberPath(listBox, "HeadlineText");
-            listBox.SelectionChanged += Headline_SelectionChanged;
-            TabItem tabItem = new()
+
+            App.SetDisplayMemberPath(Contents, "HeadlineText");
+            Contents.SelectionChanged += Headline_SelectionChanged;
+
+            TabItem Tab = new()
             {
-                Header = name,
-                Content = listBox,
+                Header = feed.FeedName,
+                Tag = feed.FeedUrl,
+                Content = Contents,
             };
-            _ReaderTabItems.Add(tabItem);
-            ReaderTabs.Items.Add(tabItem);
+
+            ReaderTabs.Items.Add(Tab);
+
+            return Tab;
         }
 
-        private void ApplyFeed()
+        private TabItem GetTabByUrl(string url)
         {
-            if (IsFeedIndexValid && ReaderTab != null)
-            {
-                string feedName = ReaderTab.Header?.ToString() ?? string.Empty;
-                ReaderFeedName.Content = feedName;
+            TabItem Tab = null;
 
-                var FeedHasValueText = !string.IsNullOrWhiteSpace(feedName) ? "Yes" : "No";
-                System.Console.WriteLine($"UI {nameof(MainWindow)} Feed has value {FeedHasValueText}");
-                System.Console.WriteLine($"UI {nameof(MainWindow)} Change to feed {feedName}");
-                System.Console.WriteLine($"UI {nameof(MainWindow)} Feed Headlines Count {FeedHeadlines.Items.Count}");
-
-                if (FeedHeadlines != null && FeedHeadlines.Items != null && FeedHeadlines.Items.Count == 0)
-                {
-                    System.Console.WriteLine($"UI {nameof(MainWindow)} Getting Articles {feedName}");
-
-                    _FeedsArticles = FeedDataExchange.GetFeedArticles(
-                        FeedConfiguration.SQLiteDbConnectionString,
-                        feedName
-                    );
-
-                    if (_FeedsArticles != null)
-                    {
-                        System.Console.WriteLine($"UI {nameof(MainWindow)} Applying Articles to Headlines Source {_FeedsArticles.Count}");
-
-                        ObservableCollection<FeedArticle> indexedFeedArticles = new(_FeedsArticles.Values);
-                        FeedHeadlines.ItemsSource = from n in indexedFeedArticles where !string.IsNullOrWhiteSpace(n.HeadlineText) select n;
-
-                        System.Console.WriteLine($"UI {nameof(MainWindow)} Applied {indexedFeedArticles.Count} Articles from {feedName}");
-                    }
-                }
-            }
-
-            if (FeedHeadlines?.SelectedItem != null)
-            {
-                ApplyArticle(this.Article);
-            }
-        }
-
-        private void ApplyNewFeeds()
-        {
-            if (_Feeds == null)
-            {
-                return;
-            }
-
-            List<string> rssFeedNames = new(_Feeds.Keys);
-
-            foreach (string feedName in rssFeedNames)
-            {
-                SortedList<string, FeedArticle> articles = FeedDataExchange.GetFeedArticles(
-                    FeedConfiguration.SQLiteDbConnectionString,
-                    feedName
-                );
-                List<string> articleUrls = new(articles.Keys);
-                TabItem foundTab = FindRSSFeedTab(feedName);
-                var articlesUI = foundTab?.Content as ListBox;
-
-                if (articlesUI.ItemsSource is ObservableCollection<FeedArticle> indexedFeedArticles)
-                {
-                    int addedArticleCount = 0;
-
-                    foreach (string articleUrl in articleUrls)
-                    {
-                        bool found = ContainsArticleUrl(indexedFeedArticles, articleUrl);
-
-                        if (!found)
-                        {
-                            FeedArticle article = articles[articleUrl];
-                            indexedFeedArticles.Add(article);
-                            addedArticleCount++;
-                        }
-                    }
-
-                    if (addedArticleCount > 0)
-                    {
-                        articlesUI.ItemsSource = indexedFeedArticles;
-                        articlesUI.UpdateLayout();
-                    }
-                }
-            }
-        }
-
-        private TabItem FindRSSFeedTab(string name)
-        {
             foreach (TabItem tab in ReaderTabs.Items)
             {
-                if (tab.Header.ToString() == name)
+                var Found = $"{tab.Tag}" == url;
+
+                if (Found)
                 {
-                    return tab;
+                    Tab = tab;
+                    break;
                 }
             }
 
-            return null;
+            return Tab;
+        }
+
+        private void AddArticles(Feed feedEntry, TabItem tab)
+        {
+            SortedList<string, FeedArticle> AllArticles = FeedDataExchange.GetFeedArticles(FeedConfiguration.SQLiteDbConnectionString, feedEntry.FeedName);
+
+            List<string> AllArticleUrls = new(AllArticles.Keys);
+
+            if ((tab.Content as ListBox)?.ItemsSource is ObservableCollection<FeedArticle> EffectiveArticles)
+            {
+                foreach (string ArticleUrl in AllArticleUrls)
+                {
+                    bool Exists = ContainsArticleUrl(EffectiveArticles, ArticleUrl);
+
+                    if (!Exists)
+                    {
+                        FeedArticle Article = AllArticles[ArticleUrl];
+                        EffectiveArticles.Add(Article);
+                    }
+                }
+
+                var FeedContent = tab.Content as ListBox;
+
+                FeedContent.ItemsSource = EffectiveArticles;
+                FeedContent.UpdateLayout();
+            }
         }
 
         private static bool ContainsArticleUrl(IList<FeedArticle> articles, string articleUrl)
@@ -430,55 +409,23 @@ namespace gautier.rss.ui
 
         private void ReaderTabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (!_FeedsInitialized)
-            {
-                return;
-            }
-
-            _FeedIndex = ReaderTabs.SelectedIndex;
-
-            ApplyFeed();
+            return;
         }
 
         private void ReaderManagerButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!_FeedsInitialized)
-            {
-                return;
-            }
-
-            _FeedsInitialized = false;//Behavior of Avalonia is different than WPF when it comes to Window open and selection changed events. Need a guard at this time.
             _FeedUpdateTimer.Stop();
-
-            ReaderTabs.SelectionChanged -= ReaderTabs_SelectionChanged;
 
             RSSManagerUI managerWindow = new();
 
-            managerWindow.Closed += (localSender, localEventArgs) => CheckRSSManagerUIUpdates(managerWindow);
+            managerWindow.Closed += (localSender, localEventArgs) => RSSManagerClosed();
 
             managerWindow.ShowDialog(this);
         }
 
-        private void CheckRSSManagerUIUpdates(RSSManagerUI ui)
+        private void RSSManagerClosed()
         {
-            ObservableCollection<BindableFeed> ConfiguredFeeds = ui.Feeds;
-
-            int ConfiguredFeedCount = ConfiguredFeeds.Count;
-
-            ReaderTabs.IsEnabled = false;//Lock tabs. **** Lock start
-
-            _Feeds = FeedDataExchange.GetAllFeeds(FeedConfiguration.SQLiteDbConnectionString);
-
-            _ReaderTabItems.Clear();
-            ReaderTabs.Items.Clear();
-
-            /*Ensure this runs synchronously and the caller does the same. Upstream call chain is synchronous.*/
-            Dispatcher.UIThread.Invoke(InitializeFeedTabs);
-
             _FeedUpdateTimer.Interval = _QuickTimeSpan;
-
-            ReaderTabs.IsEnabled = true;//Unlock tabs. **** Lock end
-
             _FeedUpdateTimer.Start();
         }
     }
