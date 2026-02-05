@@ -12,71 +12,26 @@ namespace gautier.rss.ui
 {
     public partial class RSSManagerUI : Window
     {
-        private readonly SortedList<string, Feed> _OriginalFeeds = new();
         private ObservableCollection<BindableFeed> _Feeds = new();
-
-        public ObservableCollection<BindableFeed> Feeds
-        {
-            get => _Feeds;
-        }
 
         private BindableFeed CurrentFeed
         {
             get => FeedsGrid.SelectedItem as BindableFeed;
         }
 
-        public RSSManagerUI()
+        public RSSManagerUI() => InitializeComponent();
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            InitializeComponent();
-            WindowState = WindowState.Maximized;
-            FeedDataExchange.RemoveExpiredArticlesFromDatabase(FeedConfiguration.SQLiteDbConnectionString);
-            _OriginalFeeds = FeedDataExchange.GetAllFeeds(FeedConfiguration.SQLiteDbConnectionString);
-            Loaded += OnWindowLoaded;
-        }
-
-        private void OnWindowLoaded(object sender, RoutedEventArgs e)
-        {
-            if (RetrieveLimitHrs != null)
-            {
-                RetrieveLimitHrs.PropertyChanged += RetrieveLimitHrs_PropertyChanged;
-            }
-
-            if (RetentionDays != null)
-            {
-                RetentionDays.PropertyChanged += RetentionDays_PropertyChanged;
-            }
-
             ResetInput();
             FeedName.Focus();
 
-            if (DeleteButton != null)
-            {
-                DeleteButton.Click += DeleteButton_Click;
-            }
-
-            if (SaveButton != null)
-            {
-                SaveButton.Click += SaveButton_Click;
-            }
-
-            if (NewButton != null)
-            {
-                NewButton.Click += NewButton_Click;
-            }
-
-            LayoutFeedsGrid();
-
-            if (FeedsGrid != null)
-            {
-                FeedsGrid.SelectionChanged += FeedsGrid_SelectionChanged;
-            }
+            UpdateGridData();
 
             if (_Feeds.Count > 0)
             {
                 FeedsGrid.SelectedIndex = 0;
             }
-
-            Loaded -= OnWindowLoaded;
         }
 
         private void RetrieveLimitHrs_PropertyChanged(object sender, AvaloniaPropertyChangedEventArgs e)
@@ -213,7 +168,7 @@ namespace gautier.rss.ui
             }
         }
 
-        private bool CheckInput(in BindableFeed feed)
+        private bool CheckInput(BindableFeed feed)
         {
             int ErrorCount = 0;
             StringBuilder Errors = new();
@@ -346,37 +301,6 @@ namespace gautier.rss.ui
             }
         }
 
-        private void LayoutFeedsGrid()
-        {
-            _Feeds = BindableFeed.ConvertFeeds(_OriginalFeeds);
-
-            // DEBUG: Check what we're binding
-            Console.WriteLine($"DEBUG: Binding {_Feeds.Count} feeds to DataGrid");
-
-            foreach (BindableFeed feed in _Feeds)
-            {
-                Console.WriteLine($"  - {feed.Name}: {feed.Url}");
-            }
-
-            // DEBUG: Check if DataGrid exists
-            if (FeedsGrid == null)
-            {
-                Console.WriteLine("ERROR: FeedsGrid is null!");
-                return;
-            }
-
-            Console.WriteLine($"DEBUG: FeedsGrid found. Setting ItemsSource...");
-
-            FeedsGrid.ItemsSource = _Feeds;
-
-            // DEBUG: Force refresh
-            FeedsGrid.InvalidateVisual();
-            FeedsGrid.InvalidateMeasure();
-            FeedsGrid.InvalidateArrange();
-
-            //Console.WriteLine($"DEBUG: DataGrid should now show {FeedsGrid.ItemsSource.Count()} items");
-        }
-
         private void FeedsGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // ResetInput has side-effects. It clears the input fields and returns a default instance.
@@ -407,6 +331,16 @@ namespace gautier.rss.ui
             // Update value displays
             UpdateValueDisplays();
             FeedName.Focus();
+        }
+
+        private void UpdateGridData()
+        {
+            FeedDataExchange.RemoveExpiredArticlesFromDatabase(FeedConfiguration.SQLiteDbConnectionString);
+            SortedList<string, Feed> LatestFeeds = FeedDataExchange.GetAllFeeds(FeedConfiguration.SQLiteDbConnectionString);
+
+            _Feeds = BindableFeed.ConvertFeeds(LatestFeeds);
+
+            FeedsGrid.ItemsSource = _Feeds;
         }
     }
 }

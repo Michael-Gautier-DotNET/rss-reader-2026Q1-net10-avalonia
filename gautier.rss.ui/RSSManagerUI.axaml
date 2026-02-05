@@ -13,8 +13,9 @@
     MinWidth="860"
     MinHeight="440"
     SizeToContent="Manual"
-    WindowState="Normal"
-    WindowStartupLocation="CenterScreen">
+    WindowState="Maximized"
+    WindowStartupLocation="CenterScreen"
+    Loaded="Window_Loaded">
     <Grid
         Name="UIRoot"
         Margin="8">
@@ -121,7 +122,8 @@
                 Foreground="#FFF8A8"
                 Width="150"
                 Margin="12"
-                VerticalAlignment="Center" />
+                VerticalAlignment="Center"
+                PropertyChanged="RetrieveLimitHrs_PropertyChanged" />
             <!-- Retrieve Limit Value Display -->
             <Border
                 Grid.Column="6"
@@ -159,7 +161,8 @@
                 Foreground="#FFF8A8"
                 Width="150"
                 Margin="12"
-                VerticalAlignment="Center" />
+                VerticalAlignment="Center"
+                PropertyChanged="RetentionDays_PropertyChanged" />
             <!-- Retention Days Value Display -->
             <Border
                 Grid.Column="9"
@@ -180,7 +183,6 @@
                     MinWidth="24" />
             </Border>
         </Grid>
-        <!-- DataGrid Section -->
         <!-- DataGrid Section -->
         <Border
             Grid.Row="1"
