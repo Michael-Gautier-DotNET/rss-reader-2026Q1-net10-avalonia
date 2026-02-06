@@ -21,7 +21,7 @@ namespace gautier.rss.ui
         private SortedList<string, Feed> _FeedsBefore = new();
 
         private readonly TimeSpan _QuickTimeSpan = TimeSpan.FromSeconds(0.7);
-        private readonly TimeSpan _MidTimeSpan = TimeSpan.FromSeconds(3);
+        private readonly TimeSpan _MidTimeSpan = TimeSpan.FromSeconds(7);
         private DispatcherTimer _FeedUpdateTimer;
 
         private static readonly string _EmptyArticle = "No article content available.";
@@ -176,6 +176,11 @@ namespace gautier.rss.ui
 
                     AddArticles(FeedEntry, FeedTab);
                 }
+            }
+
+            if (FeedHeadlines.SelectedIndex < 0 && FeedHeadlines.Items.Count > 0)
+            {
+                FeedHeadlines.SelectedIndex = 0;
             }
         }
 
@@ -419,6 +424,15 @@ namespace gautier.rss.ui
             }
 
             ReaderFeedName?.Content = $"{ReaderTab.Header}";
+
+            if (FeedHeadlines.SelectedIndex > -1)
+            {
+                Headline_SelectionChanged(sender, e);
+            }
+            else if (FeedHeadlines.Items.Count > 0)
+            {
+                FeedHeadlines.SelectedIndex = 0;
+            }
 
             return;
         }
