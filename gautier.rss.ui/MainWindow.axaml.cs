@@ -17,8 +17,8 @@ namespace gautier.rss.ui
     public partial class MainWindow : Window
     {
         private DateTime _LastExpireCheck = DateTime.Now;
-        private SortedList<string, Feed> _Feeds = null;
-        private SortedList<string, Feed> _FeedsBefore = null;
+        private SortedList<string, Feed> _Feeds = new();
+        private SortedList<string, Feed> _FeedsBefore = new();
 
         private readonly TimeSpan _QuickTimeSpan = TimeSpan.FromSeconds(0.7);
         private readonly TimeSpan _MidTimeSpan = TimeSpan.FromSeconds(3);
@@ -70,10 +70,8 @@ namespace gautier.rss.ui
             lock (_FeedUpdateTimer)
             {
                 FeedDataExchange.RemoveExpiredArticlesFromDatabase(FeedConfiguration.SQLiteDbConnectionString);
-                if (_FeedsBefore == null)
-                {
-                    _FeedsBefore = _Feeds;
-                }
+
+                _FeedsBefore = _Feeds;
 
                 _Feeds = FeedDataExchange.GetAllFeeds(FeedConfiguration.SQLiteDbConnectionString);
             }
@@ -188,6 +186,12 @@ namespace gautier.rss.ui
                 return;
             }
 
+	    //Sometimes a person wants to delete all their feeds in one shot	    
+	    if (_Feeds.Count == 0 && ReaderTabs.Items.Count > 0)
+	    {
+	    	ReaderTabs.Items.Clear();
+	    }
+
             //Remove tabs that are no longer in the database
             foreach (Feed FeedEntry in _FeedsBefore.Values)
             {
@@ -212,7 +216,7 @@ namespace gautier.rss.ui
                 }
             }
 
-            _FeedsBefore = null;
+            _FeedsBefore.Clear();
         }
 
         private TabItem AddRSSTab(Feed feed)
