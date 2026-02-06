@@ -210,6 +210,20 @@ namespace gautier.rss.ui
 
                     if (Exists)
                     {
+                        /**
+                    		Name syncronization
+                    		This is an extra function but is convenient to place here.
+                    	**/
+                        string HeaderLeft = ActiveFeedEntry.FeedName;
+                        string HeaderRight = FeedEntry.FeedName;
+
+                        if (HeaderLeft != HeaderRight)
+                        {
+                            TabItem FeedTab = GetTabByUrl(FeedUrl);
+
+                            FeedTab.Header = HeaderLeft;
+                        }
+
                         break;
                     }
                 }
