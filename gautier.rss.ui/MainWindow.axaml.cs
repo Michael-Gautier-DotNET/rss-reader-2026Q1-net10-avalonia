@@ -28,7 +28,7 @@ namespace gautier.rss.ui
 
         private TabItem ReaderTab
         {
-            get => ReaderTabs.SelectedItem as TabItem;
+            get => ReaderTabs?.SelectedItem as TabItem;
         }
 
         private ListBox FeedHeadlines
@@ -186,11 +186,11 @@ namespace gautier.rss.ui
                 return;
             }
 
-	    //Sometimes a person wants to delete all their feeds in one shot	    
-	    if (_Feeds.Count == 0 && ReaderTabs.Items.Count > 0)
-	    {
-	    	ReaderTabs.Items.Clear();
-	    }
+            //Sometimes a person wants to delete all their feeds in one shot	    
+            if (_Feeds.Count == 0 && ReaderTabs.Items.Count > 0)
+            {
+                ReaderTabs.Items.Clear();
+            }
 
             //Remove tabs that are no longer in the database
             foreach (Feed FeedEntry in _FeedsBefore.Values)
@@ -413,6 +413,13 @@ namespace gautier.rss.ui
 
         private void ReaderTabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (ReaderTab == null)
+            {
+                return;
+            }
+
+            ReaderFeedName?.Content = $"{ReaderTab.Header}";
+
             return;
         }
 
