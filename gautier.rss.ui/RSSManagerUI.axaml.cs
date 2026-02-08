@@ -36,7 +36,7 @@ namespace gautier.rss.ui
 
         private void RetrieveLimitHrs_PropertyChanged(object sender, AvaloniaPropertyChangedEventArgs e)
         {
-            if (e.Property == Slider.ValueProperty && RetrieveLimitHrsValue != null)
+            if (e.Property == Slider.ValueProperty && RetrieveLimitHrsValue is not null)
             {
                 int value = Convert.ToInt32(RetrieveLimitHrs.Value);
                 RetrieveLimitHrsValue.Text = value.ToString();
@@ -45,7 +45,7 @@ namespace gautier.rss.ui
 
         private void RetentionDays_PropertyChanged(object sender, AvaloniaPropertyChangedEventArgs e)
         {
-            if (e.Property == Slider.ValueProperty && RetentionDaysValue != null)
+            if (e.Property == Slider.ValueProperty && RetentionDaysValue is not null)
             {
                 int value = Convert.ToInt32(RetentionDays.Value);
                 RetentionDaysValue.Text = value.ToString();
@@ -63,22 +63,22 @@ namespace gautier.rss.ui
         {
             BindableFeed BFeed = new();
 
-            if (FeedName != null)
+            if (FeedName is not null)
             {
                 FeedName.Text = BFeed.Name;
             }
 
-            if (FeedUrl != null)
+            if (FeedUrl is not null)
             {
                 FeedUrl.Text = BFeed.Url;
             }
 
-            if (RetrieveLimitHrs != null)
+            if (RetrieveLimitHrs is not null)
             {
                 RetrieveLimitHrs.Value = BFeed.RetrieveLimitHrs;
             }
 
-            if (RetentionDays != null)
+            if (RetentionDays is not null)
             {
                 RetentionDays.Value = BFeed.RetentionDays;
             }
@@ -89,12 +89,12 @@ namespace gautier.rss.ui
 
         private void UpdateValueDisplays()
         {
-            if (RetrieveLimitHrsValue != null && RetrieveLimitHrs != null)
+            if (RetrieveLimitHrsValue is not null && RetrieveLimitHrs is not null)
             {
                 RetrieveLimitHrsValue.Text = RetrieveLimitHrs.Value.ToString("0");
             }
 
-            if (RetentionDaysValue != null && RetentionDays != null)
+            if (RetentionDaysValue is not null && RetentionDays is not null)
             {
                 RetentionDaysValue.Text = RetentionDays.Value.ToString("0");
             }
@@ -277,7 +277,7 @@ namespace gautier.rss.ui
         {
             BindableFeed CFeed = CurrentFeed;
 
-            if (CFeed != null && CFeed.Id > 0)
+            if (CFeed is not null && CFeed.Id > 0)
             {
                 bool IsDeleted = FeedDataExchange.RemoveFeedFromDatabase(
                     FeedConfiguration.FeedDbFilePath,
@@ -308,22 +308,22 @@ namespace gautier.rss.ui
             // Such a case can be when there are no rows yet.
             BindableFeed BFeed = CurrentFeed ?? ResetInput();
 
-            if (FeedName != null)
+            if (FeedName is not null)
             {
                 FeedName.Text = BFeed.Name;
             }
 
-            if (FeedUrl != null)
+            if (FeedUrl is not null)
             {
                 FeedUrl.Text = BFeed.Url;
             }
 
-            if (RetrieveLimitHrs != null)
+            if (RetrieveLimitHrs is not null)
             {
                 RetrieveLimitHrs.Value = BFeed.RetrieveLimitHrs;
             }
 
-            if (RetentionDays != null)
+            if (RetentionDays is not null)
             {
                 RetentionDays.Value = BFeed.RetentionDays;
             }

@@ -168,7 +168,7 @@ namespace gautier.rss.ui
             {
                 var FeedUrl = FeedEntry.FeedUrl;
 
-                var Exists = GetTabByUrl(FeedUrl) != null;
+                var Exists = GetTabByUrl(FeedUrl) is not null;
 
                 if (Exists == false)
                 {
@@ -427,7 +427,7 @@ namespace gautier.rss.ui
 
         private void ReaderTabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (ReaderTab == null)
+            if (ReaderTab is null)
             {
                 return;
             }
