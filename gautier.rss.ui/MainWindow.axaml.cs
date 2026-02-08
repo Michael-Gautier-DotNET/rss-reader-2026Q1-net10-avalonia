@@ -186,11 +186,6 @@ namespace gautier.rss.ui
 
         private void RemoveOrphanedTabs()
         {
-            if (_FeedsBefore == null)
-            {
-                return;
-            }
-
             //Sometimes a person wants to delete all their feeds in one shot	    
             if (_Feeds.Count == 0 && ReaderTabs.Items.Count > 0)
             {
