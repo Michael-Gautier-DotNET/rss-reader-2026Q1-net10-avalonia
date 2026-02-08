@@ -277,7 +277,7 @@ namespace gautier.rss.ui
         {
             BindableFeed CFeed = CurrentFeed;
 
-            if (CFeed is not null && CFeed.Id > 0)
+            if (CFeed?.Id > 0)
             {
                 bool IsDeleted = FeedDataExchange.RemoveFeedFromDatabase(
                     FeedConfiguration.FeedDbFilePath,
