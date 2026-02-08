@@ -124,7 +124,7 @@ namespace gautier.rss.ui
 
             Feed DbInputFeed = BindableFeed.ConvertFeed(CFeed);
             Feed UpdatedFeed = FeedDataExchange.UpdateFeedConfigurationInDatabase(
-                FeedConfiguration.FeedDbFilePath,
+                FeedConfiguration.LocalDatabaseLocation,
                 DbInputFeed
             );
             bool InputAndUpdatedFeedsMatch = DbInputFeed.FeedName == UpdatedFeed.FeedName;
@@ -280,7 +280,7 @@ namespace gautier.rss.ui
             if (CFeed?.Id > 0)
             {
                 bool IsDeleted = FeedDataExchange.RemoveFeedFromDatabase(
-                    FeedConfiguration.FeedDbFilePath,
+                    FeedConfiguration.LocalDatabaseLocation,
                     CFeed.Id
                 );
 

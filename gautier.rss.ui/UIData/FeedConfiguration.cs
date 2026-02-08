@@ -6,33 +6,31 @@ namespace gautier.rss.ui.UIData
 {
     internal static class FeedConfiguration
     {
-        private static string GetDatabasePath()
+        internal static string LocalDatabaseLocation
         {
-            // Get the directory where the executable is running
-            string? executableDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            return Path.Combine(executableDir, "rss.db");
+            get
+            {
+                var DbLocation = Path.Combine(LocalRootFilesLocation, "rss.db");
+
+                return DbLocation;
+            }
         }
 
-        internal static string FeedSaveDirectoryPath
+        internal static string LocalRootFilesLocation
         {
-            get => Directory.GetCurrentDirectory();
-        }
-
-        internal static string FeedDbFilePath
-        {
-            get => GetDatabasePath();
+            get => Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         }
 
         internal static string SQLiteDbConnectionString
         {
-            get => SQLUtil.GetSQLiteConnectionString(FeedDbFilePath, 3);
+            get => SQLUtil.GetSQLiteConnectionString(LocalDatabaseLocation, 3);
         }
 
         internal static void EnsureDatabaseExists()
         {
-            Console.WriteLine($"Database path: {FeedDbFilePath}");
-            Console.WriteLine($"File exists: {File.Exists(FeedDbFilePath)}");
-            DbInitializer.EnsureDatabaseExists(FeedDbFilePath);
+            Console.WriteLine($"Database path: {LocalDatabaseLocation}");
+            Console.WriteLine($"File exists: {File.Exists(LocalDatabaseLocation)}");
+            DbInitializer.EnsureDatabaseExists(LocalDatabaseLocation);
         }
     }
 }

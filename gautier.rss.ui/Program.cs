@@ -18,17 +18,17 @@ namespace gautier.rss.ui
             try
             {
                 // Log the database path before initialization
-                Console.WriteLine($"Database will be created at: {FeedConfiguration.FeedDbFilePath}");
+                Console.WriteLine($"Database will be created at: {FeedConfiguration.LocalDatabaseLocation}");
                 Console.WriteLine(
-                    $"Directory exists: {Directory.Exists(Path.GetDirectoryName(FeedConfiguration.FeedDbFilePath))}");
+                    $"Directory exists: {Directory.Exists(Path.GetDirectoryName(FeedConfiguration.LocalDatabaseLocation))}");
                 // Initialize database
                 FeedConfiguration.EnsureDatabaseExists();
                 Console.WriteLine("✅ Database initialization completed.");
 
                 // Verify the file was created where expected
-                if (File.Exists(FeedConfiguration.FeedDbFilePath))
+                if (File.Exists(FeedConfiguration.LocalDatabaseLocation))
                 {
-                    FileInfo? fileInfo = new(FeedConfiguration.FeedDbFilePath);
+                    FileInfo? fileInfo = new(FeedConfiguration.LocalDatabaseLocation);
                     Console.WriteLine($"✅ Database file created: {fileInfo.FullName}");
                     Console.WriteLine($"✅ File size: {fileInfo.Length} bytes");
                     Console.WriteLine($"✅ Last modified: {fileInfo.LastWriteTime}");

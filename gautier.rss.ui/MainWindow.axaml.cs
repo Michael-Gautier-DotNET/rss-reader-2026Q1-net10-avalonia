@@ -85,7 +85,7 @@ namespace gautier.rss.ui
 
             static void ExecuteDownload(Feed FeedEntry)
             {
-                string RSSXmlFilePath = RSSNetClient.DownloadFeed(FeedConfiguration.FeedSaveDirectoryPath, FeedEntry);
+                string RSSXmlFilePath = RSSNetClient.DownloadFeed(FeedConfiguration.LocalRootFilesLocation, FeedEntry);
 
                 /*Leave these quick diagnostic statements. They are useful in a pinch.*/
                 //Console.WriteLine($"\t\t UI {nameof(DownloadFeedsAsync)} {FeedEntry.FeedName} {FeedEntry.FeedUrl} {RSSXmlFilePath}");
@@ -93,21 +93,21 @@ namespace gautier.rss.ui
                 if (File.Exists(RSSXmlFilePath))
                 {
                     string RSSIntegrationFilePath =
-                        FeedFileUtil.GetRSSTabDelimitedFeedFilePath(FeedConfiguration.FeedSaveDirectoryPath, FeedEntry);
+                        FeedFileUtil.GetRSSTabDelimitedFeedFilePath(FeedConfiguration.LocalRootFilesLocation, FeedEntry);
 
                     //Console.WriteLine($"\t\t UI {nameof(DownloadFeedsAsync)} {FeedEntry.FeedName} {FeedEntry.FeedUrl} {RSSIntegrationFilePath}");
 
                     List<FeedArticle> Articles =
-                        FeedFileConverter.TransformXmlFeedToFeedArticles(FeedConfiguration.FeedSaveDirectoryPath,
+                        FeedFileConverter.TransformXmlFeedToFeedArticles(FeedConfiguration.LocalRootFilesLocation,
                             FeedEntry);
 
-                    //Console.WriteLine($"\t\t UI {nameof(DownloadFeedsAsync)} {FeedEntry.FeedName} {FeedEntry.FeedUrl} saved to: {FeedConfiguration.FeedSaveDirectoryPath}");
+                    //Console.WriteLine($"\t\t UI {nameof(DownloadFeedsAsync)} {FeedEntry.FeedName} {FeedEntry.FeedUrl} saved to: {FeedConfiguration.LocalRootFilesLocation}");
 
                     string RSSTabDelimitedFilePath =
-                        FeedFileConverter.WriteRSSArticlesToFile(FeedConfiguration.FeedSaveDirectoryPath, FeedEntry,
+                        FeedFileConverter.WriteRSSArticlesToFile(FeedConfiguration.LocalRootFilesLocation, FeedEntry,
                             Articles);
 
-                    //Console.WriteLine($"\t\t UI {nameof(DownloadFeedsAsync)} {FeedEntry.FeedName} {FeedEntry.FeedUrl} delimited in: {FeedConfiguration.FeedSaveDirectoryPath}");
+                    //Console.WriteLine($"\t\t UI {nameof(DownloadFeedsAsync)} {FeedEntry.FeedName} {FeedEntry.FeedUrl} delimited in: {FeedConfiguration.LocalRootFilesLocation}");
 
                     bool RSSIntegrationPathIsValid = RSSIntegrationFilePath == RSSTabDelimitedFilePath;
 
@@ -115,8 +115,8 @@ namespace gautier.rss.ui
                     if (RSSIntegrationPathIsValid && File.Exists(RSSTabDelimitedFilePath))
                     {
                         //Console.WriteLine($"\t\t UI {nameof(DownloadFeedsAsync)} {FeedEntry.FeedName} {FeedEntry.FeedUrl} DATABASE IMPORT {RSSTabDelimitedFilePath}");
-                        FeedDataExchange.ImportRSSFeedToDatabase(FeedConfiguration.FeedSaveDirectoryPath,
-                            FeedConfiguration.FeedDbFilePath, FeedEntry);
+                        FeedDataExchange.ImportRSSFeedToDatabase(FeedConfiguration.LocalRootFilesLocation,
+                            FeedConfiguration.LocalDatabaseLocation, FeedEntry);
                     }
                 }
             }
