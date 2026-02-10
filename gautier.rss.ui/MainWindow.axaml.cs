@@ -166,21 +166,14 @@ namespace gautier.rss.ui
             //Add new tabs
             foreach (Feed FeedEntry in _Feeds.Values)
             {
-                var FeedUrl = FeedEntry.FeedUrl;
+                TabItem FeedTab = GetTab(FeedEntry);
 
-                var Exists = GetTabByUrl(FeedUrl) is not null;
-
-                if (Exists == false)
+                if (FeedTab is null)
                 {
-                    TabItem FeedTab = AddRSSTab(FeedEntry);
+                    FeedTab = AddRSSTab(FeedEntry);
 
                     AddArticles(FeedEntry, FeedTab);
                 }
-            }
-
-            if (FeedHeadlines.SelectedIndex < 0 && FeedHeadlines.Items.Count > 0)
-            {
-                FeedHeadlines.SelectedIndex = 0;
             }
         }
 
@@ -195,37 +188,15 @@ namespace gautier.rss.ui
             //Remove tabs that are no longer in the database
             foreach (Feed FeedEntry in _FeedsBefore.Values)
             {
-                var FeedUrl = FeedEntry.FeedUrl;
+                TabItem FeedTab = GetTab(FeedEntry);
 
-                var Exists = true;
-
-                foreach (Feed ActiveFeedEntry in _Feeds.Values)
+                if (FeedTab is not null && _Feeds.Values.Where(n => n.DbId == FeedEntry.DbId).FirstOrDefault() is Feed ActiveFeedEntry)
                 {
-                    Exists = (ActiveFeedEntry.FeedUrl == FeedUrl);
-
-                    if (Exists)
-                    {
-                        /**
-                    		Name syncronization
-                    		This is an extra function but is convenient to place here.
-                    	**/
-                        string HeaderLeft = ActiveFeedEntry.FeedName;
-                        string HeaderRight = FeedEntry.FeedName;
-
-                        if (HeaderLeft != HeaderRight)
-                        {
-                            TabItem FeedTab = GetTabByUrl(FeedUrl);
-
-                            FeedTab.Header = HeaderLeft;
-                        }
-
-                        break;
-                    }
+                    UpdateRSSTab(FeedEntry, ActiveFeedEntry, FeedTab);
                 }
-
-                if (Exists == false)
+                else
                 {
-                    TabItem FeedTab = GetTabByUrl(FeedUrl);
+                    FeedTab = GetTab(FeedEntry);
                     ReaderTabs.Items.Remove(FeedTab);
                 }
             }
@@ -249,7 +220,7 @@ namespace gautier.rss.ui
             TabItem Tab = new()
             {
                 Header = feed.FeedName,
-                Tag = feed.FeedUrl,
+                Tag = feed,
                 Content = Contents,
             };
 
@@ -258,15 +229,35 @@ namespace gautier.rss.ui
             return Tab;
         }
 
-        private TabItem GetTabByUrl(string url)
+        private TabItem UpdateRSSTab(Feed previous, Feed updated, TabItem tab)
+        {
+            int Changed = 0;
+
+            if (updated.FeedName != previous.FeedName)
+            {
+                tab.Header = updated.FeedName;
+                Changed++;
+            }
+            else if (updated.FeedUrl != previous.FeedUrl)
+            {
+                Changed++;
+            }
+
+            if (Changed > 0)
+            {
+                tab.Tag = updated;
+            }
+
+            return tab;
+        }
+
+        private TabItem GetTab(Feed feed)
         {
             TabItem Tab = null;
 
             foreach (TabItem tab in ReaderTabs.Items)
             {
-                var Found = $"{tab.Tag}" == url;
-
-                if (Found)
+                if (tab.Tag is Feed FeedEntry && FeedEntry.DbId == feed.DbId)
                 {
                     Tab = tab;
                     break;
@@ -434,13 +425,13 @@ namespace gautier.rss.ui
 
             ReaderFeedName?.Content = $"{ReaderTab.Header}";
 
-            if (FeedHeadlines.SelectedIndex > -1)
-            {
-                Headline_SelectionChanged(sender, e);
-            }
-            else if (FeedHeadlines.Items.Count > 0)
+            if (FeedHeadlines.SelectedIndex < 0 && FeedHeadlines.Items.Count > 0)
             {
                 FeedHeadlines.SelectedIndex = 0;
+            }
+            else if (FeedHeadlines.SelectedIndex > -1)
+            {
+                Headline_SelectionChanged(sender, e);
             }
 
             return;
