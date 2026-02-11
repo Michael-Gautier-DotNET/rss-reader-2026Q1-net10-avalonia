@@ -433,8 +433,6 @@ namespace gautier.rss.ui
             {
                 Headline_SelectionChanged(sender, e);
             }
-
-            return;
         }
 
         private void ReaderManagerButton_Click(object sender, RoutedEventArgs e)
