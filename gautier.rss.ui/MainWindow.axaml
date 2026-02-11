@@ -14,7 +14,8 @@
     SizeToContent="Manual"
     WindowState="Maximized"
     WindowStartupLocation="CenterScreen"
-    Initialized="Window_Initialized">
+    Initialized="Window_Initialized"
+    Loaded="Window_Loaded">
     <!-- Application ideally optimized 1080p screen resolutions.
         4K and higher are possibilities but are uncommon.
         Depending on testing, a solution would be to scale the UI

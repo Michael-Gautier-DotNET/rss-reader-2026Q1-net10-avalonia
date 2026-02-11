@@ -20,8 +20,7 @@ namespace gautier.rss.ui
         private SortedList<string, Feed> _Feeds = new();
         private SortedList<string, Feed> _FeedsBefore = new();
 
-        private readonly TimeSpan _QuickTimeSpan = TimeSpan.FromSeconds(0.7);
-        private readonly TimeSpan _MidTimeSpan = TimeSpan.FromSeconds(7);
+        private readonly TimeSpan _FeedUpdateInterval = TimeSpan.FromMinutes(2);
         private DispatcherTimer _FeedUpdateTimer;
 
         private static readonly string _EmptyArticle = "No article content available.";
@@ -47,18 +46,24 @@ namespace gautier.rss.ui
         {
             _FeedUpdateTimer = new()
             {
-                Interval = _QuickTimeSpan,
+                Interval = _FeedUpdateInterval
             };
 
             _FeedUpdateTimer.Tick += UpdateFeedsOnInterval;
-            _FeedUpdateTimer.Start();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            _Feeds = FeedDataExchange.GetAllFeeds(FeedConfiguration.SQLiteDbConnectionString);
+
+            UpdateFeedTabs();
         }
 
         private async void UpdateFeedsOnInterval(object sender, EventArgs e)
         {
             _FeedUpdateTimer.Stop();
 
-            _FeedUpdateTimer.Interval = _MidTimeSpan;
+            _FeedUpdateTimer.Interval = _FeedUpdateInterval;
 
             await AcquireFeedsAsync();
         }
@@ -233,12 +238,12 @@ namespace gautier.rss.ui
         {
             int Changed = 0;
 
-            if (updated.FeedName != previous.FeedName)
+            if (string.Equals(updated.FeedName, previous.FeedName, StringComparison.InvariantCultureIgnoreCase) == false)
             {
                 tab.Header = updated.FeedName;
                 Changed++;
             }
-            else if (updated.FeedUrl != previous.FeedUrl)
+            else if (string.Equals(updated.FeedUrl, previous.FeedUrl, StringComparison.InvariantCultureIgnoreCase) == false)
             {
                 Changed++;
             }
@@ -290,6 +295,8 @@ namespace gautier.rss.ui
 
                 FeedContent.ItemsSource = EffectiveArticles;
                 FeedContent.UpdateLayout();
+
+                SelectDefaultArticle();
             }
         }
 
@@ -322,6 +329,18 @@ namespace gautier.rss.ui
             ReaderArticleText.Text = ConvertHtmlToPlainText(GetText(article));
 
             ReaderHeadline.Content = article.HeadlineText.Trim();
+        }
+
+        private void SelectDefaultArticle()
+        {
+            if (FeedHeadlines.SelectedIndex < 0 && FeedHeadlines.Items.Count > 0)
+            {
+                FeedHeadlines.SelectedIndex = 0;
+            }
+            else if (FeedHeadlines.SelectedIndex > -1)
+            {
+                ApplyArticle(Article);
+            }
         }
 
         private string ConvertHtmlToPlainText(string html)
@@ -425,13 +444,9 @@ namespace gautier.rss.ui
 
             ReaderFeedName?.Content = $"{ReaderTab.Header}";
 
-            if (FeedHeadlines.SelectedIndex < 0 && FeedHeadlines.Items.Count > 0)
+            if (FeedHeadlines.SelectedIndex < 0)
             {
-                FeedHeadlines.SelectedIndex = 0;
-            }
-            else if (FeedHeadlines.SelectedIndex > -1)
-            {
-                Headline_SelectionChanged(sender, e);
+                SelectDefaultArticle();
             }
         }
 
@@ -448,7 +463,7 @@ namespace gautier.rss.ui
 
         private void RSSManagerClosed()
         {
-            _FeedUpdateTimer.Interval = _QuickTimeSpan;
+            _FeedUpdateTimer.Interval = TimeSpan.FromSeconds(0.2);
             _FeedUpdateTimer.Start();
         }
     }
