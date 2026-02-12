@@ -17,8 +17,8 @@ namespace gautier.rss.ui
     public partial class MainWindow : Window
     {
         private DateTime _LastExpireCheck = DateTime.Now;
-        private SortedList<string, Feed> _Feeds = new();
-        private SortedList<string, Feed> _FeedsBefore = new();
+        private List<Feed> _Feeds = new();
+        private List<Feed> _FeedsBefore = new();
 
         private readonly TimeSpan _FeedUpdateInterval = TimeSpan.FromMinutes(2);
         private DispatcherTimer _FeedUpdateTimer;
@@ -44,6 +44,8 @@ namespace gautier.rss.ui
 
         private void Window_Initialized(object sender, EventArgs e)
         {
+            _Feeds = FeedDataExchange.GetAllFeeds(FeedConfiguration.SQLiteDbConnectionString);
+
             _FeedUpdateTimer = new()
             {
                 Interval = _FeedUpdateInterval
@@ -52,12 +54,7 @@ namespace gautier.rss.ui
             _FeedUpdateTimer.Tick += UpdateFeedsOnInterval;
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            _Feeds = FeedDataExchange.GetAllFeeds(FeedConfiguration.SQLiteDbConnectionString);
-
-            UpdateFeedTabs();
-        }
+        private void Window_Loaded(object sender, RoutedEventArgs e) => UpdateFeedTabs();
 
         private async void UpdateFeedsOnInterval(object sender, EventArgs e)
         {
@@ -86,7 +83,7 @@ namespace gautier.rss.ui
         private async Task DownloadFeedsAsync()
         {
             PruneExpiredArticles();
-            SortedList<string, Feed> DbFeeds = FeedDataExchange.GetAllFeeds(FeedConfiguration.SQLiteDbConnectionString);
+            List<Feed> DbFeeds = FeedDataExchange.GetAllFeeds(FeedConfiguration.SQLiteDbConnectionString);
 
             static void ExecuteDownload(Feed FeedEntry)
             {
@@ -128,7 +125,7 @@ namespace gautier.rss.ui
 
             Console.WriteLine($"\t\t UI {nameof(DownloadFeedsAsync)} {DbFeeds.Count} Feeds");
 
-            foreach (Feed FeedEntry in DbFeeds.Values)
+            foreach (Feed FeedEntry in DbFeeds)
             {
                 Console.WriteLine($"\t\t UI {nameof(DownloadFeedsAsync)} Processing {FeedEntry.FeedName} {FeedEntry.FeedUrl} Last Retrieved {FeedEntry.LastRetrieved}");
 
@@ -169,7 +166,7 @@ namespace gautier.rss.ui
             RemoveOrphanedTabs();
 
             //Add new tabs
-            foreach (Feed FeedEntry in _Feeds.Values)
+            foreach (Feed FeedEntry in _Feeds)
             {
                 TabItem FeedTab = GetTab(FeedEntry);
 
@@ -191,11 +188,11 @@ namespace gautier.rss.ui
             }
 
             //Remove tabs that are no longer in the database
-            foreach (Feed FeedEntry in _FeedsBefore.Values)
+            foreach (Feed FeedEntry in _FeedsBefore)
             {
                 TabItem FeedTab = GetTab(FeedEntry);
 
-                if (FeedTab is not null && _Feeds.Values.Where(n => n.DbId == FeedEntry.DbId).FirstOrDefault() is Feed ActiveFeedEntry)
+                if (FeedTab is not null && _Feeds.Where(n => n.DbId == FeedEntry.DbId).FirstOrDefault() is Feed ActiveFeedEntry)
                 {
                     UpdateRSSTab(FeedEntry, ActiveFeedEntry, FeedTab);
                 }

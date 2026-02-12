@@ -336,7 +336,7 @@ namespace gautier.rss.ui
         private void UpdateGridData()
         {
             FeedDataExchange.RemoveExpiredArticlesFromDatabase(FeedConfiguration.SQLiteDbConnectionString);
-            SortedList<string, Feed> LatestFeeds = FeedDataExchange.GetAllFeeds(FeedConfiguration.SQLiteDbConnectionString);
+            List<Feed> LatestFeeds = FeedDataExchange.GetAllFeeds(FeedConfiguration.SQLiteDbConnectionString);
 
             _Feeds = BindableFeed.ConvertFeeds(LatestFeeds);
 

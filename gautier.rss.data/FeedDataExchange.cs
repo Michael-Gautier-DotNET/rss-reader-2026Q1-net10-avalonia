@@ -11,17 +11,17 @@ namespace gautier.rss.data
 
         private static readonly DateTimeFormatInfo _InvariantFormat = DateTimeFormatInfo.InvariantInfo;
 
-        public static SortedList<string, Feed> GetAllFeeds(string sqlConnectionString)
+        public static List<Feed> GetAllFeeds(string sqlConnectionString)
         {
-            SortedList<string, Feed> Feeds = new();
+            List<Feed> Feeds = new();
 
             using (SQLiteConnection SQLConn = SQLUtil.OpenSQLiteConnection(sqlConnectionString))
             {
                 List<Feed> FeedEntries = FeedReader.GetAllRows(SQLConn);
 
-                foreach (Feed FeedEntry in FeedEntries)
+                if (FeedEntries.Any())
                 {
-                    Feeds[FeedEntry.FeedName] = FeedEntry;
+                    Feeds = FeedEntries;
                 }
             }
 

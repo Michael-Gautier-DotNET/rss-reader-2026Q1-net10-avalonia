@@ -69,11 +69,13 @@ namespace gautier.rss.ui.UIData
             set => SetValue(RetentionDaysProperty, value);
         }
 
-        internal static ObservableCollection<BindableFeed> ConvertFeeds(in SortedList<string, Feed> feeds)
+        internal static ObservableCollection<BindableFeed> ConvertFeeds(in SortedList<string, Feed> feeds) => ConvertFeeds(feeds.Values.ToList());
+
+        internal static ObservableCollection<BindableFeed> ConvertFeeds(in List<Feed> feeds)
         {
             ObservableCollection<BindableFeed>? BFeeds = new();
 
-            foreach (Feed FeedEntry in feeds.Values)
+            foreach (Feed FeedEntry in feeds)
             {
                 BindableFeed BFeed = ConvertFeed(FeedEntry);
                 BFeeds.Add(BFeed);
