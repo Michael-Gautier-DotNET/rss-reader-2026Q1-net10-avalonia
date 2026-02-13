@@ -54,6 +54,20 @@ namespace gautier.rss.data.RSSDb
             return Count;
         }
 
+        public static int GetMaxId(SQLiteConnection sqlConn, string feedName)
+        {
+            int Id = -1;
+            string CommandText = $"SELECT MAX(Id) FROM {_TableName} WHERE feed_name = @FeedName;";
+
+            using (SQLiteCommand SQLCmd = new(CommandText, sqlConn))
+            {
+                SQLCmd.Parameters.AddWithValue("@FeedName", feedName);
+                Id = Convert.ToInt32(SQLCmd.ExecuteScalar());
+            }
+
+            return Id;
+        }
+
         public static int CountRows(SQLiteConnection sqlConn, string feedName, string articleUrl)
         {
             int Count = 0;
@@ -158,6 +172,26 @@ namespace gautier.rss.data.RSSDb
             using (SQLiteCommand SQLCmd = new(CommandText, sqlConn))
             {
                 SQLCmd.Parameters.AddWithValue("@FeedName", feedName);
+
+                using (SQLiteDataReader SQLRowReader = SQLCmd.ExecuteReader())
+                {
+                    CollectRows(SQLRowReader, Rows);
+                }
+            }
+
+            return Rows;
+        }
+
+        public static List<FeedArticle> GetRows(SQLiteConnection sqlConn, string feedName, int idBegin, int idEnd)
+        {
+            List<FeedArticle> Rows = new();
+            string CommandText = $"SELECT * FROM {_TableName} WHERE feed_name = @FeedName AND Id BETWEEN @IDBegin AND @IDEnd;";
+
+            using (SQLiteCommand SQLCmd = new(CommandText, sqlConn))
+            {
+                SQLCmd.Parameters.AddWithValue("@FeedName", feedName);
+                SQLCmd.Parameters.AddWithValue("@IDBegin", idBegin);
+                SQLCmd.Parameters.AddWithValue("@IDEnd", idEnd);
 
                 using (SQLiteDataReader SQLRowReader = SQLCmd.ExecuteReader())
                 {
