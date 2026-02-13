@@ -28,56 +28,25 @@ namespace gautier.rss.data
             return Feeds;
         }
 
-        public static SortedList<string, SortedList<string, FeedArticle>> GetAllFeedArticles(string sqlConnectionString)
+        public static int GetMaxArticleID(string sqlConnectionString, string feedName)
         {
-            SortedList<string, SortedList<string, FeedArticle>> Articles = new(100);
+            int Id = -1;
 
             using (SQLiteConnection SQLConn = SQLUtil.OpenSQLiteConnection(sqlConnectionString))
             {
-                List<FeedArticle> FeedArticles = FeedArticleReader.GetAllRows(SQLConn);
-
-                foreach (FeedArticle ArticleEntry in FeedArticles)
-                {
-                    string FeedName = ArticleEntry.FeedName;
-
-                    if (Articles.ContainsKey(FeedName) == false)
-                    {
-                        Articles[FeedName] = new(1000);
-                    }
-
-                    if (Articles.ContainsKey(FeedName))
-                    {
-                        string ArticleUrl = ArticleEntry.ArticleUrl;
-                        SortedList<string, FeedArticle> ArticlesByUrl = Articles[FeedName];
-
-                        if (ArticlesByUrl.ContainsKey(ArticleUrl) == false)
-                        {
-                            ArticlesByUrl.Add(ArticleUrl, ArticleEntry);
-                        }
-                    }
-                }
+                Id = FeedArticleReader.GetMaxId(SQLConn, feedName);
             }
 
-            return Articles;
+            return Id;
         }
 
-        public static SortedList<string, FeedArticle> GetFeedArticles(string sqlConnectionString, string feedName)
+        public static List<FeedArticle> GetFeedArticles(string sqlConnectionString, string feedName, int idBegin, int idEnd)
         {
-            SortedList<string, FeedArticle> Articles = new(100);
+            List<FeedArticle> Articles = new(100);
 
             using (SQLiteConnection SQLConn = SQLUtil.OpenSQLiteConnection(sqlConnectionString))
             {
-                List<FeedArticle> FeedArticles = FeedArticleReader.GetRows(SQLConn, feedName);
-
-                foreach (FeedArticle ArticleEntry in FeedArticles)
-                {
-                    string ArticleUrl = ArticleEntry.ArticleUrl;
-
-                    if (Articles.ContainsKey(ArticleUrl) == false)
-                    {
-                        Articles.Add(ArticleUrl, ArticleEntry);
-                    }
-                }
+                Articles = FeedArticleReader.GetRows(SQLConn, feedName, idBegin, idEnd);
             }
 
             return Articles;
@@ -85,23 +54,20 @@ namespace gautier.rss.data
 
         public static void ImportStaticFeedFilesToDatabase(string feedSaveDirectoryPath, string feedDbFilePath, Feed[] feeds)
         {
-            SortedList<string, List<FeedArticleUnion>> FeedsArticles = new();
-
             foreach (Feed FeedEntry in feeds)
             {
-                List<FeedArticleUnion> Articles = ImportRSSFeedToDatabase(feedSaveDirectoryPath, feedDbFilePath, FeedEntry);
-                FeedsArticles[FeedEntry.FeedName] = Articles;
+                ImportRSSFeedToDatabase(feedSaveDirectoryPath, feedDbFilePath, FeedEntry);
             }
 
-            Console.WriteLine($"\t\tUpdated SQLite database | {feedDbFilePath}");
+            Console.WriteLine($"\t\t/////////////////Updated SQLite database | {feedDbFilePath}");
             return;
         }
 
-        public static List<FeedArticleUnion> ImportRSSFeedToDatabase(string feedSaveDirectoryPath, string feedDbFilePath, Feed feed)
+        public static void ImportRSSFeedToDatabase(string feedSaveDirectoryPath, string feedDbFilePath, Feed feed)
         {
-            List<FeedArticleUnion> Articles = new();
+            List<FeedArticle> Articles = new();
             DateTime ModificationDateTime = DateTime.Now;
-            string ModificationDateTimeText = ModificationDateTime.ToString(_InvariantFormat.UniversalSortableDateTimePattern);
+            string ModificationDateTimeText = ModificationDateTime.ToString("yyyy-MM-dd HH:mm:ss");
 
             string filePath = GetNormalizedFeedFilePath(feedSaveDirectoryPath, feed);
 
@@ -166,24 +132,20 @@ namespace gautier.rss.data
 
                     if (Col1 == "URL" && PreviousURL != Col2)
                     {
-                        FeedArticleUnion FeedArticlePair = new
-                                    (
-                                        FeedHeader: feed,
-                                        ArticleDetail: new()
-                                        {
-                                            FeedName = feed.FeedName,
-                                            HeadlineText = HeadlineText,
-                                            ArticleSummary = ArticleSummary,
-                                            ArticleText = ArticleText,
-                                            ArticleDate = ArticleDate,
-                                            ArticleUrl = ArticleUrl,
-                                            RowInsertDateTime = RowInsertDateTime
-                                        }
-                                    );
+                        FeedArticle Article = new()
+                        {
+                            FeedName = feed.FeedName,
+                            HeadlineText = HeadlineText,
+                            ArticleSummary = ArticleSummary,
+                            ArticleText = ArticleText,
+                            ArticleDate = ArticleDate,
+                            ArticleUrl = ArticleUrl,
+                            RowInsertDateTime = RowInsertDateTime
+                        };
 
                         if (!string.IsNullOrWhiteSpace(HeadlineText) && (!string.IsNullOrWhiteSpace(ArticleText) || !string.IsNullOrWhiteSpace(ArticleSummary)))
                         {
-                            Articles.Add(FeedArticlePair);
+                            Articles.Add(Article);
                         }
 
                         ArticleDate = string.Empty;
@@ -210,91 +172,41 @@ namespace gautier.rss.data
 
             if (Articles.Count > 0)
             {
-                SortedList<string, List<FeedArticleUnion>> FeedsArticles = new()
-                {
-                    [feed.FeedName] = Articles,
-                };
-                List<string> FeedNames = new()
-                {
-                    feed.FeedName,
-                };
-                SortedList<string, Feed> Feeds = new()
-                {
-                    [feed.FeedName] = feed,
-                };
                 string ConnectionString = SQLUtil.GetSQLiteConnectionString(feedDbFilePath, 3);
                 using SQLiteConnection SQLConn = SQLUtil.OpenSQLiteConnection(ConnectionString);
 
                 /*Leave these quick diagnostic statements. They are useful in a pinch.*/
                 //Console.WriteLine($"DATA LAYER INTERFACE {nameof(ImportRSSFeedToDatabase)} Feeds {Feeds.Count} FeedNames {FeedNames.Count} FeedsArticles {FeedsArticles.Count}");
-                UpdateRSSTables(FeedsArticles, SQLConn, FeedNames, Feeds);
+                UpdateRSSTables(feed with { LastRetrieved = ModificationDateTimeText }, Articles, SQLConn);
             }
 
-            return Articles;
+            return;
         }
 
         private static string GetNormalizedFeedFilePath(string feedSaveDirectoryPath, Feed feedInfo) => Path.Combine(feedSaveDirectoryPath, $"{feedInfo.FeedName}.txt");
 
-        public static void WriteRSSArticlesToDatabase(string feedDbFilePath, SortedList<string, List<FeedArticleUnion>> feedsArticles)
+        private static void UpdateRSSTables(Feed feed, List<FeedArticle> articles, SQLiteConnection sqlConn)
         {
-            string ConnectionString = SQLUtil.GetSQLiteConnectionString(feedDbFilePath, 3);
-            using SQLiteConnection SQLConn = SQLUtil.OpenSQLiteConnection(ConnectionString);
-            IList<string>? FeedNames = feedsArticles.Keys;
-            SortedList<string, Feed> Feeds = CollectFeeds(feedsArticles, FeedNames);
-            /*Insert or Update feeds and feeds_articles tables*/
-            UpdateRSSTables(feedsArticles, SQLConn, FeedNames, Feeds);
-            return;
-        }
+            ModifyFeed(sqlConn, feed);
 
-        private static SortedList<string, Feed> CollectFeeds(SortedList<string, List<FeedArticleUnion>> feedsArticles, IList<string> feedNames)
-        {
-            SortedList<string, Feed> Feeds = new();
-
-            foreach (string? FeedName in feedNames)
+            foreach (FeedArticle Article in articles)
             {
-                if (Feeds.ContainsKey(FeedName) == false)
-                {
-                    List<FeedArticleUnion>? FUL = feedsArticles[FeedName];
-
-                    if (FUL.Count > 0)
-                    {
-                        FeedArticleUnion? FU = FUL[0];
-                        Feeds[FeedName] = FU.FeedHeader;
-                    }
-                }
-            }
-
-            return Feeds;
-        }
-
-        private static void UpdateRSSTables(SortedList<string, List<FeedArticleUnion>> feedsArticles, SQLiteConnection sqlConn, IList<string> feedNames, SortedList<string, Feed> feeds)
-        {
-            foreach (string? FeedName in feedNames)
-            {
-                Feed? FeedHeader = feeds[FeedName];
-                List<FeedArticleUnion> FeedArticles = feedsArticles[FeedName];
-                /*Insert or Update feeds table*/
-                ModifyFeed(sqlConn, FeedHeader);
-
                 /*Leave these quick diagnostic statements. They are useful in a pinch.*/
                 //Console.WriteLine($"DATA LAYER INTERFACE {nameof(UpdateRSSTables)} STEP 1 ALL Feed Names {feedNames.Count} then Feed {FeedName} FeedsArticles {FeedArticles.Count}");
 
-                foreach (FeedArticleUnion? article in FeedArticles)
-                {
-                    /*Leave these quick diagnostic statements. They are useful in a pinch.*/
-                    //Console.WriteLine($"DATA LAYER INTERFACE {nameof(UpdateRSSTables)} STEP 2 Headline {article.ArticleDetail.HeadlineText} Summary {article.ArticleDetail.ArticleSummary} Text {article.ArticleDetail.ArticleText} URL {article.ArticleDetail.ArticleUrl}");
+                /*Leave these quick diagnostic statements. They are useful in a pinch.*/
+                //Console.WriteLine($"DATA LAYER INTERFACE {nameof(UpdateRSSTables)} STEP 2 Headline {article.ArticleDetail.HeadlineText} Summary {article.ArticleDetail.ArticleSummary} Text {article.ArticleDetail.ArticleText} URL {article.ArticleDetail.ArticleUrl}");
 
-                    /*Insert or Update feeds_articles table*/
-                    ModifyFeedArticle(sqlConn, FeedHeader, article);
-                }
+                /*Insert or Update feeds_articles table*/
+                ModifyFeedArticle(sqlConn, feed, Article);
             }
 
             return;
         }
 
-        private static void ModifyFeedArticle(SQLiteConnection sqlConn, Feed feedHeader, FeedArticleUnion article)
+        private static void ModifyFeedArticle(SQLiteConnection sqlConn, Feed feedHeader, FeedArticle article)
         {
-            bool Exists = FeedArticleReader.Exists(sqlConn, feedHeader.FeedName, article.ArticleDetail.ArticleUrl);
+            bool Exists = FeedArticleReader.Exists(sqlConn, feedHeader.FeedName, article.ArticleUrl);
 
             if (Exists == false)
             {

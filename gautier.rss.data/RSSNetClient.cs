@@ -22,14 +22,20 @@ namespace gautier.rss.data
 
             if (RetrieveLimitIsValid)
             {
-                bool LastRetrievedFormatIsValid = DateTime.TryParseExact(feed.LastRetrieved, _InvariantFormat.UniversalSortableDateTimePattern, _InvariantFormat, DateTimeStyles.None, out DateTime LastRetrievedDateTime);
+                bool LastRetrievedFormatIsValid = DateTime.TryParseExact(feed.LastRetrieved, "yyyy-MM-dd HH:mm:ss", _InvariantFormat, DateTimeStyles.None, out DateTime LastRetrievedDateTime);
 
                 if (LastRetrievedFormatIsValid)
                 {
                     DateTime FeedRenewalDateTime = LastRetrievedDateTime.AddHours(RetrieveLimitHrs);
                     DateTime RecentDateTime = DateTime.Now;
-                    Console.WriteLine($"Feed: {feed.FeedName} | Feed Renewal Date: {FeedRenewalDateTime} vs Recent Date: {RecentDateTime}");
-                    Console.WriteLine($"\t\tUpdate Frequency: {feed.RetrieveLimitHrs} Hrs | Retention Days: {feed.RetentionDays} | Last Retrieved: {LastRetrievedDateTime}");
+                    Console.WriteLine($"*************");
+                    Console.WriteLine($"{nameof(CheckFeedIsEligibleForUpdate)} Feed: {feed.FeedName}");
+                    Console.WriteLine($"\t\t\t Update Frequency: {feed.RetrieveLimitHrs} Hrs");
+                    Console.WriteLine($"\t\t\t Retention Days: {feed.RetentionDays}");
+                    Console.WriteLine($"\t\t\t Recent Date: {RecentDateTime}");
+                    Console.WriteLine($"\t\t\t Last Retrieved: {LastRetrievedDateTime}");
+                    Console.WriteLine($"\t\t\t Feed Renewal Date: {FeedRenewalDateTime}");
+
                     FeedIsEligibleForUpdate = RecentDateTime > FeedRenewalDateTime;
                 }
             }
@@ -42,6 +48,8 @@ namespace gautier.rss.data
             string FilePath = Path.Combine(fileDownloadDirectoryPath, $"{feed.FeedName}.xml");
             bool FeedCanBeUpdated = CheckFeedIsEligibleForUpdate(feed);
 
+            Console.WriteLine($"{nameof(DownloadFeed)} {FeedCanBeUpdated}");
+
             if (FeedCanBeUpdated)
             {
                 string Url = feed.FeedUrl;
@@ -52,6 +60,7 @@ namespace gautier.rss.data
 
                 if (string.IsNullOrWhiteSpace(Content) == false)
                 {
+                    Console.WriteLine($"{nameof(DownloadFeed)} Content Length {Content?.Length}");
                     File.WriteAllText(FilePath, Content);
                 }
             }

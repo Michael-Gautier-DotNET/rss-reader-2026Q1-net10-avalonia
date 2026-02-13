@@ -7,14 +7,14 @@ namespace gautier.rss.data.RSSDb
     {
         private static readonly string[] _ColumnNames = FeedArticleReader.TableColumnNames;
 
-        internal static void AddFeedArticle(SQLiteConnection sqlConn, FeedArticleUnion article)
+        internal static void AddFeedArticle(SQLiteConnection sqlConn, FeedArticle article)
         {
             string[] ColumnNames = SQLUtil.StripColumnByName("id", _ColumnNames);
             StringBuilder CommandText = SQLUtil.CreateSQLInsertCMDText(FeedArticleReader.TableName, ColumnNames);
 
             using (SQLiteCommand SQLCmd = new(CommandText.ToString(), sqlConn))
             {
-                FeedArticleReader.MapSQLParametersToAllTableColumns(SQLCmd, article.ArticleDetail, ColumnNames);
+                FeedArticleReader.MapSQLParametersToAllTableColumns(SQLCmd, article, ColumnNames);
                 SQLCmd.ExecuteNonQuery();
             }
 
@@ -49,7 +49,7 @@ namespace gautier.rss.data.RSSDb
             return;
         }
 
-        internal static void ModifyFeedArticle(SQLiteConnection sqlConn, FeedArticleUnion article)
+        internal static void ModifyFeedArticle(SQLiteConnection sqlConn, FeedArticle article)
         {
             string[] ColumnNames = SQLUtil.StripColumnNames(new()
             {
@@ -60,7 +60,7 @@ namespace gautier.rss.data.RSSDb
 
             using (SQLiteCommand SQLCmd = new(CommandText.ToString(), sqlConn))
             {
-                FeedArticleReader.MapSQLParametersToAllTableColumns(SQLCmd, article.ArticleDetail, _ColumnNames);
+                FeedArticleReader.MapSQLParametersToAllTableColumns(SQLCmd, article, _ColumnNames);
                 SQLCmd.ExecuteNonQuery();
             }
 

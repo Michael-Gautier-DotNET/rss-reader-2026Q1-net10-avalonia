@@ -112,16 +112,18 @@ namespace gautier.rss.data
 
         public static void TransformStaticFeedFiles(string feedSaveDirectoryPath, Feed[] feeds)
         {
-            SortedList<string, List<FeedArticle>> Feeds = TransformXmlFeedToFeedArticles(feedSaveDirectoryPath, feeds);
+            List<FeedArticle> FeedsArticles = TransformXmlFeedToFeedArticles(feedSaveDirectoryPath, feeds);
 
             foreach (Feed? FeedInfo in feeds)
             {
-                if (Feeds.ContainsKey(FeedInfo.FeedName) == false)
+                var Articles = FeedsArticles.Where(n => n.FeedName == FeedInfo.FeedName).ToList();
+
+                if (!Articles.Any())
                 {
                     continue;
                 }
 
-                WriteRSSArticlesToFile(feedSaveDirectoryPath, FeedInfo, Feeds[FeedInfo.FeedName]);
+                WriteRSSArticlesToFile(feedSaveDirectoryPath, FeedInfo, Articles);
             }
 
             return;
@@ -151,22 +153,24 @@ namespace gautier.rss.data
                 RSSFeedFile.Write(RSSFeedFileOutput.ToString());
                 RSSFeedFile.Flush();
                 RSSFeedFile.Close();
-                Console.WriteLine($"\t\tMade TXT tab-delimited cached file | {feed.FeedName}:");
-                Console.WriteLine($"\t\t\t\t{NormalizedFeedFilePath}");
+                Console.WriteLine($"\t\t ------------- Made TXT tab-delimited cache file:");
+                Console.WriteLine($"\t\t ------------- {feed.FeedName}");
+                Console.WriteLine($"\t\t\t Feed Data Dir {Path.GetDirectoryName(NormalizedFeedFilePath)}");
+                Console.WriteLine($"\t\t\t Feed Data Dir {Path.GetFileName(NormalizedFeedFilePath)}");
             }
 
             RSSFeedFileOutput.Clear();
             return NormalizedFeedFilePath;
         }
 
-        public static SortedList<string, List<FeedArticle>> TransformXmlFeedToFeedArticles(string feedSaveDirectoryPath, Feed[] feeds)
+        public static List<FeedArticle> TransformXmlFeedToFeedArticles(string feedSaveDirectoryPath, Feed[] feeds)
         {
-            SortedList<string, List<FeedArticle>> FeedArticles = new();
+            List<FeedArticle> FeedArticles = new();
 
             foreach (Feed? FeedInfo in feeds)
             {
                 List<FeedArticle> Articles = TransformXmlFeedToFeedArticles(feedSaveDirectoryPath, FeedInfo);
-                FeedArticles[FeedInfo.FeedName] = Articles;
+                FeedArticles.AddRange(Articles);
             }
 
             return FeedArticles;
@@ -193,7 +197,7 @@ namespace gautier.rss.data
             string ArticleUrl = article.Link;
             DateTime ArticleDate;
             DateTime.TryParse(article.PublicationDate, out ArticleDate);
-            string ArticleDateText = ArticleDate.ToString(_InvariantFormat.UniversalSortableDateTimePattern);
+            string ArticleDateText = ArticleDate.ToString("yyyy-MM-dd HH:mm:ss");
             return new()
             {
                 FeedName = feed.FeedName,
@@ -202,54 +206,8 @@ namespace gautier.rss.data
                 ArticleText = ArticleText,
                 ArticleDate = ArticleDateText,
                 ArticleUrl = ArticleUrl,
-                RowInsertDateTime = DateTime.Now.ToString(_InvariantFormat.UniversalSortableDateTimePattern),
+                RowInsertDateTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
             };
-        }
-
-        public static Feed[] GetStaticFeedInfos(string feedsFilePath)
-        {
-            List<Feed> Feeds = new();
-            SortedList<string, string> FeedByName = new();
-
-            using (StreamReader FeedsReader = new(feedsFilePath))
-            {
-                while (FeedsReader.EndOfStream == false)
-                {
-                    string FeedLine = $"{FeedsReader.ReadLine()}";
-
-                    if (string.IsNullOrWhiteSpace(FeedLine))
-                    {
-                        continue;
-                    }
-
-                    string[] Columns = FeedLine.Split(_Tab);
-
-                    if (Columns.Length < 1)
-                    {
-                        continue;
-                    }
-
-                    string FeedName = Columns[0];
-                    string FeedUrl = Columns[1];
-                    /*
-                     * If there are duplicate feed entries, the structure of the collection
-                     *   is defined such that the most recent entry prevails.
-                     */
-                    FeedByName[FeedName] = FeedUrl;
-                }
-            }
-
-            foreach (string FeedName in FeedByName.Keys)
-            {
-                Feed FeedEntry = new()
-                {
-                    FeedName = FeedName,
-                    FeedUrl = FeedByName[FeedName],
-                };
-                Feeds.Add(FeedEntry);
-            }
-
-            return Feeds.ToArray();
         }
     }
 }

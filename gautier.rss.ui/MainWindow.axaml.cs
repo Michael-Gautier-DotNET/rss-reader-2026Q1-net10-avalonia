@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
+using System.Globalization;
 
 using Avalonia;
 using Avalonia.Controls;
@@ -16,11 +17,12 @@ namespace gautier.rss.ui
 {
     public partial class MainWindow : Window
     {
+        private static readonly DateTimeFormatInfo _InvariantFormat = DateTimeFormatInfo.InvariantInfo;
         private DateTime _LastExpireCheck = DateTime.Now;
         private List<Feed> _Feeds = new();
         private List<Feed> _FeedsBefore = new();
 
-        private readonly TimeSpan _FeedUpdateInterval = TimeSpan.FromMinutes(2);
+        private readonly TimeSpan _FeedUpdateInterval = TimeSpan.FromMinutes(1);
         private DispatcherTimer _FeedUpdateTimer;
 
         private static readonly string _EmptyArticle = "No article content available.";
@@ -44,6 +46,8 @@ namespace gautier.rss.ui
 
         private void Window_Initialized(object sender, EventArgs e)
         {
+            PruneExpiredArticles();
+
             _Feeds = FeedDataExchange.GetAllFeeds(FeedConfiguration.SQLiteDbConnectionString);
 
             _FeedUpdateTimer = new()
@@ -54,7 +58,15 @@ namespace gautier.rss.ui
             _FeedUpdateTimer.Tick += UpdateFeedsOnInterval;
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e) => UpdateFeedTabs();
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine($"{DateTime.Now}");
+            Console.WriteLine($"Refresh interval {_FeedUpdateInterval.ToString()}");
+            Console.WriteLine($"************************** {DateTime.Now.ToString("dddd   MMMM \t\tMM/dd/yyyy tt")}");
+            Console.WriteLine($"************************** ************************** \t{DateTime.Now.ToString("yyyy-MM-dd hh:mmmm:ss tt")}");
+
+            UpdateFeedTabs();
+        }
 
         private async void UpdateFeedsOnInterval(object sender, EventArgs e)
         {
@@ -82,9 +94,6 @@ namespace gautier.rss.ui
 
         private async Task DownloadFeedsAsync()
         {
-            PruneExpiredArticles();
-            List<Feed> DbFeeds = FeedDataExchange.GetAllFeeds(FeedConfiguration.SQLiteDbConnectionString);
-
             static void ExecuteDownload(Feed FeedEntry)
             {
                 string RSSXmlFilePath = RSSNetClient.DownloadFeed(FeedConfiguration.LocalRootFilesLocation, FeedEntry);
@@ -123,11 +132,32 @@ namespace gautier.rss.ui
                 }
             }
 
-            Console.WriteLine($"\t\t UI {nameof(DownloadFeedsAsync)} {DbFeeds.Count} Feeds");
+            List<Feed> DbFeeds = FeedDataExchange.GetAllFeeds(FeedConfiguration.SQLiteDbConnectionString);
+
+            DateTime RecentDateTime = DateTime.Now;
+            Console.WriteLine($"\t UI {nameof(DownloadFeedsAsync)} [{DbFeeds.Count}] Feeds");
 
             foreach (Feed FeedEntry in DbFeeds)
             {
-                Console.WriteLine($"\t\t UI {nameof(DownloadFeedsAsync)} Processing {FeedEntry.FeedName} {FeedEntry.FeedUrl} Last Retrieved {FeedEntry.LastRetrieved}");
+                bool FeedIsEligibleForUpdate = false;
+                bool RetrieveLimitIsValid = int.TryParse(FeedEntry.RetrieveLimitHrs, out int RetrieveLimitHrs);
+
+                DateTime.TryParseExact(FeedEntry.LastRetrieved, "yyyy-MM-dd HH:mm:ss", _InvariantFormat, DateTimeStyles.None, out DateTime LastRetrievedDateTime);
+                DateTime FeedRenewalDateTime = LastRetrievedDateTime.AddHours(RetrieveLimitHrs);
+
+                bool LastRetrievedFormatIsValid = FeedIsEligibleForUpdate = RecentDateTime > FeedRenewalDateTime;
+
+                Console.WriteLine("**************************");
+                Console.WriteLine($"************************** ************************** \t{RecentDateTime.ToString("yyyy-MM-dd hh:mmmm:ss tt")}");
+                Console.WriteLine($"\t\t UI {nameof(DownloadFeedsAsync)} Processing {FeedEntry.FeedName}");
+                Console.WriteLine($"\t\t\t {FeedEntry.FeedUrl}");
+                Console.WriteLine($"\t\t\t Feed Renewal Date: {FeedRenewalDateTime}");
+                Console.WriteLine($"\t\t\t Last Retrieved: {LastRetrievedDateTime}");
+                Console.WriteLine($"\t\t\t Recent Date: {RecentDateTime}");
+                Console.WriteLine($"\t\t\t Update Frequency: {FeedEntry.RetrieveLimitHrs} Hrs");
+                Console.WriteLine($"\t\t\t Retention Days: {FeedEntry.RetentionDays}");
+
+                Console.WriteLine("************************** ************************** **************************");
 
                 ExecuteDownload(FeedEntry);
             }
@@ -271,43 +301,29 @@ namespace gautier.rss.ui
 
         private void AddArticles(Feed feedEntry, TabItem tab)
         {
-            SortedList<string, FeedArticle> AllArticles = FeedDataExchange.GetFeedArticles(FeedConfiguration.SQLiteDbConnectionString, feedEntry.FeedName);
-
-            List<string> AllArticleUrls = new(AllArticles.Keys);
-
             if ((tab.Content as ListBox)?.ItemsSource is ObservableCollection<FeedArticle> EffectiveArticles)
             {
-                foreach (string ArticleUrl in AllArticleUrls)
+                var LastIDLocal = EffectiveArticles.Any() ? EffectiveArticles.Max(n => n.DbId) : 0;
+
+                var LastIDDb = FeedDataExchange.GetMaxArticleID(FeedConfiguration.SQLiteDbConnectionString, feedEntry.FeedName);
+
+                if (LastIDDb > LastIDLocal)
                 {
-                    bool Exists = ContainsArticleUrl(EffectiveArticles, ArticleUrl);
+                    List<FeedArticle> LatestArticles = FeedDataExchange.GetFeedArticles(FeedConfiguration.SQLiteDbConnectionString, feedEntry.FeedName, LastIDLocal + 1, LastIDDb);
 
-                    if (!Exists)
+                    foreach (FeedArticle ArticleEntry in LatestArticles)
                     {
-                        FeedArticle Article = AllArticles[ArticleUrl];
-                        EffectiveArticles.Add(Article);
+                        if (!EffectiveArticles.Any(n => n.ArticleUrl == ArticleEntry.ArticleUrl))
+                        {
+                            EffectiveArticles.Add(ArticleEntry);
+                        }
                     }
+                    //FeedContent.ItemsSource = EffectiveArticles;
+                    //UpdateLayout();
                 }
-
-                var FeedContent = tab.Content as ListBox;
-
-                FeedContent.ItemsSource = EffectiveArticles;
-                FeedContent.UpdateLayout();
 
                 SelectDefaultArticle();
             }
-        }
-
-        private static bool ContainsArticleUrl(IList<FeedArticle> articles, string articleUrl)
-        {
-            foreach (FeedArticle article in articles)
-            {
-                if (string.Equals(article.ArticleUrl, articleUrl, StringComparison.InvariantCultureIgnoreCase))
-                {
-                    return true;
-                }
-            }
-
-            return false;
         }
 
         //Updates the right-side of the screen
@@ -441,10 +457,7 @@ namespace gautier.rss.ui
 
             ReaderFeedName?.Content = $"{ReaderTab.Header}";
 
-            if (FeedHeadlines.SelectedIndex < 0)
-            {
-                SelectDefaultArticle();
-            }
+            SelectDefaultArticle();
         }
 
         private void ReaderManagerButton_Click(object sender, RoutedEventArgs e)

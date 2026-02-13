@@ -11,6 +11,7 @@ namespace gautier.rss.ui
         [STAThread]
         public static void Main(string[] args)
         {
+            Console.WriteLine($"{DateTime.Now}");
             Console.WriteLine("=== Gautier RSS Avalonia Edition ===");
             Console.WriteLine($"Executing from: {Assembly.GetExecutingAssembly().Location}");
             Console.WriteLine($"Current directory: {Environment.CurrentDirectory}");
@@ -49,7 +50,7 @@ namespace gautier.rss.ui
             }
 
             Console.WriteLine("Starting up ...");
-            // Now start the Avalonia UI
+            Console.WriteLine($"{DateTime.Now}");
             BuildAvaloniaApp()
                 .StartWithClassicDesktopLifetime(args);
         }

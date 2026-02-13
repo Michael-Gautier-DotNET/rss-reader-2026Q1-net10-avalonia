@@ -69,8 +69,6 @@ namespace gautier.rss.ui.UIData
             set => SetValue(RetentionDaysProperty, value);
         }
 
-        internal static ObservableCollection<BindableFeed> ConvertFeeds(in SortedList<string, Feed> feeds) => ConvertFeeds(feeds.Values.ToList());
-
         internal static ObservableCollection<BindableFeed> ConvertFeeds(in List<Feed> feeds)
         {
             ObservableCollection<BindableFeed>? BFeeds = new();
@@ -104,7 +102,7 @@ namespace gautier.rss.ui.UIData
                 DbId = feed.Id,
                 FeedName = feed.Name,
                 FeedUrl = feed.Url,
-                LastRetrieved = feed.LastRetrieved.ToString(_InvariantFormat.UniversalSortableDateTimePattern),
+                LastRetrieved = feed.LastRetrieved.ToString("yyyy-MM-dd HH:mm:ss"),
                 RetrieveLimitHrs = $"{feed.RetrieveLimitHrs}",
                 RetentionDays = $"{feed.RetentionDays}",
             };
