@@ -20,35 +20,40 @@ namespace gautier.rss.data
             bool FeedIsEligibleForUpdate = false;
             bool RetrieveLimitIsValid = int.TryParse(feed.RetrieveLimitHrs, out int RetrieveLimitHrs);
 
+            Console.WriteLine($"\t\t\t --- Retrieve Limit Is Valid: {RetrieveLimitIsValid}");
             if (RetrieveLimitIsValid)
             {
                 bool LastRetrievedFormatIsValid = DateTime.TryParseExact(feed.LastRetrieved, "yyyy-MM-dd HH:mm:ss", _InvariantFormat, DateTimeStyles.None, out DateTime LastRetrievedDateTime);
 
+                Console.WriteLine($"\t\t\t --- Last RetrievedFormat Is Valid: {LastRetrievedFormatIsValid}");
+
                 if (LastRetrievedFormatIsValid)
                 {
-                    DateTime FeedRenewalDateTime = LastRetrievedDateTime.AddHours(RetrieveLimitHrs);
                     DateTime RecentDateTime = DateTime.Now;
-                    Console.WriteLine($"*************");
-                    Console.WriteLine($"{nameof(CheckFeedIsEligibleForUpdate)} Feed: {feed.FeedName}");
-                    Console.WriteLine($"\t\t\t Update Frequency: {feed.RetrieveLimitHrs} Hrs");
-                    Console.WriteLine($"\t\t\t Retention Days: {feed.RetentionDays}");
-                    Console.WriteLine($"\t\t\t Recent Date: {RecentDateTime}");
-                    Console.WriteLine($"\t\t\t Last Retrieved: {LastRetrievedDateTime}");
-                    Console.WriteLine($"\t\t\t Feed Renewal Date: {FeedRenewalDateTime}");
+                    DateTime FeedRenewalDateTime = LastRetrievedDateTime.AddHours(RetrieveLimitHrs);
+                    Console.WriteLine($"\t\t\t --- Recent Date: {RecentDateTime}");
+                    Console.WriteLine($"\t\t\t --- Update Frequency: {feed.RetrieveLimitHrs} Hrs");
+                    Console.WriteLine($"\t\t\t --- Last Retrieved: {LastRetrievedDateTime}");
+                    Console.WriteLine($"\t\t\t --- Feed Renewal Date: {FeedRenewalDateTime}");
 
                     FeedIsEligibleForUpdate = RecentDateTime > FeedRenewalDateTime;
                 }
             }
 
+            Console.WriteLine($"\t\t\t --- Feed Is Eligible For Update: {FeedIsEligibleForUpdate}");
+
             return FeedIsEligibleForUpdate;
         }
 
-        public static string DownloadFeed(string fileDownloadDirectoryPath, Feed feed)
+        public static bool DownloadFeed(string localDestinationFilePath, Feed feed)
         {
-            string FilePath = Path.Combine(fileDownloadDirectoryPath, $"{feed.FeedName}.xml");
+            bool DownloadIsValid = false;
+            Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~ \t{DateTime.Now.ToString("yyyy-MM-dd hh:mmmm:ss tt")}");
+
             bool FeedCanBeUpdated = CheckFeedIsEligibleForUpdate(feed);
 
-            Console.WriteLine($"{nameof(DownloadFeed)} {FeedCanBeUpdated}");
+            Console.WriteLine($"\t\t {nameof(DownloadFeed)} Processing {feed.FeedName} ** Can Be Updated {FeedCanBeUpdated}");
 
             if (FeedCanBeUpdated)
             {
@@ -58,14 +63,20 @@ namespace gautier.rss.data
                 RestResponse HttpResponse = HttpHandle.Execute(HttpRequest);
                 string? Content = HttpResponse.Content;
 
-                if (string.IsNullOrWhiteSpace(Content) == false)
+                DownloadIsValid = !string.IsNullOrWhiteSpace(Content);
+                Console.WriteLine($"{nameof(DownloadFeed)} Download Success {DownloadIsValid}");
+                Console.WriteLine($"{nameof(DownloadFeed)} Content Length {Content?.Length}");
+                if (DownloadIsValid)
                 {
-                    Console.WriteLine($"{nameof(DownloadFeed)} Content Length {Content?.Length}");
-                    File.WriteAllText(FilePath, Content);
+                    Console.WriteLine($"\t\t\t --- {feed.FeedUrl}");
+                    File.WriteAllText(localDestinationFilePath, Content);
+                    Console.WriteLine($"\t\t\t --- Content written {localDestinationFilePath}");
                 }
             }
 
-            return FilePath;
+            Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~");
+
+            return DownloadIsValid;
         }
 
         public static void CreateRSSFeedFile(string feedUrl, string rssFeedFilePath)

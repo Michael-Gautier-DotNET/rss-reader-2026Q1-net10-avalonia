@@ -52,6 +52,45 @@ namespace gautier.rss.data
             return Articles;
         }
 
+        public static void DownloadFeed(Feed feed, string downloadDir, string databasePath)
+        {
+            string RSSXmlFilePath = Path.Combine(downloadDir, $"{feed.FeedName}.xml");
+
+            bool FeedDownloaded = RSSNetClient.DownloadFeed(RSSXmlFilePath, feed);
+
+            /*Leave these quick diagnostic statements. They are useful in a pinch.*/
+            Console.WriteLine($"\t\t UI {nameof(DownloadFeed)} {feed.FeedName} {feed.FeedUrl} {RSSXmlFilePath}");
+
+            if (FeedDownloaded && File.Exists(RSSXmlFilePath))
+            {
+                string RSSIntegrationFilePath =
+                    FeedFileUtil.GetRSSTabDelimitedFeedFilePath(downloadDir, feed);
+
+                Console.WriteLine($"\t\t UI {nameof(DownloadFeed)} {feed.FeedName} {feed.FeedUrl} {RSSIntegrationFilePath}");
+
+                List<FeedArticle> Articles =
+                    FeedFileConverter.TransformXmlFeedToFeedArticles(downloadDir,
+                        feed);
+
+                Console.WriteLine($"\t\t UI {nameof(DownloadFeed)} {feed.FeedName} {feed.FeedUrl} saved to: {downloadDir}");
+
+                string RSSTabDelimitedFilePath =
+                    FeedFileConverter.WriteRSSArticlesToFile(downloadDir, feed,
+                        Articles);
+
+                Console.WriteLine($"\t\t UI {nameof(DownloadFeed)} {feed.FeedName} {feed.FeedUrl} delimited in: {downloadDir}");
+
+                bool RSSIntegrationPathIsValid = RSSIntegrationFilePath == RSSTabDelimitedFilePath;
+
+                Console.WriteLine($"\t\t UI {nameof(DownloadFeed)} {feed.FeedName} {feed.FeedUrl} integration path valid: {RSSIntegrationPathIsValid}");
+                if (RSSIntegrationPathIsValid && File.Exists(RSSTabDelimitedFilePath))
+                {
+                    Console.WriteLine($"\t\t UI {nameof(DownloadFeed)} {feed.FeedName} {feed.FeedUrl} DATABASE IMPORT {RSSTabDelimitedFilePath}");
+                    FeedDataExchange.ImportRSSFeedToDatabase(downloadDir, databasePath, feed);
+                }
+            }
+        }
+
         public static void ImportStaticFeedFilesToDatabase(string feedSaveDirectoryPath, string feedDbFilePath, Feed[] feeds)
         {
             foreach (Feed FeedEntry in feeds)

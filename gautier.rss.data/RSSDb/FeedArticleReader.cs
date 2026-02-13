@@ -151,7 +151,7 @@ namespace gautier.rss.data.RSSDb
         public static List<FeedArticle> GetAllRows(SQLiteConnection sqlConn)
         {
             List<FeedArticle> Rows = new();
-            string CommandText = $"SELECT * FROM {_TableName};";
+            string CommandText = $"SELECT * FROM {_TableName} ORDER BY feed_name, id;";
 
             using (SQLiteCommand SQLCmd = new(CommandText, sqlConn))
             {
@@ -167,7 +167,7 @@ namespace gautier.rss.data.RSSDb
         public static List<FeedArticle> GetRows(SQLiteConnection sqlConn, string feedName)
         {
             List<FeedArticle> Rows = new();
-            string CommandText = $"SELECT * FROM {_TableName} WHERE feed_name = @FeedName;";
+            string CommandText = $"SELECT * FROM {_TableName} WHERE feed_name = @FeedName ORDER BY feed_name, id;";
 
             using (SQLiteCommand SQLCmd = new(CommandText, sqlConn))
             {
@@ -185,7 +185,7 @@ namespace gautier.rss.data.RSSDb
         public static List<FeedArticle> GetRows(SQLiteConnection sqlConn, string feedName, int idBegin, int idEnd)
         {
             List<FeedArticle> Rows = new();
-            string CommandText = $"SELECT * FROM {_TableName} WHERE feed_name = @FeedName AND Id BETWEEN @IDBegin AND @IDEnd;";
+            string CommandText = $"SELECT * FROM {_TableName} WHERE feed_name = @FeedName AND id BETWEEN @IDBegin AND @IDEnd ORDER BY feed_name, id;";
 
             using (SQLiteCommand SQLCmd = new(CommandText, sqlConn))
             {

@@ -126,7 +126,7 @@ namespace gautier.rss.data.RSSDb
         public static Feed GetRow(SQLiteConnection sqlConn, int id)
         {
             Feed FeedEntry = new();
-            string CommandText = $"SELECT * FROM {_TableName} WHERE id = @id;";
+            string CommandText = $"SELECT * FROM {_TableName} WHERE id = @id ORDER BY id;";
 
             using (SQLiteCommand SQLCmd = new(CommandText, sqlConn))
             {
@@ -146,7 +146,7 @@ namespace gautier.rss.data.RSSDb
         public static Feed GetRow(SQLiteConnection sqlConn, string feedName)
         {
             Feed FeedEntry = new();
-            string CommandText = $"SELECT * FROM {_TableName} WHERE feed_name = @FeedName;";
+            string CommandText = $"SELECT * FROM {_TableName} WHERE feed_name = @FeedName ORDER BY id;";
 
             using (SQLiteCommand SQLCmd = new(CommandText, sqlConn))
             {

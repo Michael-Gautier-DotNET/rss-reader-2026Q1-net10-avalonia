@@ -22,7 +22,7 @@ namespace gautier.rss.ui
         private List<Feed> _Feeds = new();
         private List<Feed> _FeedsBefore = new();
 
-        private readonly TimeSpan _FeedUpdateInterval = TimeSpan.FromMinutes(1);
+        private readonly TimeSpan _FeedUpdateInterval = TimeSpan.FromMinutes(10);
         private DispatcherTimer _FeedUpdateTimer;
 
         private static readonly string _EmptyArticle = "No article content available.";
@@ -94,44 +94,6 @@ namespace gautier.rss.ui
 
         private async Task DownloadFeedsAsync()
         {
-            static void ExecuteDownload(Feed FeedEntry)
-            {
-                string RSSXmlFilePath = RSSNetClient.DownloadFeed(FeedConfiguration.LocalRootFilesLocation, FeedEntry);
-
-                /*Leave these quick diagnostic statements. They are useful in a pinch.*/
-                //Console.WriteLine($"\t\t UI {nameof(DownloadFeedsAsync)} {FeedEntry.FeedName} {FeedEntry.FeedUrl} {RSSXmlFilePath}");
-
-                if (File.Exists(RSSXmlFilePath))
-                {
-                    string RSSIntegrationFilePath =
-                        FeedFileUtil.GetRSSTabDelimitedFeedFilePath(FeedConfiguration.LocalRootFilesLocation, FeedEntry);
-
-                    //Console.WriteLine($"\t\t UI {nameof(DownloadFeedsAsync)} {FeedEntry.FeedName} {FeedEntry.FeedUrl} {RSSIntegrationFilePath}");
-
-                    List<FeedArticle> Articles =
-                        FeedFileConverter.TransformXmlFeedToFeedArticles(FeedConfiguration.LocalRootFilesLocation,
-                            FeedEntry);
-
-                    //Console.WriteLine($"\t\t UI {nameof(DownloadFeedsAsync)} {FeedEntry.FeedName} {FeedEntry.FeedUrl} saved to: {FeedConfiguration.LocalRootFilesLocation}");
-
-                    string RSSTabDelimitedFilePath =
-                        FeedFileConverter.WriteRSSArticlesToFile(FeedConfiguration.LocalRootFilesLocation, FeedEntry,
-                            Articles);
-
-                    //Console.WriteLine($"\t\t UI {nameof(DownloadFeedsAsync)} {FeedEntry.FeedName} {FeedEntry.FeedUrl} delimited in: {FeedConfiguration.LocalRootFilesLocation}");
-
-                    bool RSSIntegrationPathIsValid = RSSIntegrationFilePath == RSSTabDelimitedFilePath;
-
-                    //Console.WriteLine($"\t\t UI {nameof(DownloadFeedsAsync)} {FeedEntry.FeedName} {FeedEntry.FeedUrl} integration path valid: {RSSIntegrationPathIsValid}");
-                    if (RSSIntegrationPathIsValid && File.Exists(RSSTabDelimitedFilePath))
-                    {
-                        //Console.WriteLine($"\t\t UI {nameof(DownloadFeedsAsync)} {FeedEntry.FeedName} {FeedEntry.FeedUrl} DATABASE IMPORT {RSSTabDelimitedFilePath}");
-                        FeedDataExchange.ImportRSSFeedToDatabase(FeedConfiguration.LocalRootFilesLocation,
-                            FeedConfiguration.LocalDatabaseLocation, FeedEntry);
-                    }
-                }
-            }
-
             List<Feed> DbFeeds = FeedDataExchange.GetAllFeeds(FeedConfiguration.SQLiteDbConnectionString);
 
             DateTime RecentDateTime = DateTime.Now;
@@ -139,27 +101,28 @@ namespace gautier.rss.ui
 
             foreach (Feed FeedEntry in DbFeeds)
             {
-                bool FeedIsEligibleForUpdate = false;
                 bool RetrieveLimitIsValid = int.TryParse(FeedEntry.RetrieveLimitHrs, out int RetrieveLimitHrs);
-
-                DateTime.TryParseExact(FeedEntry.LastRetrieved, "yyyy-MM-dd HH:mm:ss", _InvariantFormat, DateTimeStyles.None, out DateTime LastRetrievedDateTime);
+                bool LastRetrievedFormatIsValid = DateTime.TryParseExact(FeedEntry.LastRetrieved, "yyyy-MM-dd HH:mm:ss", _InvariantFormat, DateTimeStyles.None, out DateTime LastRetrievedDateTime);
                 DateTime FeedRenewalDateTime = LastRetrievedDateTime.AddHours(RetrieveLimitHrs);
 
-                bool LastRetrievedFormatIsValid = FeedIsEligibleForUpdate = RecentDateTime > FeedRenewalDateTime;
+                bool FeedIsEligibleForUpdate = RecentDateTime > FeedRenewalDateTime;
 
                 Console.WriteLine("**************************");
                 Console.WriteLine($"************************** ************************** \t{RecentDateTime.ToString("yyyy-MM-dd hh:mmmm:ss tt")}");
                 Console.WriteLine($"\t\t UI {nameof(DownloadFeedsAsync)} Processing {FeedEntry.FeedName}");
-                Console.WriteLine($"\t\t\t {FeedEntry.FeedUrl}");
-                Console.WriteLine($"\t\t\t Feed Renewal Date: {FeedRenewalDateTime}");
-                Console.WriteLine($"\t\t\t Last Retrieved: {LastRetrievedDateTime}");
-                Console.WriteLine($"\t\t\t Recent Date: {RecentDateTime}");
-                Console.WriteLine($"\t\t\t Update Frequency: {FeedEntry.RetrieveLimitHrs} Hrs");
-                Console.WriteLine($"\t\t\t Retention Days: {FeedEntry.RetentionDays}");
+                Console.WriteLine($"\t\t\t /// Recent Date: {RecentDateTime}");
+                Console.WriteLine($"\t\t\t /// Update Frequency: {FeedEntry.RetrieveLimitHrs} Hrs");
+                Console.WriteLine($"\t\t\t /// Retention Days: {FeedEntry.RetentionDays}");
+                Console.WriteLine($"\t\t\t /// Retrieve Limit Is Valid: {RetrieveLimitIsValid}");
+                Console.WriteLine($"\t\t\t /// Last RetrievedFormat Is Valid: {LastRetrievedFormatIsValid}");
+                Console.WriteLine($"\t\t\t /// Feed Is Eligible For Update: {FeedIsEligibleForUpdate}");
+                Console.WriteLine($"\t\t\t /// {FeedEntry.FeedUrl}");
+                Console.WriteLine($"\t\t\t /// Last Retrieved: {LastRetrievedDateTime}");
+                Console.WriteLine($"\t\t\t /// Feed Renewal Date: {FeedRenewalDateTime}");
 
                 Console.WriteLine("************************** ************************** **************************");
 
-                ExecuteDownload(FeedEntry);
+                FeedDataExchange.DownloadFeed(FeedEntry, FeedConfiguration.LocalRootFilesLocation, FeedConfiguration.LocalDatabaseLocation);
             }
 
             return;
@@ -203,9 +166,9 @@ namespace gautier.rss.ui
                 if (FeedTab is null)
                 {
                     FeedTab = AddRSSTab(FeedEntry);
-
-                    AddArticles(FeedEntry, FeedTab);
                 }
+
+                AddArticles(FeedEntry, FeedTab);
             }
         }
 
