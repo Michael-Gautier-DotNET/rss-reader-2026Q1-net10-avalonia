@@ -48,8 +48,6 @@ namespace gautier.rss.ui
         {
             PruneExpiredArticles();
 
-            _Feeds = FeedDataExchange.GetAllFeeds(FeedConfiguration.SQLiteDbConnectionString);
-
             _FeedUpdateTimer = new()
             {
                 Interval = _FeedUpdateInterval
@@ -60,10 +58,12 @@ namespace gautier.rss.ui
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine($"{DateTime.Now}");
-            Console.WriteLine($"Refresh interval {_FeedUpdateInterval.ToString()}");
-            Console.WriteLine($"************************** {DateTime.Now.ToString("dddd   MMMM \t\tMM/dd/yyyy tt")}");
-            Console.WriteLine($"************************** ************************** \t{DateTime.Now.ToString("yyyy-MM-dd hh:mmmm:ss tt")}");
+            //Console.WriteLine($"{DateTime.Now}");
+            //Console.WriteLine($"Refresh interval {_FeedUpdateInterval.ToString()}");
+            //Console.WriteLine($"************************** {DateTime.Now.ToString("dddd   MMMM \t\tMM/dd/yyyy tt")}");
+            //Console.WriteLine($"************************** ************************** \t{DateTime.Now.ToString("yyyy-MM-dd hh:mmmm:ss tt")}");
+
+            _Feeds = FeedDataExchange.GetAllFeeds(FeedConfiguration.SQLiteDbConnectionString);
 
             UpdateFeedTabs();
         }
@@ -97,7 +97,7 @@ namespace gautier.rss.ui
             List<Feed> DbFeeds = FeedDataExchange.GetAllFeeds(FeedConfiguration.SQLiteDbConnectionString);
 
             DateTime RecentDateTime = DateTime.Now;
-            Console.WriteLine($"\t UI {nameof(DownloadFeedsAsync)} [{DbFeeds.Count}] Feeds");
+            //Console.WriteLine($"\t UI {nameof(DownloadFeedsAsync)} [{DbFeeds.Count}] Feeds");
 
             foreach (Feed FeedEntry in DbFeeds)
             {
@@ -107,6 +107,7 @@ namespace gautier.rss.ui
 
                 bool FeedIsEligibleForUpdate = RecentDateTime > FeedRenewalDateTime;
 
+                /*
                 Console.WriteLine("**************************");
                 Console.WriteLine($"************************** ************************** \t{RecentDateTime.ToString("yyyy-MM-dd hh:mmmm:ss tt")}");
                 Console.WriteLine($"\t\t UI {nameof(DownloadFeedsAsync)} Processing {FeedEntry.FeedName}");
@@ -121,6 +122,7 @@ namespace gautier.rss.ui
                 Console.WriteLine($"\t\t\t /// Feed Renewal Date: {FeedRenewalDateTime}");
 
                 Console.WriteLine("************************** ************************** **************************");
+                */
 
                 FeedDataExchange.DownloadFeed(FeedEntry, FeedConfiguration.LocalRootFilesLocation, FeedConfiguration.LocalDatabaseLocation);
             }
