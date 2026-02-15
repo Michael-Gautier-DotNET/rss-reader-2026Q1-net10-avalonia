@@ -20,27 +20,28 @@ namespace gautier.rss.data
             bool FeedIsEligibleForUpdate = false;
             bool RetrieveLimitIsValid = int.TryParse(feed.RetrieveLimitHrs, out int RetrieveLimitHrs);
 
-            Console.WriteLine($"\t\t\t --- Retrieve Limit Is Valid: {RetrieveLimitIsValid}");
+            //Console.WriteLine($"\t\t\t --- Retrieve Limit Is Valid: {RetrieveLimitIsValid}");
             if (RetrieveLimitIsValid)
             {
                 bool LastRetrievedFormatIsValid = DateTime.TryParseExact(feed.LastRetrieved, "yyyy-MM-dd HH:mm:ss", _InvariantFormat, DateTimeStyles.None, out DateTime LastRetrievedDateTime);
 
-                Console.WriteLine($"\t\t\t --- Last RetrievedFormat Is Valid: {LastRetrievedFormatIsValid}");
+                //Console.WriteLine($"\t\t\t --- Last RetrievedFormat Is Valid: {LastRetrievedFormatIsValid}");
 
                 if (LastRetrievedFormatIsValid)
                 {
                     DateTime RecentDateTime = DateTime.Now;
                     DateTime FeedRenewalDateTime = LastRetrievedDateTime.AddHours(RetrieveLimitHrs);
+                    /*
                     Console.WriteLine($"\t\t\t --- Recent Date: {RecentDateTime}");
                     Console.WriteLine($"\t\t\t --- Update Frequency: {feed.RetrieveLimitHrs} Hrs");
                     Console.WriteLine($"\t\t\t --- Last Retrieved: {LastRetrievedDateTime}");
                     Console.WriteLine($"\t\t\t --- Feed Renewal Date: {FeedRenewalDateTime}");
-
+		    */
                     FeedIsEligibleForUpdate = RecentDateTime > FeedRenewalDateTime;
                 }
             }
 
-            Console.WriteLine($"\t\t\t --- Feed Is Eligible For Update: {FeedIsEligibleForUpdate}");
+            //Console.WriteLine($"\t\t\t --- Feed Is Eligible For Update: {FeedIsEligibleForUpdate}");
 
             return FeedIsEligibleForUpdate;
         }
@@ -48,12 +49,12 @@ namespace gautier.rss.data
         public static bool DownloadFeed(string localDestinationFilePath, Feed feed)
         {
             bool DownloadIsValid = false;
-            Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~");
-            Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~ \t{DateTime.Now.ToString("yyyy-MM-dd hh:mmmm:ss tt")}");
+            //Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            //Console.WriteLine($"~~~~~~~~~~~~~~~~~~~~~~~~~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~ \t{DateTime.Now.ToString("yyyy-MM-dd hh:mmmm:ss tt")}");
 
             bool FeedCanBeUpdated = CheckFeedIsEligibleForUpdate(feed);
 
-            Console.WriteLine($"\t\t {nameof(DownloadFeed)} Processing {feed.FeedName} ** Can Be Updated {FeedCanBeUpdated}");
+            //Console.WriteLine($"\t\t {nameof(DownloadFeed)} Processing {feed.FeedName} ** Can Be Updated {FeedCanBeUpdated}");
 
             if (FeedCanBeUpdated)
             {
@@ -64,17 +65,17 @@ namespace gautier.rss.data
                 string? Content = HttpResponse.Content;
 
                 DownloadIsValid = !string.IsNullOrWhiteSpace(Content);
-                Console.WriteLine($"{nameof(DownloadFeed)} Download Success {DownloadIsValid}");
-                Console.WriteLine($"{nameof(DownloadFeed)} Content Length {Content?.Length}");
+                //Console.WriteLine($"{nameof(DownloadFeed)} Download Success {DownloadIsValid}");
+                //Console.WriteLine($"{nameof(DownloadFeed)} Content Length {Content?.Length}");
                 if (DownloadIsValid)
                 {
-                    Console.WriteLine($"\t\t\t --- {feed.FeedUrl}");
+                    //Console.WriteLine($"\t\t\t --- {feed.FeedUrl}");
+                    //Console.WriteLine($"\t\t\t --- Content written {localDestinationFilePath}");
                     File.WriteAllText(localDestinationFilePath, Content);
-                    Console.WriteLine($"\t\t\t --- Content written {localDestinationFilePath}");
                 }
             }
 
-            Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            //Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~");
 
             return DownloadIsValid;
         }

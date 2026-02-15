@@ -6,13 +6,13 @@ namespace gautier.rss.data.RSSDb
     {
         public static void EnsureDatabaseExists(string dbFilePath)
         {
-            Console.WriteLine($"Ensuring database at: {dbFilePath}");
+            //Console.WriteLine($"Ensuring database at: {dbFilePath}");
             // Ensure directory exists
             string directory = Path.GetDirectoryName(dbFilePath);
 
             if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
             {
-                Console.WriteLine($"Creating directory: {directory}");
+                //Console.WriteLine($"Creating directory: {directory}");
                 Directory.CreateDirectory(directory);
             }
 
@@ -22,27 +22,27 @@ namespace gautier.rss.data.RSSDb
             using (SQLiteConnection? connection = new($"Data Source={dbFilePath};Version=3;"))
             {
                 connection.Open();
-                Console.WriteLine($"Database opened. State: {connection.State}");
+                //Console.WriteLine($"Database opened. State: {connection.State}");
 
                 if (needsSchema)
                 {
-                    Console.WriteLine("Creating new database schema...");
+                    //Console.WriteLine("Creating new database schema...");
                     CreateSchema(connection);
                 }
 
                 else
                 {
-                    Console.WriteLine("Database exists. Verifying schema...");
+                    //Console.WriteLine("Database exists. Verifying schema...");
                     VerifyAndRepairSchema(connection);
                 }
             }
 
-            Console.WriteLine($"Database initialization complete. File size: {new FileInfo(dbFilePath).Length} bytes");
+            //Console.WriteLine($"Database initialization complete. File size: {new FileInfo(dbFilePath).Length} bytes");
         }
 
         private static void CreateSchema(SQLiteConnection connection)
         {
-            Console.WriteLine("Creating Schema...");
+            //Console.WriteLine("Creating Schema...");
 
             // Use a single transaction for all operations
             using (SQLiteTransaction? transaction = connection.BeginTransaction())
@@ -59,7 +59,7 @@ namespace gautier.rss.data.RSSDb
                             retrieve_limit_hrs TEXT NOT NULL,
                             retention_days TEXT NOT NULL
                         )");
-                    Console.WriteLine("Created 'feeds' table");
+                    //Console.WriteLine("Created 'feeds' table");
                     // Create feeds_articles table
                     ExecuteNonQuery(connection, transaction, @"
                         CREATE TABLE feeds_articles (
@@ -72,7 +72,7 @@ namespace gautier.rss.data.RSSDb
                             article_summary TEXT,
                             row_insert_date_time TEXT NOT NULL
                         )");
-                    Console.WriteLine("Created 'feeds_articles' table");
+                    //Console.WriteLine("Created 'feeds_articles' table");
                     // Create indexes
                     ExecuteNonQuery(connection, transaction, @"
                         CREATE INDEX idx_feeds_articles_feed_name 
@@ -80,9 +80,9 @@ namespace gautier.rss.data.RSSDb
                     ExecuteNonQuery(connection, transaction, @"
                         CREATE INDEX idx_feeds_articles_article_url 
                         ON feeds_articles(article_url)");
-                    Console.WriteLine("Created indexes");
+                    //Console.WriteLine("Created indexes");
                     transaction.Commit();
-                    Console.WriteLine("Schema Transaction Committed");
+                    //Console.WriteLine("Schema Transaction Committed");
                 }
 
                 catch (Exception ex)
@@ -105,7 +105,7 @@ namespace gautier.rss.data.RSSDb
 
         private static void VerifyAndRepairSchema(SQLiteConnection connection)
         {
-            Console.WriteLine("Verifying schema...");
+            //Console.WriteLine("Verifying schema...");
             // Simple check: count expected tables
             string checkTables = @"
                 SELECT COUNT(*) FROM sqlite_master 
@@ -114,17 +114,12 @@ namespace gautier.rss.data.RSSDb
             using (SQLiteCommand? command = new(checkTables, connection))
             {
                 int tableCount = Convert.ToInt32(command.ExecuteScalar());
-                Console.WriteLine($"Found {tableCount} required tables");
+                //Console.WriteLine($"Found {tableCount} required tables");
 
                 if (tableCount < 2)
                 {
-                    Console.WriteLine("Schema incomplete. Repairing...");
+                    //Console.WriteLine("Schema incomplete. Repairing...");
                     CreateSchema(connection);
-                }
-
-                else
-                {
-                    Console.WriteLine("Schema verified OK");
                 }
             }
         }

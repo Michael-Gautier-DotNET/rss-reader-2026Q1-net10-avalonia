@@ -26,11 +26,9 @@ namespace gautier.rss.ui.UIData
             get => SQLUtil.GetSQLiteConnectionString(LocalDatabaseLocation, 3);
         }
 
-        internal static void EnsureDatabaseExists()
-        {
-            Console.WriteLine($"Database path: {LocalDatabaseLocation}");
-            Console.WriteLine($"File exists: {File.Exists(LocalDatabaseLocation)}");
+        internal static void EnsureDatabaseExists() =>
+            //Console.WriteLine($"Database path: {LocalDatabaseLocation}");
+            //Console.WriteLine($"File exists: {File.Exists(LocalDatabaseLocation)}");
             DbInitializer.EnsureDatabaseExists(LocalDatabaseLocation);
-        }
     }
 }

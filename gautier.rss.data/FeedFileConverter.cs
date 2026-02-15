@@ -82,11 +82,11 @@ namespace gautier.rss.data
 
                     if (FeedCanBeUpdated)
                     {
-                        Console.WriteLine(@"********* Feed released for update.");
+                        //Console.WriteLine(@"********* Feed released for update.");
 
                         if (File.Exists(FeedFilePath) == false)
                         {
-                            Console.WriteLine(@"********* Feed cache file will be created.");
+                            //Console.WriteLine(@"********* Feed cache file will be created.");
                             ShouldCacheFileBeCreated = true;
                         }
                     }
@@ -101,8 +101,8 @@ namespace gautier.rss.data
                  */
                 if (ShouldCacheFileBeCreated)
                 {
-                    Console.WriteLine($"Creating a Cached XML file for feed: {FeedInfo.FeedName} {FeedInfo.FeedUrl}");
-                    Console.WriteLine($"\t\t\t{FeedFilePath}");
+                    //Console.WriteLine($"Creating a Cached XML file for feed: {FeedInfo.FeedName} {FeedInfo.FeedUrl}");
+                    //Console.WriteLine($"\t\t\t{FeedFilePath}");
                     RSSNetClient.CreateRSSFeedFile(FeedInfo.FeedUrl, FeedFilePath);
                 }
             }
@@ -153,10 +153,13 @@ namespace gautier.rss.data
                 RSSFeedFile.Write(RSSFeedFileOutput.ToString());
                 RSSFeedFile.Flush();
                 RSSFeedFile.Close();
-                Console.WriteLine($"\t\t ------------- Made TXT tab-delimited cache file:");
-                Console.WriteLine($"\t\t ------------- {feed.FeedName}");
-                Console.WriteLine($"\t\t\t Feed Data Dir {Path.GetDirectoryName(NormalizedFeedFilePath)}");
-                Console.WriteLine($"\t\t\t Feed Data Dir {Path.GetFileName(NormalizedFeedFilePath)}");
+
+                /*                
+                        Console.WriteLine($"\t\t ------------- Made TXT tab-delimited cache file:");
+                        Console.WriteLine($"\t\t ------------- {feed.FeedName}");
+                        Console.WriteLine($"\t\t\t Feed Data Dir {Path.GetDirectoryName(NormalizedFeedFilePath)}");
+                        Console.WriteLine($"\t\t\t Feed Data Dir {Path.GetFileName(NormalizedFeedFilePath)}");
+                        */
             }
 
             RSSFeedFileOutput.Clear();
