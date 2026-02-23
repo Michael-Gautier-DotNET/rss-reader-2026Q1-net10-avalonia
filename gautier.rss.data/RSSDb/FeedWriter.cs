@@ -1,4 +1,4 @@
-using System.Data.SQLite;
+using Microsoft.Data.Sqlite;
 using System.Text;
 
 namespace gautier.rss.data.RSSDb
@@ -7,12 +7,12 @@ namespace gautier.rss.data.RSSDb
     {
         private static readonly string[] _ColumnNames = FeedReader.TableColumnNames;
 
-        internal static void AddFeed(SQLiteConnection sqlConn, Feed feedHeader)
+        internal static void AddFeed(SqliteConnection sqlConn, Feed feedHeader)
         {
             string[] ColumnNames = SQLUtil.StripColumnByName("id", _ColumnNames);
             StringBuilder CommandText = SQLUtil.CreateSQLInsertCMDText(FeedReader.TableName, ColumnNames);
 
-            using (SQLiteCommand SQLCmd = new(CommandText.ToString(), sqlConn))
+            using (SqliteCommand SQLCmd = new(CommandText.ToString(), sqlConn))
             {
                 FeedReader.MapSQLParametersToAllTableColumns(SQLCmd, feedHeader, ColumnNames);
                 SQLCmd.ExecuteNonQuery();
@@ -21,13 +21,13 @@ namespace gautier.rss.data.RSSDb
             return;
         }
 
-        internal static void ModifyFeedById(SQLiteConnection sqlConn, Feed feedHeader)
+        internal static void ModifyFeedById(SqliteConnection sqlConn, Feed feedHeader)
         {
             string[] ColumnNames = SQLUtil.StripColumnByName("id", _ColumnNames);
             StringBuilder CommandText = SQLUtil.CreateSQLUpdateCMDText(FeedReader.TableName, ColumnNames);
             CommandText.Append("id = @id;");
 
-            using (SQLiteCommand SQLCmd = new(CommandText.ToString(), sqlConn))
+            using (SqliteCommand SQLCmd = new(CommandText.ToString(), sqlConn))
             {
                 FeedReader.MapSQLParametersToAllTableColumns(SQLCmd, feedHeader, _ColumnNames);
                 SQLCmd.ExecuteNonQuery();
@@ -36,7 +36,7 @@ namespace gautier.rss.data.RSSDb
             return;
         }
 
-        internal static void ModifyFeed(SQLiteConnection sqlConn, Feed feedHeader)
+        internal static void ModifyFeed(SqliteConnection sqlConn, Feed feedHeader)
         {
             string[] ColumnNames = SQLUtil.StripColumnNames(new()
             {
@@ -45,7 +45,7 @@ namespace gautier.rss.data.RSSDb
             StringBuilder CommandText = SQLUtil.CreateSQLUpdateCMDText(FeedReader.TableName, ColumnNames);
             CommandText.Append("feed_name = @feed_name;");
 
-            using (SQLiteCommand SQLCmd = new(CommandText.ToString(), sqlConn))
+            using (SqliteCommand SQLCmd = new(CommandText.ToString(), sqlConn))
             {
                 FeedReader.MapSQLParametersToAllTableColumns(SQLCmd, feedHeader, _ColumnNames);
                 SQLCmd.ExecuteNonQuery();
@@ -54,11 +54,11 @@ namespace gautier.rss.data.RSSDb
             return;
         }
 
-        internal static void DeleteFeedById(SQLiteConnection sqlConn, int id)
+        internal static void DeleteFeedById(SqliteConnection sqlConn, int id)
         {
             string CommandText = $"DELETE FROM {FeedReader.TableName} WHERE id = @Id;";
 
-            using (SQLiteCommand SQLCmd = new(CommandText, sqlConn))
+            using (SqliteCommand SQLCmd = new(CommandText, sqlConn))
             {
                 SQLCmd.Parameters.AddWithValue("@Id", id);
                 SQLCmd.ExecuteNonQuery();

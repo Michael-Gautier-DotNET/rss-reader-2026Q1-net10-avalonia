@@ -1,4 +1,4 @@
-using System.Data.SQLite;
+using Microsoft.Data.Sqlite;
 using System.Globalization;
 
 using gautier.rss.data.RSSDb;
@@ -15,7 +15,7 @@ namespace gautier.rss.data
         {
             List<Feed> Feeds = new();
 
-            using (SQLiteConnection SQLConn = SQLUtil.OpenSQLiteConnection(sqlConnectionString))
+            using (SqliteConnection SQLConn = SQLUtil.OpenSQLiteConnection(sqlConnectionString))
             {
                 List<Feed> FeedEntries = FeedReader.GetAllRows(SQLConn);
 
@@ -32,7 +32,7 @@ namespace gautier.rss.data
         {
             int Id = -1;
 
-            using (SQLiteConnection SQLConn = SQLUtil.OpenSQLiteConnection(sqlConnectionString))
+            using (SqliteConnection SQLConn = SQLUtil.OpenSQLiteConnection(sqlConnectionString))
             {
                 Id = FeedArticleReader.GetMaxId(SQLConn, feedName);
             }
@@ -44,7 +44,7 @@ namespace gautier.rss.data
         {
             List<FeedArticle> Articles = new(100);
 
-            using (SQLiteConnection SQLConn = SQLUtil.OpenSQLiteConnection(sqlConnectionString))
+            using (SqliteConnection SQLConn = SQLUtil.OpenSQLiteConnection(sqlConnectionString))
             {
                 Articles = FeedArticleReader.GetRows(SQLConn, feedName, idBegin, idEnd);
             }
@@ -212,7 +212,7 @@ namespace gautier.rss.data
             if (Articles.Count > 0)
             {
                 string ConnectionString = SQLUtil.GetSQLiteConnectionString(feedDbFilePath, 3);
-                using SQLiteConnection SQLConn = SQLUtil.OpenSQLiteConnection(ConnectionString);
+                using SqliteConnection SQLConn = SQLUtil.OpenSQLiteConnection(ConnectionString);
 
                 /*Leave these quick diagnostic statements. They are useful in a pinch.*/
                 //Console.WriteLine($"DATA LAYER INTERFACE {nameof(ImportRSSFeedToDatabase)} Feeds {Feeds.Count} FeedNames {FeedNames.Count} FeedsArticles {FeedsArticles.Count}");
@@ -224,7 +224,7 @@ namespace gautier.rss.data
 
         private static string GetNormalizedFeedFilePath(string feedSaveDirectoryPath, Feed feedInfo) => Path.Combine(feedSaveDirectoryPath, $"{feedInfo.FeedName}.txt");
 
-        private static void UpdateRSSTables(Feed feed, List<FeedArticle> articles, SQLiteConnection sqlConn)
+        private static void UpdateRSSTables(Feed feed, List<FeedArticle> articles, SqliteConnection sqlConn)
         {
             ModifyFeed(sqlConn, feed);
 
@@ -243,7 +243,7 @@ namespace gautier.rss.data
             return;
         }
 
-        private static void ModifyFeedArticle(SQLiteConnection sqlConn, Feed feedHeader, FeedArticle article)
+        private static void ModifyFeedArticle(SqliteConnection sqlConn, Feed feedHeader, FeedArticle article)
         {
             bool Exists = FeedArticleReader.Exists(sqlConn, feedHeader.FeedName, article.ArticleUrl);
 
@@ -260,7 +260,7 @@ namespace gautier.rss.data
             return;
         }
 
-        private static void ModifyFeed(SQLiteConnection sqlConn, Feed feedHeader)
+        private static void ModifyFeed(SqliteConnection sqlConn, Feed feedHeader)
         {
             int Id = feedHeader.DbId;
             bool HasId = Id > 0;
@@ -301,7 +301,7 @@ namespace gautier.rss.data
         public static Feed UpdateFeedConfigurationInDatabase(string feedDbFilePath, Feed feed)
         {
             string ConnectionString = SQLUtil.GetSQLiteConnectionString(feedDbFilePath, 3);
-            using SQLiteConnection SQLConn = SQLUtil.OpenSQLiteConnection(ConnectionString);
+            using SqliteConnection SQLConn = SQLUtil.OpenSQLiteConnection(ConnectionString);
             ModifyFeed(SQLConn, feed);
             Feed FeedEntry = FeedReader.GetRow(SQLConn, feed.FeedName);
             return FeedEntry;
@@ -311,7 +311,7 @@ namespace gautier.rss.data
         {
             bool IsDeleted = false;
             string ConnectionString = SQLUtil.GetSQLiteConnectionString(feedDbFilePath, 3);
-            using SQLiteConnection SQLConn = SQLUtil.OpenSQLiteConnection(ConnectionString);
+            using SqliteConnection SQLConn = SQLUtil.OpenSQLiteConnection(ConnectionString);
             bool Exists = feedDbId > 0 && FeedReader.Exists(SQLConn, feedDbId);
 
             /*Only Delete if the Feed record exists in the database.*/
@@ -329,7 +329,7 @@ namespace gautier.rss.data
 
         public static void RemoveExpiredArticlesFromDatabase(string sqlConnectionString)
         {
-            using SQLiteConnection SQLConn = SQLUtil.OpenSQLiteConnection(sqlConnectionString);
+            using SqliteConnection SQLConn = SQLUtil.OpenSQLiteConnection(sqlConnectionString);
             FeedArticleWriter.DeleteAllExpiredArticles(SQLConn);
             return;
         }

@@ -1,15 +1,15 @@
-using System.Data.SQLite;
+using Microsoft.Data.Sqlite;
 using System.Text;
 
 namespace gautier.rss.data.RSSDb
 {
     public class SQLUtil
     {
-        public static string GetSQLiteConnectionString(string sqliteDbFilePath, int sqliteVersion) => $@"Data Source={sqliteDbFilePath}; Version={sqliteVersion};";
+        public static string GetSQLiteConnectionString(string sqliteDbFilePath, int sqliteVersion) => $@"Data Source={sqliteDbFilePath}";
 
-        public static SQLiteConnection OpenSQLiteConnection(string connectionString)
+        public static SqliteConnection OpenSQLiteConnection(string connectionString)
         {
-            SQLiteConnection SQLConn = new(connectionString);
+            SqliteConnection SQLConn = new(connectionString);
             SQLConn.Open();
             return SQLConn;
         }

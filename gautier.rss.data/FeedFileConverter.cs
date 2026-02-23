@@ -1,4 +1,4 @@
-using System.Data.SQLite;
+using Microsoft.Data.Sqlite;
 using System.Globalization;
 using System.Text;
 
@@ -24,7 +24,7 @@ namespace gautier.rss.data
             }
 
             string ConnectionString = SQLUtil.GetSQLiteConnectionString(feedDbFilePath, 3);
-            using SQLiteConnection SQLConn = SQLUtil.OpenSQLiteConnection(ConnectionString);
+            using SqliteConnection SQLConn = SQLUtil.OpenSQLiteConnection(ConnectionString);
 
             /*
              * At this point, in this version, the feed rows are statically fed through the software application.

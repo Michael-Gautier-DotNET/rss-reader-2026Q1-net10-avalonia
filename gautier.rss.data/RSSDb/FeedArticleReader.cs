@@ -1,5 +1,5 @@
 using System.Data;
-using System.Data.SQLite;
+using Microsoft.Data.Sqlite;
 
 namespace gautier.rss.data.RSSDb
 {
@@ -27,12 +27,12 @@ namespace gautier.rss.data.RSSDb
             ];
         }
 
-        public static int CountAllRows(SQLiteConnection sqlConn)
+        public static int CountAllRows(SqliteConnection sqlConn)
         {
             int Count = 0;
             string CommandText = $"SELECT COUNT(*) FROM {_TableName};";
 
-            using (SQLiteCommand SQLCmd = new(CommandText, sqlConn))
+            using (SqliteCommand SQLCmd = new(CommandText, sqlConn))
             {
                 Count = Convert.ToInt32(SQLCmd.ExecuteScalar());
             }
@@ -40,12 +40,12 @@ namespace gautier.rss.data.RSSDb
             return Count;
         }
 
-        public static int CountRows(SQLiteConnection sqlConn, string feedName)
+        public static int CountRows(SqliteConnection sqlConn, string feedName)
         {
             int Count = 0;
             string CommandText = $"SELECT COUNT(*) FROM {_TableName} WHERE feed_name = @FeedName;";
 
-            using (SQLiteCommand SQLCmd = new(CommandText, sqlConn))
+            using (SqliteCommand SQLCmd = new(CommandText, sqlConn))
             {
                 SQLCmd.Parameters.AddWithValue("@FeedName", feedName);
                 Count = Convert.ToInt32(SQLCmd.ExecuteScalar());
@@ -54,12 +54,12 @@ namespace gautier.rss.data.RSSDb
             return Count;
         }
 
-        public static int GetMaxId(SQLiteConnection sqlConn, string feedName)
+        public static int GetMaxId(SqliteConnection sqlConn, string feedName)
         {
             int Id = -1;
             string CommandText = $"SELECT MAX(Id) FROM {_TableName} WHERE feed_name = @FeedName;";
 
-            using (SQLiteCommand SQLCmd = new(CommandText, sqlConn))
+            using (SqliteCommand SQLCmd = new(CommandText, sqlConn))
             {
                 SQLCmd.Parameters.AddWithValue("@FeedName", feedName);
                 Id = Convert.ToInt32(SQLCmd.ExecuteScalar());
@@ -68,12 +68,12 @@ namespace gautier.rss.data.RSSDb
             return Id;
         }
 
-        public static int CountRows(SQLiteConnection sqlConn, string feedName, string articleUrl)
+        public static int CountRows(SqliteConnection sqlConn, string feedName, string articleUrl)
         {
             int Count = 0;
             string CommandText = $"SELECT COUNT(*) FROM {_TableName} WHERE feed_name = @FeedName AND article_url = @ArticleUrl;";
 
-            using (SQLiteCommand SQLCmd = new(CommandText, sqlConn))
+            using (SqliteCommand SQLCmd = new(CommandText, sqlConn))
             {
                 SQLCmd.Parameters.AddWithValue("@FeedName", feedName);
                 SQLCmd.Parameters.AddWithValue("@ArticleUrl", articleUrl);
@@ -83,19 +83,19 @@ namespace gautier.rss.data.RSSDb
             return Count;
         }
 
-        public static bool Exists(SQLiteConnection sqlConn, string feedName)
+        public static bool Exists(SqliteConnection sqlConn, string feedName)
         {
             int Count = CountRows(sqlConn, feedName);
             return Count > 0;
         }
 
-        public static bool Exists(SQLiteConnection sqlConn, string feedName, string articleUrl)
+        public static bool Exists(SqliteConnection sqlConn, string feedName, string articleUrl)
         {
             int Count = CountRows(sqlConn, feedName, articleUrl);
             return Count > 0;
         }
 
-        internal static void MapSQLParametersToAllTableColumns(SQLiteCommand cmd, FeedArticle article, string[] columnNames)
+        internal static void MapSQLParametersToAllTableColumns(SqliteCommand cmd, FeedArticle article, string[] columnNames)
         {
             foreach (string? ColumnName in columnNames)
             {
@@ -137,7 +137,7 @@ namespace gautier.rss.data.RSSDb
                         break;
                 }
 
-                SQLiteParameter Param = cmd.Parameters.AddWithValue(ParamName, ParamValue);
+                SqliteParameter Param = cmd.Parameters.AddWithValue(ParamName, ParamValue);
 
                 if (ColumnName == "id")
                 {
@@ -148,14 +148,14 @@ namespace gautier.rss.data.RSSDb
             return;
         }
 
-        public static List<FeedArticle> GetAllRows(SQLiteConnection sqlConn)
+        public static List<FeedArticle> GetAllRows(SqliteConnection sqlConn)
         {
             List<FeedArticle> Rows = new();
             string CommandText = $"SELECT * FROM {_TableName} ORDER BY feed_name, id;";
 
-            using (SQLiteCommand SQLCmd = new(CommandText, sqlConn))
+            using (SqliteCommand SQLCmd = new(CommandText, sqlConn))
             {
-                using (SQLiteDataReader SQLRowReader = SQLCmd.ExecuteReader())
+                using (SqliteDataReader SQLRowReader = SQLCmd.ExecuteReader())
                 {
                     CollectRows(SQLRowReader, Rows);
                 }
@@ -164,16 +164,16 @@ namespace gautier.rss.data.RSSDb
             return Rows;
         }
 
-        public static List<FeedArticle> GetRows(SQLiteConnection sqlConn, string feedName)
+        public static List<FeedArticle> GetRows(SqliteConnection sqlConn, string feedName)
         {
             List<FeedArticle> Rows = new();
             string CommandText = $"SELECT * FROM {_TableName} WHERE feed_name = @FeedName ORDER BY feed_name, id;";
 
-            using (SQLiteCommand SQLCmd = new(CommandText, sqlConn))
+            using (SqliteCommand SQLCmd = new(CommandText, sqlConn))
             {
                 SQLCmd.Parameters.AddWithValue("@FeedName", feedName);
 
-                using (SQLiteDataReader SQLRowReader = SQLCmd.ExecuteReader())
+                using (SqliteDataReader SQLRowReader = SQLCmd.ExecuteReader())
                 {
                     CollectRows(SQLRowReader, Rows);
                 }
@@ -182,18 +182,18 @@ namespace gautier.rss.data.RSSDb
             return Rows;
         }
 
-        public static List<FeedArticle> GetRows(SQLiteConnection sqlConn, string feedName, int idBegin, int idEnd)
+        public static List<FeedArticle> GetRows(SqliteConnection sqlConn, string feedName, int idBegin, int idEnd)
         {
             List<FeedArticle> Rows = new();
             string CommandText = $"SELECT * FROM {_TableName} WHERE feed_name = @FeedName AND id BETWEEN @IDBegin AND @IDEnd ORDER BY feed_name, id;";
 
-            using (SQLiteCommand SQLCmd = new(CommandText, sqlConn))
+            using (SqliteCommand SQLCmd = new(CommandText, sqlConn))
             {
                 SQLCmd.Parameters.AddWithValue("@FeedName", feedName);
                 SQLCmd.Parameters.AddWithValue("@IDBegin", idBegin);
                 SQLCmd.Parameters.AddWithValue("@IDEnd", idEnd);
 
-                using (SQLiteDataReader SQLRowReader = SQLCmd.ExecuteReader())
+                using (SqliteDataReader SQLRowReader = SQLCmd.ExecuteReader())
                 {
                     CollectRows(SQLRowReader, Rows);
                 }
@@ -202,7 +202,7 @@ namespace gautier.rss.data.RSSDb
             return Rows;
         }
 
-        private static void CollectRows(SQLiteDataReader reader, List<FeedArticle> rows)
+        private static void CollectRows(SqliteDataReader reader, List<FeedArticle> rows)
         {
             int ColCount = reader.FieldCount;
 

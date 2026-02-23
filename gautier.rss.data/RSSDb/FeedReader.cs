@@ -1,5 +1,5 @@
 using System.Data;
-using System.Data.SQLite;
+using Microsoft.Data.Sqlite;
 
 namespace gautier.rss.data.RSSDb
 {
@@ -25,12 +25,12 @@ namespace gautier.rss.data.RSSDb
             };
         }
 
-        public static int CountAllRows(SQLiteConnection sqlConn)
+        public static int CountAllRows(SqliteConnection sqlConn)
         {
             int Count = 0;
             string CommandText = $"SELECT COUNT(*) FROM {_TableName};";
 
-            using (SQLiteCommand SQLCmd = new(CommandText, sqlConn))
+            using (SqliteCommand SQLCmd = new(CommandText, sqlConn))
             {
                 Count = Convert.ToInt32(SQLCmd.ExecuteScalar());
             }
@@ -38,12 +38,12 @@ namespace gautier.rss.data.RSSDb
             return Count;
         }
 
-        public static int CountRows(SQLiteConnection sqlConn, string feedName)
+        public static int CountRows(SqliteConnection sqlConn, string feedName)
         {
             int Count = 0;
             string CommandText = $"SELECT COUNT(*) FROM {_TableName} WHERE feed_name = @FeedName;";
 
-            using (SQLiteCommand SQLCmd = new(CommandText, sqlConn))
+            using (SqliteCommand SQLCmd = new(CommandText, sqlConn))
             {
                 SQLCmd.Parameters.AddWithValue("@FeedName", feedName);
                 Count = Convert.ToInt32(SQLCmd.ExecuteScalar());
@@ -52,12 +52,12 @@ namespace gautier.rss.data.RSSDb
             return Count;
         }
 
-        public static int CountRows(SQLiteConnection sqlConn, int id)
+        public static int CountRows(SqliteConnection sqlConn, int id)
         {
             int Count = 0;
             string CommandText = $"SELECT COUNT(*) FROM {_TableName} WHERE id = @id;";
 
-            using (SQLiteCommand SQLCmd = new(CommandText, sqlConn))
+            using (SqliteCommand SQLCmd = new(CommandText, sqlConn))
             {
                 SQLCmd.Parameters.AddWithValue("@id", id);
                 Count = Convert.ToInt32(SQLCmd.ExecuteScalar());
@@ -66,19 +66,19 @@ namespace gautier.rss.data.RSSDb
             return Count;
         }
 
-        public static bool Exists(SQLiteConnection sqlConn, string feedName)
+        public static bool Exists(SqliteConnection sqlConn, string feedName)
         {
             int Count = CountRows(sqlConn, feedName);
             return Count > 0;
         }
 
-        public static bool Exists(SQLiteConnection sqlConn, int id)
+        public static bool Exists(SqliteConnection sqlConn, int id)
         {
             int Count = CountRows(sqlConn, id);
             return Count > 0;
         }
 
-        internal static void MapSQLParametersToAllTableColumns(SQLiteCommand cmd, Feed FeedHeader, string[] columnNames)
+        internal static void MapSQLParametersToAllTableColumns(SqliteCommand cmd, Feed FeedHeader, string[] columnNames)
         {
             foreach (string? ColumnName in columnNames)
             {
@@ -112,7 +112,7 @@ namespace gautier.rss.data.RSSDb
                         break;
                 }
 
-                SQLiteParameter Param = cmd.Parameters.AddWithValue(ParamName, ParamValue);
+                SqliteParameter Param = cmd.Parameters.AddWithValue(ParamName, ParamValue);
 
                 if (ColumnName == "id")
                 {
@@ -123,15 +123,15 @@ namespace gautier.rss.data.RSSDb
             return;
         }
 
-        public static Feed GetRow(SQLiteConnection sqlConn, int id)
+        public static Feed GetRow(SqliteConnection sqlConn, int id)
         {
             Feed FeedEntry = new();
             string CommandText = $"SELECT * FROM {_TableName} WHERE id = @id ORDER BY id;";
 
-            using (SQLiteCommand SQLCmd = new(CommandText, sqlConn))
+            using (SqliteCommand SQLCmd = new(CommandText, sqlConn))
             {
                 SQLCmd.Parameters.AddWithValue("@id", id);
-                using SQLiteDataReader SQLRowReader = SQLCmd.ExecuteReader();
+                using SqliteDataReader SQLRowReader = SQLCmd.ExecuteReader();
                 int ColCount = SQLRowReader.FieldCount;
 
                 while (SQLRowReader.Read())
@@ -143,15 +143,15 @@ namespace gautier.rss.data.RSSDb
             return FeedEntry;
         }
 
-        public static Feed GetRow(SQLiteConnection sqlConn, string feedName)
+        public static Feed GetRow(SqliteConnection sqlConn, string feedName)
         {
             Feed FeedEntry = new();
             string CommandText = $"SELECT * FROM {_TableName} WHERE feed_name = @FeedName ORDER BY id;";
 
-            using (SQLiteCommand SQLCmd = new(CommandText, sqlConn))
+            using (SqliteCommand SQLCmd = new(CommandText, sqlConn))
             {
                 SQLCmd.Parameters.AddWithValue("@FeedName", feedName);
-                using SQLiteDataReader SQLRowReader = SQLCmd.ExecuteReader();
+                using SqliteDataReader SQLRowReader = SQLCmd.ExecuteReader();
                 int ColCount = SQLRowReader.FieldCount;
 
                 while (SQLRowReader.Read())
@@ -163,14 +163,14 @@ namespace gautier.rss.data.RSSDb
             return FeedEntry;
         }
 
-        public static List<Feed> GetAllRows(SQLiteConnection sqlConn)
+        public static List<Feed> GetAllRows(SqliteConnection sqlConn)
         {
             List<Feed> Rows = new();
             string CommandText = $"SELECT * FROM {_TableName};";
 
-            using (SQLiteCommand SQLCmd = new(CommandText, sqlConn))
+            using (SqliteCommand SQLCmd = new(CommandText, sqlConn))
             {
-                using (SQLiteDataReader SQLRowReader = SQLCmd.ExecuteReader())
+                using (SqliteDataReader SQLRowReader = SQLCmd.ExecuteReader())
                 {
                     int ColCount = SQLRowReader.FieldCount;
 
@@ -185,7 +185,7 @@ namespace gautier.rss.data.RSSDb
             return Rows;
         }
 
-        private static Feed CreateFeed(SQLiteDataReader rowReader, int fieldCount)
+        private static Feed CreateFeed(SqliteDataReader rowReader, int fieldCount)
         {
             int Id = -1;
             string FeedName = string.Empty;

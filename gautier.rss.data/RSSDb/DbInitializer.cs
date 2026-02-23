@@ -1,4 +1,4 @@
-using System.Data.SQLite;
+using Microsoft.Data.Sqlite;
 
 namespace gautier.rss.data.RSSDb
 {
@@ -19,7 +19,7 @@ namespace gautier.rss.data.RSSDb
             // Check if we need to create schema
             bool needsSchema = !File.Exists(dbFilePath);
 
-            using (SQLiteConnection? connection = new($"Data Source={dbFilePath};Version=3;"))
+            using (SqliteConnection? connection = new($"Data Source={dbFilePath}"))
             {
                 connection.Open();
                 //Console.WriteLine($"Database opened. State: {connection.State}");
@@ -40,12 +40,12 @@ namespace gautier.rss.data.RSSDb
             //Console.WriteLine($"Database initialization complete. File size: {new FileInfo(dbFilePath).Length} bytes");
         }
 
-        private static void CreateSchema(SQLiteConnection connection)
+        private static void CreateSchema(SqliteConnection connection)
         {
             //Console.WriteLine("Creating Schema...");
 
             // Use a single transaction for all operations
-            using (SQLiteTransaction? transaction = connection.BeginTransaction())
+            using (SqliteTransaction? transaction = connection.BeginTransaction())
             {
                 try
                 {
@@ -95,15 +95,15 @@ namespace gautier.rss.data.RSSDb
             }
         }
 
-        private static void ExecuteNonQuery(SQLiteConnection connection, SQLiteTransaction transaction, string sql)
+        private static void ExecuteNonQuery(SqliteConnection connection, SqliteTransaction transaction, string sql)
         {
-            using (SQLiteCommand? command = new(sql, connection, transaction))
+            using (SqliteCommand? command = new(sql, connection, transaction))
             {
                 command.ExecuteNonQuery();
             }
         }
 
-        private static void VerifyAndRepairSchema(SQLiteConnection connection)
+        private static void VerifyAndRepairSchema(SqliteConnection connection)
         {
             //Console.WriteLine("Verifying schema...");
             // Simple check: count expected tables
@@ -111,7 +111,7 @@ namespace gautier.rss.data.RSSDb
                 SELECT COUNT(*) FROM sqlite_master 
                 WHERE type='table' AND name IN ('feeds', 'feeds_articles')";
 
-            using (SQLiteCommand? command = new(checkTables, connection))
+            using (SqliteCommand? command = new(checkTables, connection))
             {
                 int tableCount = Convert.ToInt32(command.ExecuteScalar());
                 //Console.WriteLine($"Found {tableCount} required tables");
