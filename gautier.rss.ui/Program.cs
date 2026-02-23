@@ -30,7 +30,7 @@ namespace gautier.rss.ui
                 //Console.WriteLine("Starting up ...");
                 //Console.WriteLine($"{DateTime.Now}");
                 var ExitType = Avalonia.Controls.ShutdownMode.OnLastWindowClose;
-                
+
                 ClassicDesktopStyleApplicationLifetimeExtensions.StartWithClassicDesktopLifetime(UIContextBuild, args, ExitType);
             }
             else
@@ -76,5 +76,5 @@ namespace gautier.rss.ui
 
             return DbIsReady;
         }
-   }
+    }
 }
