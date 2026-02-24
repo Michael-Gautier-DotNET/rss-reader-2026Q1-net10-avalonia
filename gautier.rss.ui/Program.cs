@@ -1,7 +1,7 @@
 using System.Reflection;
 
 using Avalonia;
-
+using Avalonia.Controls;
 using gautier.rss.ui.UIData;
 
 namespace gautier.rss.ui
@@ -11,7 +11,7 @@ namespace gautier.rss.ui
         [STAThread]
         public static void Main(string[] args)
         {
-            Avalonia.AppBuilder UIContextBuild = AppBuilder.Configure<App>();
+            var UIContextBuild = AppBuilder.Configure<App>();
             UIContextBuild = AppBuilderDesktopExtensions.UsePlatformDetect(UIContextBuild);
             UIContextBuild = AppBuilderExtension.WithInterFont(UIContextBuild);
             UIContextBuild = LoggingExtensions.LogToTrace(UIContextBuild);
@@ -29,7 +29,7 @@ namespace gautier.rss.ui
             {
                 //Console.WriteLine("Starting up ...");
                 //Console.WriteLine($"{DateTime.Now}");
-                var ExitType = Avalonia.Controls.ShutdownMode.OnLastWindowClose;
+                ShutdownMode ExitType = Avalonia.Controls.ShutdownMode.OnLastWindowClose;
 
                 ClassicDesktopStyleApplicationLifetimeExtensions.StartWithClassicDesktopLifetime(UIContextBuild, args, ExitType);
             }

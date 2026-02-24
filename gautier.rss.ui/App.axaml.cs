@@ -21,7 +21,7 @@ namespace gautier.rss.ui
             base.OnFrameworkInitializationCompleted();
         }
 
-        public static void SetDisplayMemberPath(ListBox listBox, string propertyPath)
+        /*public static void SetDisplayMemberPath(ListBox listBox, string propertyPath)
         {
             listBox.ItemTemplate = new FuncDataTemplate<object>(
                 (item, scope) =>
@@ -32,6 +32,13 @@ namespace gautier.rss.ui
                     return textBlock;
                 },
                 true
+            );
+        }*/
+
+        public static void SetDisplayMemberPath<TItem>(ListBox listBox, Func<TItem, string> textSelector)
+        {
+            listBox.ItemTemplate = new FuncDataTemplate<TItem>(
+            (item, _) => item == null ? null : new TextBlock { Text = textSelector(item) }
             );
         }
     }

@@ -211,7 +211,7 @@ namespace gautier.rss.ui
                 ItemsSource = new ObservableCollection<FeedArticle>()
             };
 
-            App.SetDisplayMemberPath(Contents, "HeadlineText");
+            App.SetDisplayMemberPath<FeedArticle>(Contents, item => item.HeadlineText);
             Contents.SelectionChanged += Headline_SelectionChanged;
 
             TabItem Tab = new()

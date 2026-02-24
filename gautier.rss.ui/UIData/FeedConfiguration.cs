@@ -18,7 +18,7 @@ namespace gautier.rss.ui.UIData
 
         internal static string LocalRootFilesLocation
         {
-            get => Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            get => AppContext.BaseDirectory;
         }
 
         internal static string SQLiteDbConnectionString
